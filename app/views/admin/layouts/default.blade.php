@@ -112,7 +112,7 @@
     							<li{{ (Request::is('antenne*') ? ' class="active"' : '') }}><a href="{{{ URL::to('antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
     							<li{{ (Request::is('routers*') ? ' class="active"' : '') }}><a href="{{{ URL::to('routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
     							<li{{ (Request::is('interventi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi') }}}"><span class="glyphicon glyphicon-wrench"></span> Interventi</a></li>
-    							<li{{ (Request::is('wizardAria') ? ' class="active" iframe' : ' class="iframe"') }}><a href="{{{ URL::to('wizardAria') }}}"><span class="glyphicon glyphicon-star"></span> Wizard Aria</a></li>
+    							<li{{ (Request::is('wizardAria') ? ' class="active"' : '') }}><a href="{{{ URL::to('wizardAria') }}}"><span class="glyphicon glyphicon-star"></span> Wizard Aria</a></li>
     						</ul>
     					</li>
     				</ul>
