@@ -7,17 +7,22 @@ class WizardsController extends AdminController {
      * @var Azienda
      */
     protected $azienda;
-
-
+    protected $antenna;
+    protected $user;
+    protected $modelloAntenna;
+    protected $installatore;
 
     /**
      * Inject the models.
      * @param Post $post
      * @param User $user
      */
-    public function __construct( )
+    public function __construct(Antenna $antenna, User $user, ModelloAntenna $modelloAntenna)
     {
         parent::__construct();
+        $this->antenna = $antenna;
+        $this->user = $user;
+        $this->modelloAntenna = $modelloAntenna;
 
     }
     
@@ -31,12 +36,12 @@ class WizardsController extends AdminController {
         // Title
         $title = "Procedura Wizard \"Aria C/O Terna Servizi\"";
 
-        // Grabbo tutte le routers dell'azienda
-        //$routers = $this->router->elencoRouters($this->user);
+        // Grabbo tutte le antenne dell'azienda
+        $modelliAntenna = $this->modelloAntenna->all(); 
 
         // Show the page
         //return View::make('routers/index', compact('routers', 'title'));
-        return View::make('admin/wizards/aria', compact('title'));
+        return View::make('admin/wizards/aria', compact('title', 'modelliAntenna'));
 	}
 
 

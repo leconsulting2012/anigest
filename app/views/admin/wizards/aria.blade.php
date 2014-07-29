@@ -28,7 +28,7 @@
 			<div class="tab-pane active" id="tab-general">
 				<!-- cognome -->
 				<div class="form-group {{{ $errors->has('cognome') ? 'error' : '' }}}">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label class="control-label" for="mac">Cognome</label>
 						<input class="form-control" type="text" name="cognome" id="mac" value="{{{ Input::old('cognome', isset($anagrafica) ? $anagrafica->cognome : null) }}}" />
 						{{{ $errors->first('cognome', '<span class="help-inline">:message</span>') }}}
@@ -38,7 +38,7 @@
 
 				<!-- Nome -->
 				<div class="form-group {{{ $errors->has('nome') ? 'error' : '' }}}">
-					<div class="col-md-12">
+					<div class="col-md-6">
                         <label class="control-label" for="content">Nome</label>
 						<input class="form-control" type="text" name="nome" id="nome" value="{{{ Input::old('nome', isset($anagrafica) ? $anagrafica->nome : null) }}}" />
 						{{{ $errors->first('nome', '<span class="help-inline">:message</span>') }}}
@@ -106,16 +106,6 @@
 				</div>
 				<!-- ./ telefono anagrafica -->
 
-				<!-- fax -->
-				<div class="form-group {{{ $errors->has('fax') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="content">Fax</label>
-						<input class="form-control" type="text" name="fax" id="fax" value="{{{ Input::old('fax', isset($anagrafica) ? $anagrafica->fax : null) }}}" />
-						{{{ $errors->first('fax', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ fax anagrafica -->
-
 				<!-- cellulare -->
 				<div class="form-group {{{ $errors->has('cellulare') ? 'error' : '' }}}">
 					<div class="col-md-12">
@@ -124,74 +114,35 @@
 						{{{ $errors->first('cellulare', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
-				<!-- ./ cellulare anagrafica -->	
-				
-				<!-- email -->
-				<div class="form-group {{{ $errors->has('email') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="content">Email</label>
-						<input class="form-control" type="text" name="email" id="email" value="{{{ Input::old('email', isset($anagrafica) ? $anagrafica->email : null) }}}" />
-						{{{ $errors->first('email', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ email anagrafica -->	
-				
-				<!-- piva -->
-				<div class="form-group {{{ $errors->has('piva') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="content">Partita IVA</label>
-						<input class="form-control" type="text" name="piva" id="piva" value="{{{ Input::old('piva', isset($anagrafica) ? $anagrafica->piva : null) }}}" />
-						{{{ $errors->first('piva', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ piva anagrafica -->
+				<!-- ./ cellulare anagrafica -->
 
-				<!-- cfiscale -->
-				<div class="form-group {{{ $errors->has('cfiscale') ? 'error' : '' }}}">
+				<!-- Modello antenna -->
+				<div class="form-group {{{ $errors->has('modelloAntenna_id') ? 'error' : '' }}}">
 					<div class="col-md-12">
-                        <label class="control-label" for="content">Codice Fiscale</label>
-						<input class="form-control" type="text" name="cfiscale" id="cfiscale" value="{{{ Input::old('cfiscale', isset($anagrafica) ? $anagrafica->cfiscale : null) }}}" />
-						{{{ $errors->first('cfiscale', '<span class="help-inline">:message</span>') }}}
+	                	<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
+		                <select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($modelliAntenna as $modello)
+		                        		<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
+		                        @endforeach
+						</select>
+	            	</div>
+				</div>
+				<!-- ./ modello antenna -->	
+
+				<!-- Seriale -->
+				<div class="form-group {{{ $errors->has('seriale') ? 'error' : '' }}}">
+					<div class="col-md-12">
+                        <label class="control-label" for="content">Seriale</label>
+						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($antenna) ? $antenna->seriale : null) }}}" />
+						{{{ $errors->first('seriale', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
-				<!-- ./ cfiscale anagrafica -->				
+				<!-- ./ seriale antenna -->						
 
 			</div>
 			<!-- ./ general tab -->
 
-			<!-- Meta Data tab -->
-			<div class="tab-pane" id="tab-meta-data">
-				<!-- Meta Title -->
-				<div class="form-group {{{ $errors->has('meta-title') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="meta-title">Meta Title</label>
-						<input class="form-control" type="text" name="meta-title" id="meta-title" value="{{{ Input::old('meta-title', isset($post) ? $post->meta_title : null) }}}" />
-						{{{ $errors->first('meta-title', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ meta title -->
-
-				<!-- Meta Description -->
-				<div class="form-group {{{ $errors->has('meta-description') ? 'error' : '' }}}">
-					<div class="col-md-12 controls">
-                        <label class="control-label" for="meta-description">Meta Description</label>
-						<input class="form-control" type="text" name="meta-description" id="meta-description" value="{{{ Input::old('meta-description', isset($post) ? $post->meta_description : null) }}}" />
-						{{{ $errors->first('meta-description', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ meta description -->
-
-				<!-- Meta Keywords -->
-				<div class="form-group {{{ $errors->has('meta-keywords') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="meta-keywords">Meta Keywords</label>
-						<input class="form-control" type="text" name="meta-keywords" id="meta-keywords" value="{{{ Input::old('meta-keywords', isset($post) ? $post->meta_keywords : null) }}}" />
-						{{{ $errors->first('meta-keywords', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ meta keywords -->
-			</div>
-			<!-- ./ meta data tab -->
 		</div>
 		<!-- ./ tabs content -->
 
