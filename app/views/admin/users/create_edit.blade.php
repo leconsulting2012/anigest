@@ -80,7 +80,7 @@
 
 				<!-- Azienda -->
 				<div class="form-group {{{ $errors->has('azienda_id') ? 'error' : '' }}}">
-	                <label class="col-md-2 control-label" for="azienda_id">Modello Antenna</label>
+	                <label class="col-md-2 control-label" for="azienda_id">Azienda</label>
 	                <div class="col-md-6">
 	                	@if ($mode == 'edit')
 		                <select class="form-control" name="azienda_id" id="azienda_id">
@@ -92,7 +92,7 @@
 						@else
 		                <select class="col-md-6 form-control" name="azienda_id" id="azienda_id">
 		                	<option value="">-- SELEZIONA --</option>
-		                        @foreach ($modelliAntenna as $a)
+		                        @foreach ($aziende as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->nome }}}</option>
 		                        @endforeach
 						</select>
