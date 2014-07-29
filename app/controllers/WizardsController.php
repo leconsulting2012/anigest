@@ -29,7 +29,7 @@ class WizardsController extends AdminController {
 	public function index()
 	{
         // Title
-        $title = "Procedura Wizard \"Aria\"";
+        $title = "Procedura Wizard \"Aria C/O Terna Servizi\"";
 
         // Grabbo tutte le routers dell'azienda
         //$routers = $this->router->elencoRouters($this->user);
