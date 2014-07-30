@@ -101,7 +101,7 @@
 
 	    <div id="footer">
 	      <div class="container">
-	        <p class="muted credit">Gestione Antenne by <a href="https://www.mentel.it">Mentel</a>.</p>
+	        <p class="muted credit">Anigest Ver. 0.1 2014 by <a href="https://www.mentel.it">Mentel</a>.</p>
 	      </div>
 	    </div>
 

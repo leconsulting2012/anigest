@@ -93,6 +93,7 @@
     			<div class="collapse navbar-collapse navbar-ex1-collapse">
     				<ul class="nav navbar-nav">
     					<li{{ (Request::is('admin') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin') }}}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+    					@if (Auth::user()->hasRole('admin'))
     					<li{{ (Request::is('admin/blogs*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/blogs') }}}"><span class="glyphicon glyphicon-list-alt"></span> Notizie</a></li>
     					<li class="dropdown{{ (Request::is('admin/users*|admin/roles*') ? ' active' : '') }}">
     						<a class="dropdown-toggle" data-toggle="dropdown" href="{{{ URL::to('admin/users') }}}">
@@ -103,6 +104,7 @@
     							<li{{ (Request::is('admin/roles*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/roles') }}}"><span class="glyphicon glyphicon-user"></span> Ruoli</a></li>
     						</ul>
     					</li>
+    					@endif
     					<li class="dropdown{{ (Request::is('antenne*|router*') ? ' active' : '') }}">
     						<a class="dropdown-toggle" data-toggle="dropdown" href="{{{ URL::to('antenne') }}}">
     							<span class="glyphicon glyphicon-signal"></span> Gestionale <span class="caret"></span>
@@ -112,7 +114,9 @@
     							<li{{ (Request::is('antenne*') ? ' class="active"' : '') }}><a href="{{{ URL::to('antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
     							<li{{ (Request::is('routers*') ? ' class="active"' : '') }}><a href="{{{ URL::to('routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
     							<li{{ (Request::is('interventi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi') }}}"><span class="glyphicon glyphicon-wrench"></span> Interventi</a></li>
+    							@if (!Auth::user()->hasRole('installatore'))
     							<li{{ (Request::is('wizardAria') ? ' class="active"' : '') }}><a href="{{{ URL::to('wizardAria') }}}"><span class="glyphicon glyphicon-star"></span> Wizard Aria</a></li>
+    							@endif
     						</ul>
     					</li>
     				</ul>
@@ -143,6 +147,11 @@
 		<!-- ./ content -->
 
 		<!-- Footer -->
+		<div id="footer">
+	      	<div class="container">
+	        <p class="muted credit"><hr>Anigest Ver. 0.1 - 2014 by <a href="https://www.mentel.it">Mentel</a>.</p>
+	      </div>
+	    </div>
 		<footer class="clearfix">
 			@yield('footer')
 		</footer>

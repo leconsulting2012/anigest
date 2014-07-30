@@ -19,7 +19,9 @@
 			{{{ $title }}}
 
 			<div class="pull-right">
+				@if (!Auth::user()->hasRole('installatore'))
 				<a href="{{{ URL::to('routers/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
+				@endif
 			</div>
 		</h3>
 	</div>
