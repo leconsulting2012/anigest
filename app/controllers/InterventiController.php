@@ -32,13 +32,14 @@ class InterventiController extends AdminController {
      */
     protected $user;
     protected $router;
+    protected $modelloIntervento;
 
     /**
      * Inject the models.
      * @param Post $post
      * @param User $user
      */
-    public function __construct(Intervento $intervento, User $user, Azienda $azienda, Antenna $antenna, Router $router, Anagrafica $anagrafica )
+    public function __construct(ModelloIntervento $modelloIntervento, Intervento $intervento, User $user, Azienda $azienda, Antenna $antenna, Router $router, Anagrafica $anagrafica )
     {
         parent::__construct();
 
@@ -48,6 +49,7 @@ class InterventiController extends AdminController {
         $this->azienda = $azienda;
         $this->router = $router;
         $this->anagrafica = $anagrafica;
+        $this->modelloIntervento = $modelloIntervento;
     }
     
 	/**
@@ -76,13 +78,15 @@ class InterventiController extends AdminController {
 	{
         // Title
         $title = Lang::get('user/interventi/title.create_a_new_intervento');
+        $user = $this->user->currentUser();
+
 
         // Get all the available antenne
-        $antenne = $this->antenna->elencoAntenneDisponibili($this->user); 
+        $antenne = $this->antenna->elencoAntenneDisponibili($user); 
         // Get all the available routers
-        $routers = $this->router->elencoRoutersDisponibili($this->user); 
+        $routers = $this->router->elencoRoutersDisponibili($user); 
         // Get all the available clienti
-        $anagrafiche = $this->anagrafica->elencoAnagraficheDisponibili($this->user);
+        $anagrafiche = $this->anagrafica->elencoAnagraficheDisponibili($user);
         // Grabbo tutti gli installatori
         $installatori = array();
         $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();                
@@ -102,11 +106,30 @@ class InterventiController extends AdminController {
      */
 	public function getEdit($intervento)
 	{
+        $user = $this->user->currentUser();
+
         // Title
         $title = Lang::get('user/interventi/title.intervento_update');
 
         // Get all the available permissions
-        $modelliIntervento = $this->modelloIntervento->all();      
+        $modelliIntervento = $this->modelloIntervento->all();
+
+        // Get all the available antenne
+        $antenne = $this->antenna->elencoAntenneDisponibili($user); 
+        $antenne = array();
+        $antenne = DB::table('antenne')->where('antenne.azienda_id', '=', Auth::user()->azienda_id)->get();
+
+        // Get all the available routers 
+        $routers = array();
+        $routers = DB::table('routers')->where('routers.azienda_id', '=', Auth::user()->azienda_id)->get(); 
+
+        // Get all the available clienti
+        $anagrafiche = array();
+        $anagrafiche = DB::table('anagrafiche')->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id)->get();
+
+        // Grabbo tutti gli installatori
+        $installatori = array();
+        $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();               
 
         // Mode
         $mode = 'edit';       
@@ -114,7 +137,7 @@ class InterventiController extends AdminController {
         // Selected groups
         $selectedModelloIntervento = Input::old('modelloIntervento', array());          
         // Show the page
-        return View::make('interventi/create_edit', compact('intervento', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
+        return View::make('interventi/create_edit', compact('intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
 	}
 
 	/**

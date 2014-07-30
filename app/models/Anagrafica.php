@@ -13,7 +13,7 @@ class Anagrafica extends Eloquent {
 
 	public function elencoAnagraficheDisponibili($user)
     {
-        return $this->where('azienda_id', '=', $user->azienda_id );
+        return $this->where('azienda_id', '=', Auth::user()->azienda_id );
     }	
 
 }

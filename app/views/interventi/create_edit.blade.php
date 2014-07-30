@@ -10,7 +10,8 @@
 	<!-- ./ tabs -->
 
 	{{-- Edit Blog Form --}}
-	<form class="form-horizontal" method="post" action="@if (isset($installazione)){{ URL::to('installazioni/' . $installazione->id . '/edit') }}@endif" autocomplete="off">
+
+	<form class="form-horizontal" method="post" action="@if (isset($intervento)){{ URL::to('installazioni/' . $intervento->id . '/edit') }}@endif" autocomplete="off">
 		<!-- CSRF Token -->
 		<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 		<!-- ./ csrf token -->
@@ -28,7 +29,7 @@
 		                <select class="col-md-6 form-control" name="anagrafica_id" id="anagrafica_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
-		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $installazione->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} - {{{ $a->indirizzo1 }}}</option>
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} - {{{ $a->indirizzo1 }}}</option>
 		                        @endforeach
 						</select>
 						@else
@@ -51,14 +52,14 @@
 		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
-		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $installazione->antenna_id) ? ' selected="selected"' : '') }}}>{{{ $a->seriale }}}</option>
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
 		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
-		                        		<option value="{{{ $a->id }}}" >{{{ $a->seriale }}}</option>
+		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@endif
@@ -74,14 +75,14 @@
 		                <select class="col-md-6 form-control" name="router_id" id="router_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
-		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $installazione->router_id) ? ' selected="selected"' : '') }}}>{{{ $a->seriale }}}</option>
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->router_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
 		                <select class="col-md-6 form-control" name="router_id" id="router_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
-		                        		<option value="{{{ $a->id }}}" >{{{ $a->seriale }}}</option>
+		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@endif
@@ -93,11 +94,11 @@
 				<div class="form-group {{{ $errors->has('dataInstallazione') ? 'error' : '' }}}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Data di Installazione</label>
-						<input class="form-control" type="text" name="dataInstallazione" id="dataInstallazione" value="{{{ Input::old('dataInstallazione', isset($installazione) ? $antenna->dataInstallazione : null) }}}" />
+						<input class="form-control" type="text" name="dataInstallazione" id="dataInstallazione" value="{{{ Input::old('dataInstallazione', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
 						{{{ $errors->first('dataInstallazione', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
-				<!-- ./ Data di installazione -->
+				<!-- ./ Data di intervento -->
 
 				<!-- Installatore -->
 				<div class="form-group {{{ $errors->has('user_id') ? 'error' : '' }}}">
@@ -107,7 +108,7 @@
 		                <select class="col-md-6 form-control" name="user_id" id="user_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($installatori as $a)
-		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $installazione->user_id) ? ' selected="selected"' : '') }}}>{{{ $a->username }}}</option>
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->user_id) ? ' selected="selected"' : '') }}}>{{{ $a->username }}}</option>
 		                        @endforeach
 						</select>
 						@else
@@ -120,7 +121,41 @@
 						@endif
 	            	</div>
 				</div>
-				<!-- ./ Installatore -->		
+				<!-- ./ Installatore -->
+
+				<!-- Tipo Intervento -->
+				<div class="form-group {{{ $errors->has('tipiIntervento_id') ? 'error' : '' }}}">
+					<div class="col-md-12">
+	                	<label class="control-label" for="tipiIntervento_id">Tipo Intervento</label>
+	                	@if ($mode == 'edit')
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($modelliIntervento as $a)
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->tipiIntervento_id) ? ' selected="selected"' : '') }}}>{{{ $a->tipo }}}</option>
+		                        @endforeach
+						</select>
+						@else
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($antenne as $a)
+		                        		<option value="{{{ $a->id }}}" >{{{ $a->tipo }}}</option>
+		                        @endforeach
+						</select>
+						@endif
+	            	</div>
+				</div>
+				<!-- ./ modello antenna -->						
+
+
+				<!-- Note -->
+				<div class="form-group {{{ $errors->has('note') ? 'error' : '' }}}">
+					<div class="col-md-12">
+                        <label class="control-label" for="content">Note</label>
+						<input class="form-control" type="text" name="note" id="note" value="{{{ Input::old('note', isset($intervento) ? $intervento->note : null) }}}" />
+						{{{ $errors->first('note', '<span class="help-inline">:message</span>') }}}
+					</div>
+				</div>
+				<!-- ./ Data di intervento -->
 
 			</div>
 			<!-- ./ general tab -->
