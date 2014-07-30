@@ -262,6 +262,18 @@ class InterventiController extends AdminController {
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
         return Datatables::of($interventi)
 
+        ->edit_column('confermato','@if($confermato == 0)
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                @else
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                @endif')
+
+        ->edit_column('completato','@if($completato == 0)
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                @else
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                @endif')        
+
         //->edit_column('updated_at', Carbon::createFromFormat('Y/m/d H:i:s', time()))
 
         ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>

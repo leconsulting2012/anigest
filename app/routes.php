@@ -131,7 +131,7 @@ Route::group(array('before' => 'auth'), function()
 
     # Wizards
     Route::get('wizardAria', 'WizardsController@index');
-
+    Route::post('wizardAria', 'WizardsController@salva');
 
     # Pagina Iniziale
     Route::get('/', 'InterventiController@getIndex');

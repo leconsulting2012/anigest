@@ -205,7 +205,7 @@ class RoutersController extends AdminController {
             $oldRouter = clone $router;
             $router->mac                 = Input::get('mac');
             $router->seriale             = Input::get('seriale');
-            $router->modelliRouter_id  = Input::get('modelloRouter_id');
+            $router->modelliRouter_id    = Input::get('modelloRouter_id');
             $router->azienda_id          = Auth::user()->azienda_id;
 
             $router->save();

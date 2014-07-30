@@ -160,7 +160,7 @@ class AnagraficheController extends \BaseController {
             $this->anagrafica->cfiscale             = Input::get('cfiscale');
             $this->anagrafica->piva                 = Input::get('piva');                                    
             $this->anagrafica->email                = Input::get('email'); 
-            $anagrafica->azienda_id                 = Auth::user()->azienda_id;
+            $this->anagrafica->azienda_id           = Auth::user()->azienda_id;
 
             $anagrafica->save();
 
@@ -231,7 +231,8 @@ class AnagraficheController extends \BaseController {
     public function getData()
     {
 
-        $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', 'anagrafiche.indirizzo1', 'anagrafiche.updated_at'));
+        $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', 'anagrafiche.indirizzo1', 'anagrafiche.updated_at'))
+        ->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id);
                           //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');
         return Datatables::of($anagrafiche)
 
