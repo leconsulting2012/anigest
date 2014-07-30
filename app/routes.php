@@ -132,6 +132,9 @@ Route::group(array('before' => 'auth'), function()
     # Wizards
     Route::get('wizardAria', 'WizardsController@index');
 
+
+    # Pagina Iniziale
+    Route::get('/', 'InterventiController@getIndex');
 });
 
 /** ------------------------------------------
@@ -167,4 +170,4 @@ Route::get('{postSlug}', 'BlogController@getView');
 Route::post('{postSlug}', 'BlogController@postView');
 
 # Index Page - Last route, no matches
-Route::get('/', array('before' => 'detectLang','uses' => 'BlogController@getIndex'));
+//Route::get('/', array('before' => 'detectLang','uses' => 'BlogController@getIndex'));

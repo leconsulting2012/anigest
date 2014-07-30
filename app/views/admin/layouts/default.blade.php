@@ -117,7 +117,6 @@
     					</li>
     				</ul>
     				<ul class="nav navbar-nav pull-right">
-    					<li><a href="{{{ URL::to('/') }}}">Homepage</a></li>
     					<li class="divider-vertical"></li>
     					<li class="dropdown">
     							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
