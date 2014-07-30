@@ -106,14 +106,14 @@
 	                	@if ($mode == 'edit')
 		                <select class="col-md-6 form-control" name="user_id" id="user_id">
 		                	<option value="">-- SELEZIONA --</option>
-		                        @foreach ($users as $a)
+		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $installazione->user_id) ? ' selected="selected"' : '') }}}>{{{ $a->username }}}</option>
 		                        @endforeach
 						</select>
 						@else
 		                <select class="col-md-6 form-control" name="user_id" id="user_id">
 		                	<option value="">-- SELEZIONA --</option>
-		                        @foreach ($users as $a)
+		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->username }}}</option>
 		                        @endforeach
 						</select>

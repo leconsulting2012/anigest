@@ -11,9 +11,9 @@ class Anagrafica extends Eloquent {
         return $this->where('azienda_id', '=', $user->azienda_id );
     }
 
-	public function elencoAnagraficheDisponibili()
+	public function elencoAnagraficheDisponibili($user)
     {
-        return ;//this->where('azienda_id', '=', $user->azienda_id )->where('interventoOccupato', '!=', 0);
+        return $this->where('azienda_id', '=', $user->azienda_id );
     }	
 
 }

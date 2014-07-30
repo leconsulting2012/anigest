@@ -31,13 +31,14 @@ class InterventiController extends AdminController {
      * @var User
      */
     protected $user;
+    protected $router;
 
     /**
      * Inject the models.
      * @param Post $post
      * @param User $user
      */
-    public function __construct(Intervento $intervento, User $user, Azienda $azienda, Antenna $antenna )
+    public function __construct(Intervento $intervento, User $user, Azienda $azienda, Antenna $antenna, Router $router, Anagrafica $anagrafica )
     {
         parent::__construct();
 
@@ -45,6 +46,8 @@ class InterventiController extends AdminController {
         $this->user = $user;
         $this->antenna = $antenna;
         $this->azienda = $azienda;
+        $this->router = $router;
+        $this->anagrafica = $anagrafica;
     }
     
 	/**
@@ -75,17 +78,20 @@ class InterventiController extends AdminController {
         $title = Lang::get('user/interventi/title.create_a_new_intervento');
 
         // Get all the available antenne
-        $antenne = $this->antenna->elencoAntenneDisponibili(); 
+        $antenne = $this->antenna->elencoAntenneDisponibili($this->user); 
         // Get all the available routers
-        $routers = NULL; //$this->elencoRoutersDisponibili($this->user); 
+        $routers = $this->router->elencoRoutersDisponibili($this->user); 
         // Get all the available clienti
-        $anagrafiche = $this->anagrafica->elencoAnagraficheDisponibili();         
+        $anagrafiche = $this->anagrafica->elencoAnagraficheDisponibili($this->user);
+        // Grabbo tutti gli installatori
+        $installatori = array();
+        $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();                
 
         // Mode
         $mode = 'create';                      
 
         // Show the page
-        return View::make('interventi/create_edit', compact('title', 'mode', 'routers', 'anagrafiche'));
+        return View::make('interventi/create_edit', compact('title', 'mode', 'routers', 'anagrafiche', 'antenne', 'installatori'));
 	}
 
     /**

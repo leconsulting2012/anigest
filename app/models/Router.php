@@ -13,7 +13,7 @@ class Router extends Eloquent {
 
 	public function elencoRoutersDisponibili($user)
     {
-        return $this->where('azienda_id', '=', $user->azienda_id )->where('intervento_id', '!=', 0);
+        return $this->where('azienda_id', '=', $user->azienda_id );
     }    
 
 }
