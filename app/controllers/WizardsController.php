@@ -118,7 +118,8 @@ class WizardsController extends AdminController {
                     $this->intervento->antenna_id = DB::getPdo()->lastInsertId();
                     if($this->anagrafica->save()){
                         $this->intervento->anagrafica_id = DB::getPdo()->lastInsertId();
-                        $this->intervento->user_id = Input::get('installatore');
+                        if (Input::get('installatore') == '') $this->intervento->user_id = 2;
+                        else $this->intervento->user_id = Input::get('installatore');
                         if($this->intervento->save()){
                         // Redirect to the new router page
                             return Redirect::to('wizardAria/')->with('success', 'Salvataggio avvenuto con successo');
