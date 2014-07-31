@@ -1,1 +1,1 @@
-@extends('site.layouts.default')
+@extends('layouts.public')
