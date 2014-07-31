@@ -108,16 +108,16 @@
 
 			<hr>
 
-			<h3>What does this mean?</h3>
+			<h3>Cosa significa questo?</h3>
 
 			<p>
-				Something went wrong on our servers while we were processing your request.
-				We're really sorry about this, and will work hard to get this resolved as
-				soon as possible.
+				Qualcosa è andato storto sui nostri server mentre stavamo elaborando la tua richiesta. 
+				Siamo davvero spiacenti per questo, e lavoreremo duro per ottenere questo risolto come 
+				presto possibile.
 			</p>
 
 			<p>
-				Perhaps you would like to go to our <a href="{{{ URL::to('/') }}}">home page</a>?
+				Se vuoi puoi tornare alla <a href="{{{ URL::to('/') }}}">home page</a>?
 			</p>
 		</div>
 	</div>
