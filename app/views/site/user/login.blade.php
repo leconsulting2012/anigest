@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="email">Username o Email</label>
             <div class="col-md-10">
-                <input class="form-control" tabindex="1" placeholder="{{ Lang::get('confide::confide.username_e_mail') }}" type="text" name="email" id="email" value="{{ Input::old('email') }}">
+                <input class="form-control" tabindex="1" placeholder="indirizzo email o username" type="text" name="email" id="email" value="{{ Input::old('email') }}">
             </div>
         </div>
         <div class="form-group">
@@ -25,7 +25,7 @@
                 Password
             </label>
             <div class="col-md-10">
-                <input class="form-control" tabindex="2" placeholder="{{ Lang::get('confide::confide.password') }}" type="password" name="password" id="password">
+                <input class="form-control" tabindex="2" placeholder="password" type="password" name="password" id="password">
             </div>
         </div>
 
