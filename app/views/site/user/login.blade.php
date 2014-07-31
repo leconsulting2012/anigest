@@ -15,14 +15,14 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <fieldset>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="email">{{ Lang::get('confide::confide.username_e_mail') }}</label>
+            <label class="col-md-2 control-label" for="email">Username o Email</label>
             <div class="col-md-10">
                 <input class="form-control" tabindex="1" placeholder="{{ Lang::get('confide::confide.username_e_mail') }}" type="text" name="email" id="email" value="{{ Input::old('email') }}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="password">
-                {{ Lang::get('confide::confide.password') }}
+                Password
             </label>
             <div class="col-md-10">
                 <input class="form-control" tabindex="2" placeholder="{{ Lang::get('confide::confide.password') }}" type="password" name="password" id="password">
@@ -32,7 +32,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
-                    <label for="remember">{{ Lang::get('confide::confide.login.remember') }}
+                    <label for="remember">Ricordami su questo computer
                         <input type="hidden" name="remember" value="0">
                         <input tabindex="4" type="checkbox" name="remember" id="remember" value="1">
                     </label>
@@ -50,8 +50,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button tabindex="3" type="submit" class="btn btn-primary">{{ Lang::get('confide::confide.login.submit') }}</button>
-                <a class="btn btn-default" href="forgot">{{ Lang::get('confide::confide.login.forgot_password') }}</a>
+                <button tabindex="3" type="submit" class="btn btn-primary">Entra</button>
+                <a class="btn btn-default" href="forgot">Password Dimenticata?</a>
             </div>
         </div>
     </fieldset>
