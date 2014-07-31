@@ -100,7 +100,7 @@
 	<div class="wrapper">
 		<div class="error-spacer"></div>
 		<div role="main" class="main">
-			<?php $messages = array('We need a map.', 'I think we\'re lost.', 'We took a wrong turn.'); ?>
+			<?php $messages = array('Hai bisogno di una mappa?', 'Credo che ti sei perso...', 'Hai sbagliato strada...'); ?>
 
 			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
 
@@ -108,16 +108,16 @@
 
 			<hr>
 
-			<h3>What does this mean?</h3>
+			<h3>Cosa Succede?</h3>
 
 			<p>
-				We couldn't find the page you requested on our servers. We're really sorry
-				about that. It's our fault, not yours. We'll work hard to get this page
-				back online as soon as possible.
+				Non siamo riusciti a trovare la pagina che hai richiesto sui nostri server. Siamo davvero spiacenti 
+				di questo. E 'colpa nostra, non tua. Lavoreremo duro per ottenere questa pagina di nuovo online il 
+				più presto possibile.
 			</p>
 
 			<p>
-				Perhaps you would like to go to our <a href="{{{ URL::to('/') }}}">home page</a>?
+				Vuoi tornare alla nostra <a href="{{{ URL::to('/') }}}">home page</a>?
 			</p>
 		</div>
 	</div>
