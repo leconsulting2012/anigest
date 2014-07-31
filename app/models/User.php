@@ -4,23 +4,12 @@ use Zizaco\Confide\ConfideUser;
 use Zizaco\Confide\Confide;
 use Zizaco\Confide\ConfideEloquentRepository;
 use Zizaco\Entrust\HasRole;
-use Robbo\Presenter\PresentableInterface;
 use Carbon\Carbon;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends ConfideUser implements PresentableInterface {
+class User extends ConfideUser implements UserInterface, RemindableInterface{
     use HasRole;
-
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-
-    public function getPresenter()
-    {
-        return new UserPresenter($this);
-    }
 
     /**
      * Get user by username
@@ -103,6 +92,16 @@ class User extends ConfideUser implements PresentableInterface {
     public function currentUser()
     {
         return (new Confide(new ConfideEloquentRepository()))->user();
+    }
+
+    /**
+     * Get the e-mail address where password reminders are sent.
+     *
+     * @return string
+     */
+    public function getReminderEmail()
+    {
+        return $this->email;
     }
 
 }
