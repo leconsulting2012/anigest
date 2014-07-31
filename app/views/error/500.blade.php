@@ -100,7 +100,7 @@
 	<div class="wrapper">
 		<div class="error-spacer"></div>
 		<div role="main" class="main">
-			<?php $messages = array('Ouch.', 'Oh no!', 'Whoops!'); ?>
+			<?php $messages = array('Questo non ci voleva...', 'Oh no!', 'Accidenti!'); ?>
 
 			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
 
