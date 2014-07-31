@@ -114,17 +114,11 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Illuminate\Remote\RemoteServiceProvider',
-		
+
         /* Additional Providers */
         'Zizaco\Confide\ConfideServiceProvider', // Confide Provider
         'Zizaco\Entrust\EntrustServiceProvider', // Entrust Provider for roles
-        'Basset\BassetServiceProvider', // Better Asset Management
-        'Robbo\Presenter\PresenterServiceProvider', // Presenter
         'Bllim\Datatables\DatatablesServiceProvider', // Datatables
-
-        /* Uncomment for use in development */
-        'Way\Generators\GeneratorsServiceProvider', // Generators
-        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // IDE Helpers
 
     ),
 
@@ -195,13 +189,9 @@ return array(
         /* Additional Aliases */
         'Confide'         => 'Zizaco\Confide\ConfideFacade', // Confide Alias
         'Entrust'         => 'Zizaco\Entrust\EntrustFacade', // Entrust Alias
-        'Presenter'       => 'Robbo\Presenter\Presenter', // Presenter
-        'Presentable'     => 'Robbo\Presenter\PresentableInterface', // Presenter
-        'Basset'          => 'Basset\Facade', // Better Asset Management
         'String'          => 'Andrew13\Helpers\String', // String
         'Carbon'          => 'Carbon\Carbon', // Carbon
         'Datatables'      => 'Bllim\Datatables\Datatables', // DataTables
-
     ),
 
     'available_language' => array('en', 'pt', 'es'),
