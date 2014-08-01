@@ -81,21 +81,31 @@ class InterventiController extends AdminController {
         $user = $this->user->currentUser();
 
 
+        // Get all the available permissions
+        $modelliIntervento = $this->modelloIntervento->all();
+
         // Get all the available antenne
         $antenne = $this->antenna->elencoAntenneDisponibili($user); 
-        // Get all the available routers
-        $routers = $this->router->elencoRoutersDisponibili($user); 
+        $antenne = array();
+        $antenne = DB::table('antenne')->where('antenne.azienda_id', '=', Auth::user()->azienda_id)->get();
+
+        // Get all the available routers 
+        $routers = array();
+        $routers = DB::table('routers')->where('routers.azienda_id', '=', Auth::user()->azienda_id)->get(); 
+
         // Get all the available clienti
-        $anagrafiche = $this->anagrafica->elencoAnagraficheDisponibili($user);
+        $anagrafiche = array();
+        $anagrafiche = DB::table('anagrafiche')->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id)->get();
+
         // Grabbo tutti gli installatori
         $installatori = array();
-        $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();                
+        $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();             
 
         // Mode
         $mode = 'create';                      
 
         // Show the page
-        return View::make('interventi/create_edit', compact('title', 'mode', 'routers', 'anagrafiche', 'antenne', 'installatori'));
+        return View::make('interventi/create_edit', compact('intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
 	}
 
     /**
@@ -129,7 +139,13 @@ class InterventiController extends AdminController {
 
         // Grabbo tutti gli installatori
         $installatori = array();
-        $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();               
+        $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get(); 
+
+        // Modifico il formato delle date
+        $format = 'Y-m-d H:i:s';
+        $date = DateTime::createFromFormat($format, $intervento->dataInstallazione);
+        $intervento->dataInstallazione = $date->format('d-m-Y H:i');
+
 
         // Mode
         $mode = 'edit';       
@@ -149,8 +165,10 @@ class InterventiController extends AdminController {
 	{
         // Declare the rules for the form validation
         $rules = array(
-            'modelloIntervento_id'   => 'required|integer',
-            'seriale' => 'required'
+           // 'modelloIntervento_id'   => 'required|integer',
+            'ip'   => 'regex:[\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b]',
+            'tipiIntervento_id' => 'required|integer',
+
         );
 
         // Validate the inputs
@@ -163,14 +181,26 @@ class InterventiController extends AdminController {
             $user = Auth::user();
 
             // Update the intervento data
-            $this->intervento->mac 				= Input::get('mac');
-            $this->intervento->seriale 			= Input::get('seriale');
-            $this->intervento->modelloIntervento_id  = Input::get('modelloIntervento_id');
-            $this->intervento->ip       			= Input::get('ip');
-            $this->intervento->bsid 				= Input::get('bsid');
-            $this->intervento->rssi    			= Input::get('rssi');
-            $this->intervento->cmri    			= Input::get('cmri');
-            $this->intervento->azienda_id          = Auth::user()->azienda_id;
+            $this->intervento->tipiIntervento_id 				      = Input::get('tipiIntervento_id');
+            $this->intervento->antenna_id 			           = Input::get('antenna_id');
+            $this->intervento->router_id                    = Input::get('router_id');
+            $this->intervento->anagrafica_id       			  = Input::get('anagrafica_id');
+            $this->intervento->user_id                  = Input::get('user_id');
+            $this->intervento->confermato                  = Input::get('confermato');
+            $this->intervento->completato                  = Input::get('completato');
+            $this->intervento->priorita                  = '1';
+            $this->intervento->consegnaACPE                  = 0;
+            $this->intervento->note                  = Input::get('note');
+            $this->intervento->ip                  = Input::get('ip');
+            $this->intervento->bsid                   = Input::get('bsid');
+            $this->intervento->rssi    			      = Input::get('rssi');
+            $this->intervento->cmri    			      = Input::get('cmri');
+            $this->intervento->azienda_id             = Auth::user()->azienda_id;
+
+            // Modifico il formato delle date
+            $format = 'd/m/Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));
+            $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');
 
             // Was the intervento created?
             if($this->intervento->save())
@@ -249,6 +279,12 @@ class InterventiController extends AdminController {
             $intervento->rssi                = Input::get('rssi');
             $intervento->cmri                = Input::get('cmri');
             $intervento->azienda_id          = Auth::user()->azienda_id;
+
+            // Modifico il formato delle date
+            $format = 'd-m-Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataInstallazione'));
+            
+            $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');            
 
             $intervento->save();
 

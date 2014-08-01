@@ -5,7 +5,7 @@
 	<!-- Tabs -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab-general" data-toggle="tab">Generale</a></li>
-			<li><a href="#tab-meta-data" data-toggle="tab">#######</a></li>
+			<li><a href="#tab-meta-data" data-toggle="tab">Parametri Antenna</a></li>
 		</ul>
 	<!-- ./ tabs -->
 
@@ -22,80 +22,87 @@
 			<div class="tab-pane active" id="tab-general">
 
 				<!-- Anagrafica -->
-				<div class="form-group {{{ $errors->has('anagrafica_id') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('anagrafica_id', 'has-error') }}">
 					<div class="col-md-12">
 	                	<label class="control-label" for="anagrafica_id">Anagrafica</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="anagrafica_id" id="anagrafica_id">
+		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
-		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} - {{{ $a->indirizzo1 }}}</option>
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} | {{{ $a->indirizzo1 }}} - {{{ $a->citta }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="anagrafica_id" id="anagrafica_id">
+		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
-		                        		<option value="{{{ $a->id }}}" >{{{ $a->cognome }}} {{{ $a->nome }}} - {{{ $a->indirizzo1 }}}</option>
+		                        		<option value="{{{ $a->id }}}" >{{{ $a->cognome }}} {{{ $a->nome }}} | {{{ $a->indirizzo1 }}} - {{{ $a->citta }}}</option>
 		                        @endforeach
 						</select>
 						@endif
+						{{ $errors->first('anagrafica_id', '<label id="anagrafica_id-error" class="control-label" for="inputError">:message</label>') }}
 	            	</div>
 				</div>
 				<!-- ./ Anagrafica -->	
 
 				<!-- Antenna -->
-				<div class="form-group {{{ $errors->has('antenna_id') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('antenna_id', 'has-error') }}">
 					<div class="col-md-12">
 	                	<label class="control-label" for="antenna_id">Antenna</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id">
+		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
-		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
+		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '') }}}> {{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id">
+		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@endif
+						{{ $errors->first('antenna_id', '<label id="antenna_id-error" class="control-label" for="inputError">:message</label>') }}
 	            	</div>
 				</div>
 				<!-- ./ modello antenna -->	
 
 				<!-- Router -->
-				<div class="form-group {{{ $errors->has('router_id') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('router_id', 'has-error') }}">
 					<div class="col-md-12">
 	                	<label class="control-label" for="router_id">Router</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="router_id" id="router_id">
+		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->router_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="router_id" id="router_id">
+		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@endif
+						{{ $errors->first('router_id', '<label id="router_id-error" class="control-label" for="inputError">:message</label>') }}
 	            	</div>
 				</div>
 				<!-- ./ Router -->	
 
 				<!-- Data di Installazione -->
-				<div class="form-group {{{ $errors->has('dataInstallazione') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="content">Data di Installazione</label>
-						<input class="form-control" type="text" name="dataInstallazione" id="dataInstallazione" value="{{{ Input::old('dataInstallazione', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
-						{{{ $errors->first('dataInstallazione', '<span class="help-inline">:message</span>') }}}
+				<div class="form-group {{ $errors->first('c', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data di Intervento</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						{{ $errors->first('dataIntervento', '<label id="dataIntervento-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
 				<!-- ./ Data di intervento -->
@@ -137,7 +144,7 @@
 						@else
 		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id">
 		                	<option value="">-- SELEZIONA --</option>
-		                        @foreach ($antenne as $a)
+		                        @foreach ($modelliIntervento as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->tipo }}}</option>
 		                        @endforeach
 						</select>
@@ -162,35 +169,45 @@
 
 			<!-- Meta Data tab -->
 			<div class="tab-pane" id="tab-meta-data">
-				<!-- Meta Title -->
-				<div class="form-group {{{ $errors->has('meta-title') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="meta-title">Meta Title</label>
-						<input class="form-control" type="text" name="meta-title" id="meta-title" value="{{{ Input::old('meta-title', isset($post) ? $post->meta_title : null) }}}" />
-						{{{ $errors->first('meta-title', '<span class="help-inline">:message</span>') }}}
+				<!-- IP -->
+				<div class="form-group {{ $errors->first('ip', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Indirizzo IP</label>
+						<input type='text' class="form-control" name="ip" value="{{{ Input::old('ip', isset($intervento) ? $intervento->ip : null) }}}" />
+						{{ $errors->first('ip', '<label id="ip-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
-				<!-- ./ meta title -->
+				<!-- ./ IP -->
 
-				<!-- Meta Description -->
-				<div class="form-group {{{ $errors->has('meta-description') ? 'error' : '' }}}">
-					<div class="col-md-12 controls">
-                        <label class="control-label" for="meta-description">Meta Description</label>
-						<input class="form-control" type="text" name="meta-description" id="meta-description" value="{{{ Input::old('meta-description', isset($post) ? $post->meta_description : null) }}}" />
-						{{{ $errors->first('meta-description', '<span class="help-inline">:message</span>') }}}
+				<!-- BSID -->
+				<div class="form-group {{ $errors->first('bsid', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">BSID</label>
+						<input type='text' class="form-control" name="bsid" value="{{{ Input::old('bsid', isset($intervento) ? $intervento->bsid : null) }}}" />
+						{{ $errors->first('bsid', '<label id="bsid-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
-				<!-- ./ meta description -->
+				<!-- ./ BSID -->
 
-				<!-- Meta Keywords -->
-				<div class="form-group {{{ $errors->has('meta-keywords') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="meta-keywords">Meta Keywords</label>
-						<input class="form-control" type="text" name="meta-keywords" id="meta-keywords" value="{{{ Input::old('meta-keywords', isset($post) ? $post->meta_keywords : null) }}}" />
-						{{{ $errors->first('meta-keywords', '<span class="help-inline">:message</span>') }}}
+				<!-- rssi -->
+				<div class="form-group {{ $errors->first('rssi', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">RSSI</label>
+						<input type='text' class="form-control" name="rssi" value="{{{ Input::old('rssi', isset($intervento) ? $intervento->rssi : null) }}}" />
+						{{ $errors->first('rssi', '<label id="rssi-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
-				<!-- ./ meta keywords -->
+				<!-- ./ rssi -->
+
+				<!-- cmri -->
+				<div class="form-group {{ $errors->first('cmri', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">CMRI</label>
+						<input type='text' class="form-control" name="cmri" value="{{{ Input::old('cmri', isset($intervento) ? $intervento->cmri : null) }}}" />
+						{{ $errors->first('cmri', '<label id="cmri-error" class="control-label" for="inputError">:message</label>') }}
+					</div>
+				</div>
+				<!-- ./ cmri -->				
 			</div>
 			<!-- ./ meta data tab -->
 		</div>
@@ -206,4 +223,14 @@
 		</div>
 		<!-- ./ form actions -->
 	</form>
+@stop
+
+@section('scripts')
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker({
+                    language: 'it'
+                });
+            });
+        </script>
 @stop

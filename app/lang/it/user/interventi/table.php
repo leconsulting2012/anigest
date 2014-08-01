@@ -2,7 +2,7 @@
 
 return array(
 
-	'anagrafica'      => 'Anagrfica',
+	'anagrafica'      => 'Anagrafica',
 	'data'   => 'Data',
 	'installatore' => 'Installatore',
 	'confermato' => 'Confermato?', 

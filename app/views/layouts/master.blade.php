@@ -32,6 +32,8 @@
 		{{ HTML::style('css/datepicker3.css') }}
 		{{ HTML::style('css/jquery.dataTables.css') }}
 		{{ HTML::style('css/dataTables.bootstrap.css') }}
+		{{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
+
 		
 		<style>
 		@section('styles')
@@ -145,12 +147,10 @@
 		{{ HTML::script('js/bootstrap.file-input.js') }}
 		{{ HTML::script('js/DT_bootstrap.js') }}
 		{{ HTML::script('js/jquery-DT-pagination.js') }}
+		{{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
+		{{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}
 
 		<script type="text/javascript">
-		$(document).ready(function(){
-			$('.combobox').combobox();
-
-			});
 
 		$('#data').datepicker({
 			format: "dd/mm/yyyy",
@@ -160,9 +160,6 @@
 			});
 
 		$('#tooltip').tooltip('show')
-
-
-
 
 		</script>
 

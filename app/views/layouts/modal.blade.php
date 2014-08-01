@@ -32,8 +32,9 @@
     	{{ HTML::style('bootstrap/css/bootstrap.min.css') }}
     	{{ HTML::style('css/bootstrap-combobox.css') }}
     	{{ HTML::style('css/colorbox.css') }}
-    	{{ HTML::style('css/datepicker3.css') }}
+
     	{{ HTML::style('css/jquery.dataTables.css') }}
+        {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}        
 
     	<style>
     	@section('styles')
@@ -67,68 +68,68 @@
 
 
 
-<!-- Footer -->
-		<footer class="clearfix">
-			@yield('footer')
-		</footer>
-		<!-- ./ Footer -->
+        <!-- Footer -->
+        <footer class="clearfix">
+        @yield('footer')
+        </footer>
+        <!-- ./ Footer -->
 
-	</div>
-	<!-- ./ container -->
-
-
+        </div>
+        <!-- ./ container -->
 
 
-    	<!-- Scripts are placed here -->
-    	{{ HTML::script('js/jquery-1.11.1.min.js') }}
-    	{{ HTML::script('bootstrap/js/bootstrap.min.js') }}
-    	{{ HTML::script('js/bootstrap-combobox.js') }}
-    	{{ HTML::script('js/bootstrap-datepicker.js') }}
-    	{{ HTML::script('js/locales/bootstrap-datepicker.it.js') }}
-    	{{ HTML::script('js/jquery.colorbox-min.js') }}
-    	{{ HTML::script('js/jquery.dataTables.js') }}
-
-    	<script type="text/javascript">
-    	$(document).ready(function(){
-    		$('.combobox').combobox();
-
-    		});
-
-    	$('#data').datepicker({
-    		format: "dd/mm/yyyy",
-    		language: "it",
-    		autoclose: true,
-    		todayHighlight: true
-    		});
-
-    	$('#tooltip').tooltip('show')
 
 
-    	$(document).ready(function(){
-    		$('.close_popup').click(function(){
-    			parent.oTable.fnReloadAjax();
-    			parent.jQuery.fn.colorbox.close();
-    			return false;
-    			});
-    		$('#deleteForm').submit(function(event) {
-    			var form = $(this);
-    			$.ajax({
-    				type: form.attr('method'),
-    				url: form.attr('action'),
-    				data: form.serialize()
-    				}).done(function() {
-    					parent.jQuery.colorbox.close();
-    					parent.oTable.fnReloadAjax();
-    					}).fail(function() {
-    						});
-    					event.preventDefault();
-    					});
-    		});
+        <!-- Scripts are placed here -->
+        {{ HTML::script('js/jquery-1.11.1.min.js') }}
+        {{ HTML::script('bootstrap/js/bootstrap.min.js') }}
+        {{ HTML::script('js/bootstrap-combobox.js') }}
+        {{ HTML::script('js/jquery.colorbox-min.js') }}
+        {{ HTML::script('js/jquery.dataTables.js') }}
+        {{ HTML::script('js/moment.js') }}
+        {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
+        {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}        
 
-</script>
 
-    	
-    	    @yield('scripts')
+        <script type="text/javascript">
+        $(document).ready(function(){
+          $('.combobox').combobox();
 
-    	</body>
-    	</html>
+          });
+
+        $('#tooltip').tooltip('show')
+
+
+        $(document).ready(function(){
+          $('.close_popup').click(function(){
+           parent.oTable.fnReloadAjax();
+           parent.jQuery.fn.colorbox.close();
+           return false;
+           });
+          $('cboxClose').click(function(){
+           parent.oTable.fnReloadAjax();
+           parent.jQuery.fn.colorbox.close();
+           return false;
+           });
+          $('#deleteForm').submit(function(event) {
+           var form = $(this);
+           $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize()
+            }).done(function() {
+             parent.jQuery.colorbox.close();
+             parent.oTable.fnReloadAjax();
+             }).fail(function() {
+              });
+             event.preventDefault();
+             });
+          });
+
+        </script>
+
+         <!-- Scripts specifici -->
+        @yield('scripts')
+
+        </body>
+        </html>
