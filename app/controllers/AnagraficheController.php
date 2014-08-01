@@ -205,27 +205,42 @@ class AnagraficheController extends \BaseController {
         return View::make('anagrafiche/create_edit', compact('anagrafica', 'title', 'mode'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    public function getDelete($anagrafica)
+    {
+        // Title
+        $title = Lang::get('user/anagrafiche/title.anagrafiche_delete');
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+        // Show the page
+        return View::make('anagrafiche/delete', compact('anagrafica', 'title'));
+    }    
+
+    public function postDelete($anagrafica)
+    {
+        // Declare the rules for the form validation
+        $rules = array(
+            'id' => 'required|integer'
+        );
+
+        // Validate the inputs
+        $validator = Validator::make(Input::all(), $rules);
+
+        // Check if the form validates with success
+        if ($validator->passes())
+        {
+            $id = $anagrafica->id;
+            $anagrafica->delete();
+
+            // Was the blog post deleted?
+            $anagrafica = anagrafica::find($id);
+            if(empty($anagrafica))
+            {
+                // Redirect to the blog posts management page
+                return Redirect::to('anagrafiche')->with('success', Lang::get('admin/blogs/messages.delete.success'));
+            }
+        }
+        // There was a problem deleting the blog post
+        return Redirect::to('anagrafiche')->with('error', Lang::get('admin/blogs/messages.delete.error'));
+    } 
 
     public function getData()
     {
