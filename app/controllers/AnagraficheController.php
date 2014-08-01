@@ -95,9 +95,8 @@ class AnagraficheController extends \BaseController {
             $this->anagrafica->cellulare    		= Input::get('cellulare');
             $this->anagrafica->cfiscale    			= Input::get('cfiscale');
             $this->anagrafica->piva    				= Input::get('piva');                                    
-            $this->anagrafica->email    			= Input::get('email'); 
-
-            //$this->antenna->user_id          = $user->id;
+            $this->anagrafica->email    			= Input::get('email');             
+            $this->anagrafica->azienda_id          = Auth::user()->azienda_id;
 
             // Was the antenna created?
             if($this->anagrafica->save())
