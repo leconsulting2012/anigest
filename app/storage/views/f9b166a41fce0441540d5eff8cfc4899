@@ -1,0 +1,237 @@
+
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+	<!-- Tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab-general" data-toggle="tab">Generale</a></li>
+			<li><a href="#tab-meta-data" data-toggle="tab">Parametri Antenna</a></li>
+		</ul>
+	<!-- ./ tabs -->
+
+	<?php /* Edit Blog Form */ ?>
+
+	<form class="form-horizontal" method="post" action="<?php if (isset($intervento)): ?><?php echo URL::to('installazioni/' . $intervento->id . '/edit'); ?><?php endif; ?>" autocomplete="off">
+		<!-- CSRF Token -->
+		<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
+		<!-- ./ csrf token -->
+
+		<!-- Tabs MAC -->
+		<div class="tab-content">
+			<!-- General tab -->
+			<div class="tab-pane active" id="tab-general">
+
+				<!-- Anagrafica -->
+				<div class="form-group <?php echo $errors->first('anagrafica_id', 'has-error'); ?>">
+					<div class="col-md-12">
+	                	<label class="control-label" for="anagrafica_id">Anagrafica</label>
+	                	<?php if ($mode == 'edit'): ?>
+		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($anagrafiche as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" <?php echo e(( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '')); ?>><?php echo e($a->cognome); ?> <?php echo e($a->nome); ?> | <?php echo e($a->indirizzo1); ?> - <?php echo e($a->citta); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php else: ?>
+		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($anagrafiche as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" ><?php echo e($a->cognome); ?> <?php echo e($a->nome); ?> | <?php echo e($a->indirizzo1); ?> - <?php echo e($a->citta); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php endif; ?>
+						<?php echo $errors->first('anagrafica_id', '<label id="anagrafica_id-error" class="control-label" for="inputError">:message</label>'); ?>
+	            	</div>
+				</div>
+				<!-- ./ Anagrafica -->	
+
+				<!-- Antenna -->
+				<div class="form-group <?php echo $errors->first('antenna_id', 'has-error'); ?>">
+					<div class="col-md-12">
+	                	<label class="control-label" for="antenna_id">Antenna</label>
+	                	<?php if ($mode == 'edit'): ?>
+		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($antenne as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" <?php echo e(( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '')); ?>> <?php echo e($a->mac); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php else: ?>
+		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($antenne as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" ><?php echo e($a->mac); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php endif; ?>
+						<?php echo $errors->first('antenna_id', '<label id="antenna_id-error" class="control-label" for="inputError">:message</label>'); ?>
+	            	</div>
+				</div>
+				<!-- ./ modello antenna -->	
+
+				<!-- Router -->
+				<div class="form-group <?php echo $errors->first('router_id', 'has-error'); ?>">
+					<div class="col-md-12">
+	                	<label class="control-label" for="router_id">Router</label>
+	                	<?php if ($mode == 'edit'): ?>
+		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($routers as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" <?php echo e(( ($a->id == $intervento->router_id) ? ' selected="selected"' : '')); ?>><?php echo e($a->mac); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php else: ?>
+		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($routers as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" ><?php echo e($a->mac); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php endif; ?>
+						<?php echo $errors->first('router_id', '<label id="router_id-error" class="control-label" for="inputError">:message</label>'); ?>
+	            	</div>
+				</div>
+				<!-- ./ Router -->	
+
+				<!-- Data di Installazione -->
+				<div class="form-group <?php echo $errors->first('c', 'has-error'); ?>">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data di Intervento</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" value="<?php echo e(Input::old('dataIntervento', isset($intervento) ? $intervento->dataInstallazione : null)); ?>" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						<?php echo $errors->first('dataIntervento', '<label id="dataIntervento-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ Data di intervento -->
+
+				<!-- Installatore -->
+				<div class="form-group <?php echo e($errors->has('user_id') ? 'error' : ''); ?>">
+					<div class="col-md-12">
+	                	<label class="control-label" for="userid_id">Installatore</label>
+	                	<?php if ($mode == 'edit'): ?>
+		                <select class="col-md-6 form-control" name="user_id" id="user_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($installatori as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" <?php echo e(( ($a->id == $intervento->user_id) ? ' selected="selected"' : '')); ?>><?php echo e($a->username); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php else: ?>
+		                <select class="col-md-6 form-control" name="user_id" id="user_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($installatori as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" ><?php echo e($a->username); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php endif; ?>
+	            	</div>
+				</div>
+				<!-- ./ Installatore -->
+
+				<!-- Tipo Intervento -->
+				<div class="form-group <?php echo e($errors->has('tipiIntervento_id') ? 'error' : ''); ?>">
+					<div class="col-md-12">
+	                	<label class="control-label" for="tipiIntervento_id">Tipo Intervento</label>
+	                	<?php if ($mode == 'edit'): ?>
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($modelliIntervento as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" <?php echo e(( ($a->id == $intervento->tipiIntervento_id) ? ' selected="selected"' : '')); ?>><?php echo e($a->tipo); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php else: ?>
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id">
+		                	<option value="">-- SELEZIONA --</option>
+		                        <?php foreach ($modelliIntervento as $a): ?>
+		                        		<option value="<?php echo e($a->id); ?>" ><?php echo e($a->tipo); ?></option>
+		                        <?php endforeach; ?>
+						</select>
+						<?php endif; ?>
+	            	</div>
+				</div>
+				<!-- ./ modello antenna -->						
+
+
+				<!-- Note -->
+				<div class="form-group <?php echo e($errors->has('note') ? 'error' : ''); ?>">
+					<div class="col-md-12">
+                        <label class="control-label" for="content">Note</label>
+						<input class="form-control" type="text" name="note" id="note" value="<?php echo e(Input::old('note', isset($intervento) ? $intervento->note : null)); ?>" />
+						<?php echo e($errors->first('note', '<span class="help-inline">:message</span>')); ?>
+					</div>
+				</div>
+				<!-- ./ Data di intervento -->
+
+			</div>
+			<!-- ./ general tab -->
+
+			<!-- Meta Data tab -->
+			<div class="tab-pane" id="tab-meta-data">
+				<!-- IP -->
+				<div class="form-group <?php echo $errors->first('ip', 'has-error'); ?>">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Indirizzo IP</label>
+						<input type='text' class="form-control" name="ip" value="<?php echo e(Input::old('ip', isset($intervento) ? $intervento->ip : null)); ?>" />
+						<?php echo $errors->first('ip', '<label id="ip-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ IP -->
+
+				<!-- BSID -->
+				<div class="form-group <?php echo $errors->first('bsid', 'has-error'); ?>">
+					<div class="col-md-6">
+						<label class="control-label" for="content">BSID</label>
+						<input type='text' class="form-control" name="bsid" value="<?php echo e(Input::old('bsid', isset($intervento) ? $intervento->bsid : null)); ?>" />
+						<?php echo $errors->first('bsid', '<label id="bsid-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ BSID -->
+
+				<!-- rssi -->
+				<div class="form-group <?php echo $errors->first('rssi', 'has-error'); ?>">
+					<div class="col-md-6">
+						<label class="control-label" for="content">RSSI</label>
+						<input type='text' class="form-control" name="rssi" value="<?php echo e(Input::old('rssi', isset($intervento) ? $intervento->rssi : null)); ?>" />
+						<?php echo $errors->first('rssi', '<label id="rssi-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ rssi -->
+
+				<!-- cmri -->
+				<div class="form-group <?php echo $errors->first('cmri', 'has-error'); ?>">
+					<div class="col-md-6">
+						<label class="control-label" for="content">CMRI</label>
+						<input type='text' class="form-control" name="cmri" value="<?php echo e(Input::old('cmri', isset($intervento) ? $intervento->cmri : null)); ?>" />
+						<?php echo $errors->first('cmri', '<label id="cmri-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ cmri -->				
+			</div>
+			<!-- ./ meta data tab -->
+		</div>
+		<!-- ./ tabs content -->
+
+		<!-- Form Actions -->
+		<div class="form-group">
+			<div class="col-md-12">
+				<element class="btn btn-default close_popup">Indietro</element>
+				<button type="reset" class="btn btn-cancel">Annulla</button>
+				<button type="submit" class="btn btn-success">Salva</button>
+			</div>
+		</div>
+		<!-- ./ form actions -->
+	</form>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker({
+                    language: 'it'
+                });
+            });
+        </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

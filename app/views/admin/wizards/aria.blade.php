@@ -240,7 +240,6 @@
 		<!-- Form Actions -->
 		<div class="form-group">
 			<div class="col-md-12">
-				<element class="btn btn-default close_popup">Indietro</element>
 				<button type="reset" class="btn btn-cancel">Annulla</button>
 				<button type="submit" class="btn btn-success">Salva</button>
 			</div>

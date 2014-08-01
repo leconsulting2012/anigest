@@ -20,27 +20,27 @@
 			<!-- General tab -->
 			<div class="tab-pane active" id="tab-general">
 				<!-- Post Title -->
-				<div class="form-group {{{ $errors->has('mac') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('mac', 'has-error') }}">
                     <div class="col-md-12">
                         <label class="control-label" for="mac">MAC</label>
 						<input class="form-control" type="text" name="mac" id="mac" value="{{{ Input::old('mac', isset($antenna) ? $antenna->mac : null) }}}" />
-						{{{ $errors->first('mac', '<span class="help-inline">:message</span>') }}}
+						{{ $errors->first('mac', '<label id="mac-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
 				<!-- ./ mac antenna -->
 
 				<!-- Seriale -->
-				<div class="form-group {{{ $errors->has('seriale') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('seriale', 'has-error') }}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Seriale</label>
 						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($antenna) ? $antenna->seriale : null) }}}" />
-						{{{ $errors->first('seriale', '<span class="help-inline">:message</span>') }}}
+						{{ $errors->first('seriale', '<label id="seriale-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
 				<!-- ./ seriale antenna -->
 
 				<!-- Modello -->
-				<div class="form-group {{{ $errors->has('modelloAntenna_id') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('modelloAntenna_id', 'has-error') }}">
 					<div class="col-md-12">
 	                	<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
 	                	@if ($mode == 'edit')
@@ -59,38 +59,52 @@
 						</select>
 						@endif
 	            	</div>
+	            	{{ $errors->first('modelloAntenna_id', '<label id="modelloAntenna-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
 				<!-- ./ modello antenna -->	
 
-				<!-- dataRicezione -->
-				<div class="form-group {{{ $errors->has('dataRicezione') ? 'error' : '' }}}">
-                    <div class="col-md-12">
-                        <label class="control-label" for="dataRicezione">Data di Ricezione dal Corriere</label>
-						<input class="form-control" type="text" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($antenna) ? $antenna->dataRicezione : null) }}}" />
-						{{{ $errors->first('dataRicezione', '<span class="help-inline">:message</span>') }}}
+				<!-- Data di Ricezione -->
+				<div class="form-group {{ $errors->first('dataRicezione', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						{{ $errors->first('dataRicezione', '<label id="dataRicezione-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
-				<!-- ./ dataRicezione antenna -->	
+				<!-- ./ Data di ricezione -->
 
-				<!-- dataConsegna -->
-				<div class="form-group {{{ $errors->has('dataConsegna') ? 'error' : '' }}}">
-                    <div class="col-md-12">
-                        <label class="control-label" for="dataConsegna">Data di Consegna all'Installatore</label>
-						<input class="form-control" type="text" name="dataConsegna" id="dataConsegna" value="{{{ Input::old('dataConsegna', isset($antenna) ? $antenna->dtaConsegna : null) }}}" />
-						{{{ $errors->first('dataConsegna', '<span class="help-inline">:message</span>') }}}
+				<!-- Data di Consegna -->
+				<div class="form-group {{ $errors->first('dataConsegna', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data di Consegna all'Installatore</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataConsegna" id="dataConsegna" value="{{{ Input::old('dataConsegna', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						{{ $errors->first('dataConsegna', '<label id="dataConsegna-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
-				<!-- ./ dataConsegna antenna -->
+				<!-- ./ Data di consegna -->					
 
-				<!-- dataMontaggio -->
-				<div class="form-group {{{ $errors->has('dataMontaggio') ? 'error' : '' }}}">
-                    <div class="col-md-12">
-                        <label class="control-label" for="dataMontaggio">Data di Montaggio</label>
-						<input class="form-control" type="text" name="dataMontaggio" id="dataMontaggio" value="{{{ Input::old('dataMontaggio', isset($antenna) ? $antenna->dataMontaggio : null) }}}" />
-						{{{ $errors->first('dataMontaggio', '<span class="help-inline">:message</span>') }}}
+				<!-- Data di Montaggio -->
+				<div class="form-group {{ $errors->first('dataMontaggio', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data di Montaggio</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataMontaggio" id="dataMontaggio" value="{{{ Input::old('dataMontaggio', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						{{ $errors->first('dataMontaggio', '<label id="dataMontaggio-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
-				<!-- ./ dataMontaggio antenna -->											
+				<!-- ./ Data di Montaggio -->
+										
 			</div>
 			<!-- ./ general tab -->
 
@@ -140,4 +154,14 @@
 		</div>
 		<!-- ./ form actions -->
 	</form>
+@stop
+
+@section('scripts')
+        <script type="text/javascript">
+            $(function () {
+                $('.date').datetimepicker({
+                    language: 'it'
+                });
+            });
+        </script>
 @stop

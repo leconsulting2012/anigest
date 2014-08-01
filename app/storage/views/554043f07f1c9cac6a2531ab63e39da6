@@ -1,0 +1,23 @@
+
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+
+    <?php /* Delete Post Form */ ?>
+    <form id="deleteForm" class="form-horizontal" method="post" action="<?php if (isset($intervento)): ?><?php echo URL::to('interventi/' . $intervento->id . '/delete'); ?><?php endif; ?>" autocomplete="off">
+        <p>Sei davvero sicuro di eliminare l'intervento </b>?</p>
+        <!-- CSRF Token -->
+        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
+        <input type="hidden" name="id" value="<?php echo $intervento->id; ?>" />
+        <!-- ./ csrf token -->
+
+        <!-- Form Actions -->
+        <div class="control-group">
+            <div class="controls">
+                <element class="btn btn-default close_popup">Indietro</element>
+                <button type="submit" class="btn btn-danger">Elimina</button>
+            </div>
+        </div>
+        <!-- ./ form actions -->
+    </form>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

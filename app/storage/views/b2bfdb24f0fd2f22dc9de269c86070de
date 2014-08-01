@@ -1,0 +1,256 @@
+
+<?php /* Web site Title */ ?>
+<?php $__env->startSection('title'); ?>
+<?php echo e($title); ?> :: @parent
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('keywords'); ?>Blogs administration <?php $__env->stopSection(); ?>
+<?php $__env->startSection('author'); ?>Laravel 4 Bootstrap Starter SIte <?php $__env->stopSection(); ?>
+<?php $__env->startSection('description'); ?>Blogs administration index <?php $__env->stopSection(); ?>
+
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+<div class="page-header">
+	<h3>
+		<?php echo e($title); ?>
+	</h3>
+</div>
+
+<form class="form-horizontal" method="post" action="<?php echo URL::to('wizardAria/'); ?>" autocomplete="off">
+	<!-- CSRF Token -->
+	<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
+	<!-- ./ csrf token -->
+
+
+	<div class="row">
+		<div class="col-md-6">
+
+			<!-- cognome -->
+			<div class="form-group <?php echo $errors->first('cognome', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="cognome">Cognome</label>
+					<input class="form-control" type="text" name="cognome" id="cognome" value="<?php echo e(Input::old('cognome', isset($anagrafica) ? $anagrafica->cognome : null)); ?>" />
+					<?php echo $errors->first('cognome', '<label id="cognome-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ cognome-->
+		</div>
+		<div class="col-md-6">
+
+			<!-- Nome -->
+			<div class="form-group <?php echo $errors->first('nome', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="nome">Nome</label>
+					<input class="form-control" type="text" name="nome" id="nome" value="<?php echo e(Input::old('nome', isset($anagrafica) ? $anagrafica->nome : null)); ?>" />
+					<?php echo $errors->first('nome', '<label id="nome-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ Nome -->
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">			
+
+			<!-- indirizzo1 -->
+			<div class="form-group <?php echo $errors->first('indirizzo1', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="indirizzo1">Indirizzo 1a riga</label>
+					<input class="form-control" type="text" name="indirizzo1" id="indirizzo1" value="<?php echo e(Input::old('indirizzo1', isset($anagrafica) ? $anagrafica->indirizzo1 : null)); ?>" />
+					<?php echo $errors->first('indirizzo1', '<label id="indirizzo1-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ indirizzo1-->
+
+		</div>
+		<div class="col-md-6">
+
+			<!-- indirizzo2 -->
+			<div class="form-group <?php echo $errors->first('indirizzo2', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="indirizzo2">Indirizzo 2a riga</label>
+					<input class="form-control" type="text" name="indirizzo2" id="indirizzo2" value="<?php echo e(Input::old('indirizzo2', isset($anagrafica) ? $anagrafica->indirizzo2 : null)); ?>" />
+					<?php echo $errors->first('indirizzo2', '<label id="indirizzo2-error" class="control-label" for="inputError">:message</label>'); ?>
+
+				</div>
+			</div>
+			<!-- ./ indirizzo2 -->	
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">				
+
+			<!-- cap -->
+			<div class="form-group <?php echo $errors->first('cap', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="content">CAP</label>
+					<input class="form-control" type="text" name="cap" id="cap" value="<?php echo e(Input::old('cap', isset($anagrafica) ? $anagrafica->cap : null)); ?>" />
+					<?php echo $errors->first('cap', '<label id="cap-error" class="control-label" for="inputError">:message</label>'); ?>
+
+				</div>
+			</div>
+			<!-- ./ cap -->
+
+		</div>
+		<div class="col-md-4">
+
+			<!-- citta -->
+			<div class="form-group <?php echo $errors->first('citta', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="content">Città</label>
+					<input class="form-control" type="text" name="citta" id="citta" value="<?php echo e(Input::old('citta', isset($anagrafica) ? $anagrafica->citta : null)); ?>" />
+					<?php echo $errors->first('citta', '<label id="citta-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ citta anagrafica -->	
+
+		</div>
+		<div class="col-md-4">
+
+			<!-- provincia -->
+			<div class="form-group <?php echo $errors->first('provincia', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="content">Provincia</label>
+					<input class="form-control" type="text" name="provincia" id="provincia" value="<?php echo e(Input::old('provincia', isset($anagrafica) ? $anagrafica->provincia : null)); ?>" />
+					<?php echo $errors->first('provincia', '<label id="provincia-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ provincia anagrafica -->
+
+		</div>
+	</div>		
+
+	<div class="row">
+		<div class="col-md-6">			
+
+			<!-- telefono -->
+			<div class="form-group <?php echo $errors->first('telefono', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="content">Telefono Fisso</label>
+					<input class="form-control" type="text" name="telefono" id="telefono" value="<?php echo e(Input::old('telefono', isset($anagrafica) ? $anagrafica->telefono : null)); ?>" />
+					<?php echo $errors->first('telefono', '<label id="telefono-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ telefono anagrafica -->
+
+		</div>
+		<div class="col-md-6">
+
+			<!-- cellulare -->
+			<div class="form-group <?php echo $errors->first('cellulare', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="content">Cellulare</label>
+					<input class="form-control" type="text" name="cellulare" id="cellulare" value="<?php echo e(Input::old('cellulare', isset($anagrafica) ? $anagrafica->cellulare : null)); ?>" />
+					<?php echo $errors->first('cellulare', '<label id="cellulare-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ cellulare anagrafica -->
+
+		</div>
+	</div>	
+
+	<div class="row">
+		<div class="col-md-6">
+
+			<!-- Modello antenna -->
+			<div class="form-group <?php echo $errors->first('modelloAntenna_id', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
+					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+						<option value="">-- SELEZIONA --</option>
+						<?php foreach ($modelliAntenna as $modello): ?>
+						<option value="<?php echo e($modello->id); ?>" ><?php echo e($modello->nome); ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+			<!-- ./ modello antenna -->	
+
+		</div>
+		<div class="col-md-6">
+
+			<!-- Seriale -->
+			<div class="form-group <?php echo $errors->first('serialeAntenna', 'has-error'); ?>">
+				<div class="col-md-12">
+					<label class="control-label" for="content">MAC Address Antenna</label>
+					<input class="form-control" type="text" name="serialeAntenna" id="seriale" value="<?php echo e(Input::old('serialeAntenna', isset($antenna) ? $antenna->seriale : null)); ?>" />
+					<?php echo $errors->first('serialeAntenna', '<label id="serialeAntenna-error" class="control-label" for="inputError">:message</label>'); ?>
+				</div>
+			</div>
+			<!-- ./ seriale antenna -->		
+
+		</div>
+	</div>	
+
+		<div class="row">
+			<div class="col-md-6">
+
+				<!-- Modello Router -->
+			<div class="form-group <?php echo $errors->first('modelloRouter_id', 'has-error'); ?>">
+					<div class="col-md-12">
+						<label class="control-label" for="modelloRouter_id">Modello Router</label>
+						<select class="col-md-6 form-control" name="modelloRouter_id" id="modelloRouter_id">
+							<option value="">-- SELEZIONA --</option>
+							<?php foreach ($modelliRouters as $modello): ?>
+							<option value="<?php echo e($modello->id); ?>" ><?php echo e($modello->nome); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<!-- ./ modello router -->	
+
+			</div>
+			<div class="col-md-6">
+
+				<!-- Seriale Router -->
+			<div class="form-group <?php echo $errors->first('serialeRouter', 'has-error'); ?>">
+					<div class="col-md-12">
+						<label class="control-label" for="content">MAC Address Router</label>
+						<input class="form-control" type="text" name="serialeRouter" id="serialeRouter" value="<?php echo e(Input::old('serialeRouter', isset($router) ? $antenna->router : null)); ?>" />
+						<?php echo $errors->first('serialeRouter', '<label id="serialeRouter-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ seriale router -->		
+
+			</div>
+		</div>	
+
+				<div class="row">
+			<div class="col-md-6">
+
+				<!-- Installatore -->
+			<div class="form-group <?php echo $errors->first('installatore_id', 'has-error'); ?>">
+					<div class="col-md-12">
+						<label class="control-label" for="installatore_id">Installatore</label>
+						<select class="col-md-6 form-control" name="installatore_id" id="installatore_id">
+							<option value="">-- SELEZIONA --</option>
+							<?php foreach ($installatori as $installatore): ?>
+							<option value="<?php echo e($installatore->id); ?>" ><?php echo e($installatore->username); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<!-- ./ installatore -->	
+
+			</div>
+		</div>				
+
+		<!-- Form Actions -->
+		<div class="form-group">
+			<div class="col-md-12">
+				<element class="btn btn-default close_popup">Indietro</element>
+				<button type="reset" class="btn btn-cancel">Annulla</button>
+				<button type="submit" class="btn btn-success">Salva</button>
+			</div>
+		</div>
+		<!-- ./ form actions -->
+	</form>
+
+<?php $__env->stopSection(); ?>
+
+<?php /* Scripts */ ?>
+<?php $__env->startSection('scripts'); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
