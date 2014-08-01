@@ -189,11 +189,12 @@ class RoutersController extends AdminController {
      */
     public function postEdit($router)
     {
+
         // Declare the rules for the form validation
         $rules = array(
-            'seriale' => 'require,d|unique:routers',
+            'seriale' => 'required|unique:routers',
             'mac' => 'unique:routers',            
-            'modelloRouter_id' => 'required|integer'
+            'modelloRouter_id' => 'required|integer',
         );
 
         // Validate the inputs

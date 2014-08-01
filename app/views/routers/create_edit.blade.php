@@ -20,27 +20,27 @@
 			<!-- General tab -->
 			<div class="tab-pane active" id="tab-general">
 				<!-- Post Title -->
-				<div class="form-group {{{ $errors->has('mac') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('mac', 'has-error') }}">
                     <div class="col-md-12">
                         <label class="control-label" for="mac">MAC</label>
 						<input class="form-control" type="text" name="mac" id="mac" value="{{{ Input::old('mac', isset($router) ? $router->mac : null) }}}" />
-						{{{ $errors->first('mac', '<span class="help-inline">:message</span>') }}}
+						{{ $errors->first('mac', '<label id="mac-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
 				<!-- ./ mac router -->
 
 				<!-- Seriale -->
-				<div class="form-group {{{ $errors->has('seriale') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('seriale', 'has-error') }}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Seriale</label>
 						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($router) ? $router->seriale : null) }}}" />
-						{{{ $errors->first('seriale', '<span class="help-inline">:message</span>') }}}
+						{{ $errors->first('seriale', '<label id="seriale-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
 				<!-- ./ seriale router -->
 
 				<!-- Modello -->
-				<div class="form-group {{{ $errors->has('modelloRouter_id') ? 'error' : '' }}}">
+				<div class="form-group {{ $errors->first('modelloRouter_id', 'has-error') }}">
 					<div class="col-md-12">
 	                	<label class="control-label" for="modelloRouter_id">Modello Router</label>
 	                	@if ($mode == 'edit')
@@ -59,6 +59,7 @@
 						</select>
 						@endif
 	            	</div>
+	            	{{ $errors->first('modelloRouter_id', '<label id="modelloRouter_id-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
 				<!-- ./ modello router -->	
 							
