@@ -164,7 +164,7 @@ class AnagraficheController extends \BaseController {
 
             // Was the antenna created?
             if($anagrafica->save()){
-                 return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('success', Lang::get('users/anagrafiche/messages.edit.success'));
+                 return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('success', 'Anagrafica modificata correttamente.');
             }
             return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'))->withInput()->withErrors($validator);
         
