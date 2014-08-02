@@ -124,7 +124,7 @@ class AnagraficheController extends \BaseController {
     {
         // Declare the rules for the form validation
         $rules = array(
-            'cognome'   => 'required|min:2|max:50|alpha_dash',
+            'cognome'   => 'required|min:2|max:50',
             'nome'   => 'min:2|max:50|alpha_dash',
             'indirizzo1'   => 'min:2|max:50',
             'indirizzo2'   => 'min:2|max:50',
@@ -145,34 +145,32 @@ class AnagraficheController extends \BaseController {
 
         if ($validator->passes())
         {
+
             $oldanagrafica = clone $anagrafica;
-            $this->anagrafica->cognome              = Input::get('cognome');
-            $this->anagrafica->nome                 = Input::get('nome');
-            $this->anagrafica->indirizzo1           = Input::get('indirizzo1');
-            $this->anagrafica->indirizzo2           = Input::get('indirizzo2');
-            $this->anagrafica->cap                  = Input::get('cap');
-            $this->anagrafica->citta                = Input::get('citta');
-            $this->anagrafica->provincia            = Input::get('provincia');
-            $this->anagrafica->telefono             = Input::get('telefono');
-            $this->anagrafica->fax                  = Input::get('fax');
-            $this->anagrafica->cellulare            = Input::get('cellulare');
-            $this->anagrafica->cfiscale             = Input::get('cfiscale');
-            $this->anagrafica->piva                 = Input::get('piva');                                    
-            $this->anagrafica->email                = Input::get('email'); 
-            $this->anagrafica->azienda_id           = Auth::user()->azienda_id;
+            $anagrafica->cognome              = strtoupper(Input::get('cognome'));
+            $anagrafica->nome                 = ucwords(strtolower(Input::get('nome')));
+            $anagrafica->indirizzo1           = ucwords(strtolower(Input::get('indirizzo1')));
+            $anagrafica->indirizzo2           = ucwords(strtolower(Input::get('indirizzo2')));
+            $anagrafica->cap                  = Input::get('cap');
+            $anagrafica->citta                = strtoupper(Input::get('citta'));
+            $anagrafica->provincia            = ucwords(strtolower(Input::get('provincia')));
+            $anagrafica->telefono             = Input::get('telefono');
+            $anagrafica->fax                  = Input::get('fax');
+            $anagrafica->cellulare            = Input::get('cellulare');
+            $anagrafica->cfiscale             = Input::get('cfiscale');
+            $anagrafica->piva                 = Input::get('piva');                                    
+            $anagrafica->email                = Input::get('email'); 
+            $anagrafica->azienda_id           = Auth::user()->azienda_id;
 
-            $anagrafica->save();
-
-
-        } else {
+            // Was the antenna created?
+            if($anagrafica->save()){
+                 return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('success', Lang::get('users/anagrafiche/messages.edit.success'));
+            }
             return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'));
-        }
-
-        if(empty($error)) {
-            // Redirect to the new user page
-            return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('success', Lang::get('users/anagrafiche/messages.edit.success'));
+        
         } else {
-            return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'));
+            return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'))->withInput()->withErrors($validator);
+
         }
     } 
 
