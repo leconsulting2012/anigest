@@ -97,16 +97,16 @@ class WizardsController extends AdminController {
             $this->antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
 
-            $this->anagrafica->cognome              = Input::get('cognome');
-            $this->anagrafica->nome                 = Input::get('nome');
-            $this->anagrafica->indirizzo1           = Input::get('indirizzo1');
-            $this->anagrafica->indirizzo2           = Input::get('indirizzo2');
+            $this->anagrafica->cognome              = strtoupper(Input::get('cognome'));
+            $this->anagrafica->nome                 = ucwords(strtolower(Input::get('nome')));
+            $this->anagrafica->indirizzo1           = ucwords(strtolower(Input::get('indirizzo1')));
+            $this->anagrafica->indirizzo2           = ucwords(strtolower(Input::get('indirizzo2')));
             $this->anagrafica->cap                  = Input::get('cap');
-            $this->anagrafica->citta                = Input::get('citta');
-            $this->anagrafica->provincia            = Input::get('provincia');
+            $this->anagrafica->citta                = strtoupper(Input::get('citta'));
+            $this->anagrafica->provincia            = ucwords(strtolower(Input::get('provincia')));
             $this->anagrafica->telefono             = Input::get('telefono');
             $this->anagrafica->cellulare            = Input::get('cellulare');
-            $this->anagrafica->azienda_id          = Auth::user()->azienda_id;
+            $this->anagrafica->azienda_id           = Auth::user()->azienda_id;
 
             $this->router->azienda_id          = Auth::user()->azienda_id;
             $this->intervento->azienda_id          = Auth::user()->azienda_id;
