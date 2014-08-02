@@ -8,6 +8,13 @@ Software gestionale per Antennisti. Basato su framework Laravel.
 [![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
+### Funzionalita
+* Core application built using Laravel 4.1
+* Supporto Multi Utente e Multi Azienda
+* Gestione delle antenne
+* Gestione dei Router
+* Gestione degli Interventi
+* Mappe degli Interventi
 
 ### Contribuisci ad Anigest
 
