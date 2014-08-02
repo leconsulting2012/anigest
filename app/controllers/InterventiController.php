@@ -146,7 +146,6 @@ class InterventiController extends AdminController {
         $date = DateTime::createFromFormat($format, $intervento->dataInstallazione);
         if($date != FALSE) $intervento->dataInstallazione = $date->format('d-m-Y H:i');
 
-
         // Mode
         $mode = 'edit';       
 
@@ -200,7 +199,7 @@ class InterventiController extends AdminController {
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));
-            $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');
+            if($date != FALSE) $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');
 
             // Was the intervento created?
             if($this->intervento->save())
@@ -282,23 +281,16 @@ class InterventiController extends AdminController {
 
             // Modifico il formato delle date
             $format = 'd-m-Y H:i';
-            $date = DateTime::createFromFormat($format, Input::get('dataInstallazione'));
-            
-            $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');            
+            $date = DateTime::createFromFormat($format, Input::get('dataInstallazione'));  
+            if($date != FALSE) $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');            
 
-            $intervento->save();
-
-
-        } else {
-            return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'));
+            if($intervento->save()){
+                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'));
+            } else {
+                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
+            }
         }
-
-        if(empty($error)) {
-            // Redirect to the new user page
-            return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', Lang::get('users/interventi/messages.edit.success'));
-        } else {
-            return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'));
-        }
+        return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
     }       	
 
     /**

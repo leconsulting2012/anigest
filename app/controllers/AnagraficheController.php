@@ -166,7 +166,7 @@ class AnagraficheController extends \BaseController {
             if($anagrafica->save()){
                  return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('success', Lang::get('users/anagrafiche/messages.edit.success'));
             }
-            return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'));
+            return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'))->withInput()->withErrors($validator);
         
         } else {
             return Redirect::to('anagrafiche/' . $anagrafica->id . '/edit')->with('error', Lang::get('users/anagrafiche/messages.edit.error'))->withInput()->withErrors($validator);
