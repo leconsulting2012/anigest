@@ -1,8 +1,10 @@
 <?php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Anagrafica extends Eloquent {
-
+   // use SoftDeletingTrait;
 	protected $table = 'anagrafiche';
+
 
 	protected $softDelete = true;
 

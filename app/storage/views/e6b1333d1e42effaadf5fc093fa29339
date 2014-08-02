@@ -70,6 +70,7 @@
 				        "sLast":       "Fine"
 					},		
 				},
+				"iDisplayLength": 25,
 				"bProcessing": true,
 		        "bServerSide": true,
 		        "sAjaxSource": "<?php echo URL::to('anagrafiche/data'); ?>",

@@ -71,6 +71,7 @@
 				        "sLast":       "Fine"
 					},		
 				},
+				"iDisplayLength": 25,
 				"bProcessing": true,
 		        "bServerSide": true,
 		        "sAjaxSource": "{{ URL::to('anagrafiche/data') }}",
