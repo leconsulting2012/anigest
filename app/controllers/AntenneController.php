@@ -40,12 +40,8 @@ class AntenneController extends AdminController {
         $this->modelloAntenna = $modelloAntenna;
         $this->azienda = $azienda;
     }
-    
-	/**
-	 * Returns all the blog posts.
-	 *
-	 * @return View
-	 */
+
+
 	public function getIndex()
 	{
         // Title
@@ -57,6 +53,19 @@ class AntenneController extends AdminController {
         // Show the page
         return View::make('antenne/index', compact('antenne', 'title'));
 	}
+
+    public function getIndexMagazzino()
+    {
+        // Title
+        $title = "Magazzino Antenne";
+
+        // Grabbo tutte le antenne dell'azienda
+        $antenne = $this->antenna->elencoAntenne($this->user);
+
+        // Show the page
+        return View::make('antenne/index', compact('antenne', 'title'));
+    }
+
 
 	/**
 	 * Show the form for creating a new resource.

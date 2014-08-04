@@ -133,6 +133,9 @@ Route::group(array('before' => 'auth'), function()
     Route::get('calendario', 'CalendariController@getIndex');
     Route::get('calendario/getEventi', 'CalendariController@getEventi');
 
+    # Magazzini Management
+    Route::get('magazzino/antenne', 'AntenneController@getIndexMagazzino');
+
     # Mappa Management
     Route::get('mappa', 'MappeController@getIndex');
 

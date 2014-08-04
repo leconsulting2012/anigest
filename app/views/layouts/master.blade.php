@@ -96,7 +96,7 @@
     							<span class="glyphicon glyphicon-tags"></span> Magazzino <span class="caret"></span>
     						</a>
     						<ul class="dropdown-menu">
-    						    <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
+    						    <li{{ (Request::is('magazzino/antenne') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino/antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
     						    <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
     						</ul>
     					</li>    					
