@@ -34,7 +34,8 @@
 		{{ HTML::style('css/dataTables.bootstrap.css') }}
 		{{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
 		{{ HTML::style('css/fullcalendar.css') }}
-
+		@section('cssEsterni')
+		@show
 
 		
 		<style>
@@ -46,7 +47,8 @@
 		</style>
 		</head>
 
-		<body>
+		<body  @section('bodyOnLoad')  
+		@show >
 
 		<div class="bs-component">
 		<!-- Navbar -->
@@ -77,7 +79,7 @@
     					@endif
     					<li class="dropdown{{ (Request::is('antenne*|router*') ? ' active' : '') }}">
     						<a class="dropdown-toggle" data-toggle="dropdown" href="{{{ URL::to('antenne') }}}">
-    							<span class="glyphicon glyphicon-signal"></span> Gestionale <span class="caret"></span>
+    							<span class="glyphicon glyphicon-signal"></span> Gestione <span class="caret"></span>
     						</a>
     						<ul class="dropdown-menu">
     							<li{{ (Request::is('anagrafiche*') ? ' class="active"' : '') }}><a href="{{{ URL::to('anagrafiche') }}}"><span class="glyphicon glyphicon-user"></span> Anagrafiche</a></li>
@@ -89,7 +91,17 @@
     							@endif
     						</ul>
     					</li>
-    					<li{{ (Request::is('admin/blogs*') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
+    					<li class="dropdown{{ (Request::is('magazzino/*') ? ' active' : '') }}">
+    						<a class="dropdown-toggle" data-toggle="dropdown" href="{{{ URL::to('antenne') }}}">
+    							<span class="glyphicon glyphicon-tags"></span> Magazzino <span class="caret"></span>
+    						</a>
+    						<ul class="dropdown-menu">
+    						    <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
+    						    <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
+    						</ul>
+    					</li>    					
+    					<li{{ (Request::is('calendario') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
+    					<li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa') }}}"><span class="glyphicon glyphicon-globe"></span> Mappa</a></li>
     				</ul>
     				<ul class="nav navbar-nav pull-right">
     					<li class="divider-vertical"></li>
@@ -153,6 +165,8 @@
 		{{ HTML::script('js/moment.js') }}
 		{{ HTML::script('js/fullcalendar.min.js') }}
 		{{ HTML::script('js/locales/fullcalendar_it.js') }}
+		@section('jsEsterni')
+		@show
 
 
 		<script type="text/javascript">

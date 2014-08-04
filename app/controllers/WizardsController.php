@@ -89,14 +89,20 @@ class WizardsController extends AdminController {
             // Create a new router
             $user = Auth::user();
 
+            // Modifico il formato delle date
+            $format = 'd/m/Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataRicezione'));            
+
             // Update the router data
             $this->router->mac              = Input::get('serialeRouter');
             $this->router->modelliRouter_id  = Input::get('modelloRouter_id');
             $this->router->azienda_id          = Auth::user()->azienda_id;
+            if($date != FALSE) $this->router->dataRicezione = $date->format('Y-m-d H:i:s');            
 
             $this->antenna->mac                 = Input::get('serialeAntenna');
             $this->antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
+            if($date != FALSE) $this->antenna->dataRicezione = $date->format('Y-m-d H:i:s');
 
             $this->anagrafica->cognome              = strtoupper(Input::get('cognome'));
             $this->anagrafica->nome                 = ucwords(strtolower(Input::get('nome')));
@@ -110,7 +116,7 @@ class WizardsController extends AdminController {
             $this->anagrafica->azienda_id           = Auth::user()->azienda_id;
 
             $this->intervento->azienda_id           = Auth::user()->azienda_id;
-            $this->intervento->user_id              = Input::get('installatore_id');
+            $this->intervento->user_id              = (int)Input::get('installatore_id');
             $this->intervento->tipiIntervento_id    = 1;
 
             if($this->router->save()){
@@ -119,8 +125,8 @@ class WizardsController extends AdminController {
                     $this->intervento->antenna_id = DB::getPdo()->lastInsertId();
                     if($this->anagrafica->save()){
                         $this->intervento->anagrafica_id = DB::getPdo()->lastInsertId();
-                        if (Input::get('installatore') == '') $this->intervento->user_id = 2;
-                        else $this->intervento->user_id = Input::get('installatore');
+                        if (Input::get('installatore_id') == '') $this->intervento->user_id = 2;
+                        else $this->intervento->user_id = Input::get('installatore_id');
                         if($this->intervento->save()){
                         // Redirect to the new router page
                             return Redirect::to('wizardAria/')->with('success', 'Salvataggio avvenuto con successo');

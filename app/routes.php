@@ -133,6 +133,9 @@ Route::group(array('before' => 'auth'), function()
     Route::get('calendario', 'CalendariController@getIndex');
     Route::get('calendario/getEventi', 'CalendariController@getEventi');
 
+    # Mappa Management
+    Route::get('mappa', 'MappeController@getIndex');
+
     # Wizards
     Route::get('wizardAria', 'WizardsController@index');
     Route::post('wizardAria', 'WizardsController@salva');

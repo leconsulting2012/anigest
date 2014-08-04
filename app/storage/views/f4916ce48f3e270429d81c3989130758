@@ -115,7 +115,7 @@
            parent.jQuery.fn.colorbox.close();
            return false;
            });
-          $('cboxClose').click(function(){
+          $('.cboxClose').click(function(){
            parent.oTable.fnReloadAjax();
            parent.jQuery.fn.colorbox.close();
            return false;

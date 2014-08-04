@@ -8,6 +8,15 @@
 <?php $__env->startSection('author'); ?>Laravel 4 Bootstrap Starter SIte <?php $__env->stopSection(); ?>
 <?php $__env->startSection('description'); ?>Blogs administration index <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('jsEsterni'); ?> 
+    <?php echo HTML::script('js/bootstrap-datetimepicker.min.js'); ?>
+    <?php echo HTML::script('js/bootstrap-datetimepicker.pt-IT.js'); ?> 
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('cssEsterni'); ?>
+	<?php echo HTML::style('css/bootstrap-datetimepicker.min.css'); ?> 
+<?php $__env->stopSection(); ?>
+
 <?php /* Content */ ?>
 <?php $__env->startSection('content'); ?>
 <div class="page-header">
@@ -27,7 +36,7 @@
 				<!-- Data di Ricezione -->
 				<div class="form-group <?php echo $errors->first('dataRicezione', 'has-error'); ?>">
 					<div class="col-md-6">
-						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
+						<label class="control-label" for="content">Data Ricezione del Materiale</label>
 							<div class='input-group date' id='datetimepicker2'>
 								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="<?php echo e(Input::old('dataRicezione', isset($intervento) ? $intervento->dataInstallazione : null)); ?>" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -240,7 +249,7 @@
 				<!-- Installatore -->
 			<div class="form-group <?php echo $errors->first('installatore_id', 'has-error'); ?>">
 					<div class="col-md-12">
-						<label class="control-label" for="installatore_id">Installatore</label>
+						<label class="control-label" for="installatore_id">Installatore Incaricato</label>
 						<select class="col-md-6 form-control" name="installatore_id" id="installatore_id">
 							<option value="">-- SELEZIONA --</option>
 							<?php foreach ($installatori as $installatore): ?>

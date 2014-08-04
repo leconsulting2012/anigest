@@ -68,7 +68,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($antenna) ? $antenna->dataRicezione : null) }}}" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
@@ -82,7 +82,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Consegna all'Installatore</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataConsegna" id="dataConsegna" value="{{{ Input::old('dataConsegna', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<input type='text' class="form-control" name="dataConsegna" id="dataConsegna" value="{{{ Input::old('dataConsegna', isset($antenna) ? $antenna->dataConsegna : null) }}}" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
@@ -96,7 +96,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Montaggio</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataMontaggio" id="dataMontaggio" value="{{{ Input::old('dataMontaggio', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<input type='text' class="form-control" name="dataMontaggio" id="dataMontaggio" value="{{{ Input::old('dataMontaggio', isset($antenna) ? $antenna->dataMontaggio : null) }}}" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>

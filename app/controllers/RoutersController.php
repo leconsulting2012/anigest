@@ -191,8 +191,7 @@ class RoutersController extends AdminController {
     {
 
         // Declare the rules for the form validation
-        $rules = array(
-            'mac' => 'unique:routers',            
+        $rules = array(           
             'modelliRouter_id' => 'required|integer',
         );
 

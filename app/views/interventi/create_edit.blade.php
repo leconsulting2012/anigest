@@ -11,7 +11,7 @@
 
 	{{-- Edit Blog Form --}}
 
-	<form class="form-horizontal" method="post" action="@if (isset($intervento)){{ URL::to('installazioni/' . $intervento->id . '/edit') }}@endif" autocomplete="off">
+	<form class="form-horizontal" method="post" action="@if (isset($intervento)){{ URL::to('interventi/' . $intervento->id . '/edit') }}@endif" autocomplete="off">
 		<!-- CSRF Token -->
 		<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 		<!-- ./ csrf token -->
@@ -93,12 +93,12 @@
 				</div>
 				<!-- ./ Router -->	
 
-				<!-- Data di Installazione -->
+				<!-- Data di Intervento -->
 				<div class="form-group {{ $errors->first('c', 'has-error') }}">
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Intervento</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataIntervento : null) }}}" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
@@ -126,6 +126,7 @@
 		                        @endforeach
 						</select>
 						@endif
+						{{ $errors->first('user_id', '<label id="user_id-error" class="control-label" for="inputError">:message</label>') }}
 	            	</div>
 				</div>
 				<!-- ./ Installatore -->
@@ -149,6 +150,7 @@
 		                        @endforeach
 						</select>
 						@endif
+						{{ $errors->first('tipiIntervento_id', '<label id="tipiIntervento_id-error" class="control-label" for="inputError">:message</label>') }}
 	            	</div>
 				</div>
 				<!-- ./ modello antenna -->						
@@ -163,7 +165,7 @@
 					</div>
 				</div>
 				<!-- ./ Data di intervento -->
-
+				{{ $errors->first('note', '<label id="note-error" class="control-label" for="inputError">:message</label>') }}
 			</div>
 			<!-- ./ general tab -->
 

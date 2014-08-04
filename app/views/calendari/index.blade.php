@@ -30,11 +30,6 @@ $(document).ready(function() {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
-    columnFormat: {
-        month: 'ddd',
-        week: 'ddd d',
-        day: 'dddd M/d'
-    },
     editable: true, 	
     events: "calendario/getEventi",
     eventDrop: function(event, delta) {

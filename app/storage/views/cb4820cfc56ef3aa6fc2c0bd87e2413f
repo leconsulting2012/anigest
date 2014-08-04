@@ -34,7 +34,8 @@
 		<?php echo HTML::style('css/dataTables.bootstrap.css'); ?>
 		<?php echo HTML::style('css/bootstrap-datetimepicker.min.css'); ?>
 		<?php echo HTML::style('css/fullcalendar.css'); ?>
-
+		<?php $__env->startSection('cssEsterni'); ?>
+		<?php echo $__env->yieldSection(); ?>
 
 		
 		<style>
@@ -46,7 +47,8 @@
 		</style>
 		</head>
 
-		<body>
+		<body  <?php $__env->startSection('bodyOnLoad'); ?>  
+		<?php echo $__env->yieldSection(); ?> >
 
 		<div class="bs-component">
 		<!-- Navbar -->
@@ -77,7 +79,7 @@
     					<?php endif; ?>
     					<li class="dropdown<?php echo (Request::is('antenne*|router*') ? ' active' : ''); ?>">
     						<a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo e(URL::to('antenne')); ?>">
-    							<span class="glyphicon glyphicon-signal"></span> Gestionale <span class="caret"></span>
+    							<span class="glyphicon glyphicon-signal"></span> Gestione <span class="caret"></span>
     						</a>
     						<ul class="dropdown-menu">
     							<li<?php echo (Request::is('anagrafiche*') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('anagrafiche')); ?>"><span class="glyphicon glyphicon-user"></span> Anagrafiche</a></li>
@@ -89,7 +91,17 @@
     							<?php endif; ?>
     						</ul>
     					</li>
-    					<li<?php echo (Request::is('admin/blogs*') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('calendario')); ?>"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
+    					<li class="dropdown<?php echo (Request::is('magazzino/*') ? ' active' : ''); ?>">
+    						<a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo e(URL::to('antenne')); ?>">
+    							<span class="glyphicon glyphicon-tags"></span> Magazzino <span class="caret"></span>
+    						</a>
+    						<ul class="dropdown-menu">
+    						    <li<?php echo (Request::is('magazzino') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('magazzino')); ?>"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
+    						    <li<?php echo (Request::is('magazzino') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('magazzino')); ?>"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
+    						</ul>
+    					</li>    					
+    					<li<?php echo (Request::is('calendario') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('calendario')); ?>"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
+    					<li<?php echo (Request::is('mappa') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('mappa')); ?>"><span class="glyphicon glyphicon-globe"></span> Mappa</a></li>
     				</ul>
     				<ul class="nav navbar-nav pull-right">
     					<li class="divider-vertical"></li>
@@ -153,6 +165,8 @@
 		<?php echo HTML::script('js/moment.js'); ?>
 		<?php echo HTML::script('js/fullcalendar.min.js'); ?>
 		<?php echo HTML::script('js/locales/fullcalendar_it.js'); ?>
+		<?php $__env->startSection('jsEsterni'); ?>
+		<?php echo $__env->yieldSection(); ?>
 
 
 		<script type="text/javascript">

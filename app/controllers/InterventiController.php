@@ -260,7 +260,7 @@ class InterventiController extends AdminController {
     {
         // Declare the rules for the form validation
         $rules = array(
-            'modelloIntervento_id' => 'required|integer'
+            'tipiIntervento_id' => 'required|integer'
         );
 
         // Validate the inputs
@@ -269,23 +269,28 @@ class InterventiController extends AdminController {
 
         if ($validator->passes())
         {
-            $oldIntervento = clone $intervento;
-            $intervento->mac                 = Input::get('mac');
-            $intervento->seriale             = Input::get('seriale');
-            $intervento->modelloIntervento_id  = Input::get('modelloIntervento_id');
+            $oldIntervento = clone $intervento;      
+            $intervento->tipiIntervento_id   = Input::get('tipiIntervento_id');
+            $intervento->antenna_id                      = Input::get('antenna_id');
+            $intervento->router_id                    = Input::get('router_id');
+            $intervento->anagrafica_id                  = Input::get('anagrafica_id');
+            $intervento->user_id                  = Input::get('user_id');
+            $intervento->confermato                  = Input::get('confermato');
+            $intervento->completato                  = Input::get('completato');
+            $intervento->priorita                  = '1';
+            $intervento->consegnaACPE                  = 0;
+            $intervento->note                  = Input::get('note');
             $intervento->ip                  = Input::get('ip');
-            $intervento->bsid                = Input::get('bsid');
-            $intervento->rssi                = Input::get('rssi');
-            $intervento->cmri                = Input::get('cmri');
+
             $intervento->azienda_id          = Auth::user()->azienda_id;
 
             // Modifico il formato delle date
-            $format = 'd-m-Y H:i';
+            $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));  
-            if($date != FALSE) $this->intervento->dataIntervento = $date->format('Y-m-d H:i:s');            
+            if($date != FALSE) $intervento->dataIntervento = $date->format('Y-m-d H:i:s');            
 
             if($intervento->save()){
-                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'));
+                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', Lang::get('user/interventi/messages.create.success'));
             } else {
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
             }

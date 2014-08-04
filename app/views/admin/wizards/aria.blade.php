@@ -9,6 +9,15 @@
 @section('author')Laravel 4 Bootstrap Starter SIte @stop
 @section('description')Blogs administration index @stop
 
+@section('jsEsterni') 
+    {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
+    {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
+@stop
+
+@section('cssEsterni')
+	{{ HTML::style('css/bootstrap-datetimepicker.min.css') }} 
+@stop
+
 {{-- Content --}}
 @section('content')
 <div class="page-header">
@@ -28,7 +37,7 @@
 				<!-- Data di Ricezione -->
 				<div class="form-group {{ $errors->first('dataRicezione', 'has-error') }}">
 					<div class="col-md-6">
-						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
+						<label class="control-label" for="content">Data Ricezione del Materiale</label>
 							<div class='input-group date' id='datetimepicker2'>
 								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -241,7 +250,7 @@
 				<!-- Installatore -->
 			<div class="form-group {{ $errors->first('installatore_id', 'has-error') }}">
 					<div class="col-md-12">
-						<label class="control-label" for="installatore_id">Installatore</label>
+						<label class="control-label" for="installatore_id">Installatore Incaricato</label>
 						<select class="col-md-6 form-control" name="installatore_id" id="installatore_id">
 							<option value="">-- SELEZIONA --</option>
 							@foreach ($installatori as $installatore)

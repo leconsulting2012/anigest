@@ -93,7 +93,18 @@ class AntenneController extends AdminController {
         $title = Lang::get('user/antenne/title.antenna_update');
 
         // Get all the available permissions
-        $modelliAntenna = $this->modelloAntenna->all();      
+        $modelliAntenna = $this->modelloAntenna->all();
+
+        // Modifico il formato delle date
+        $format = 'Y-m-d H:i:s';
+        $date = DateTime::createFromFormat($format, $antenna->dataRicezione);    
+        if($date != FALSE) $antenna->dataRicezione = $date->format('d-m-Y H:i');     
+
+        $date = DateTime::createFromFormat($format, $antenna->dataConsegna);
+        if($date != FALSE) $antenna->dataConsegna = $date->format('d-m-Y H:i'); 
+
+        $date = DateTime::createFromFormat($format, $antenna->dataMontaggio);
+        if($date != FALSE) $antenna->dataMontaggio = $date->format('d-m-Y H:i');  
 
         // Mode
         $mode = 'edit';       
@@ -131,6 +142,17 @@ class AntenneController extends AdminController {
             $this->antenna->seriale 			= Input::get('seriale');
             $this->antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
+
+            // Modifico il formato delle date
+            $format = 'd/m/Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataRicezione'));  
+            if($date != FALSE) $this->antenna->dataRicezione = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataConsegna'));  
+            if($date != FALSE) $this->antenna->dataConsegna = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataMontaggio'));  
+            if($date != FALSE) $this->antenna->dataMontaggio = $date->format('Y-m-d H:i:s');                          
 
             // Was the antenna created?
             if($this->antenna->save())
@@ -205,6 +227,17 @@ class AntenneController extends AdminController {
             $antenna->seriale             = Input::get('seriale');
             $antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $antenna->azienda_id          = Auth::user()->azienda_id;
+
+            // Modifico il formato delle date
+            $format = 'd/m/Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataRicezione'));  
+            if($date != FALSE) $antenna->dataRicezione = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataConsegna'));  
+            if($date != FALSE) $antenna->dataConsegna = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataMontaggio'));  
+            if($date != FALSE) $antenna->dataMontaggio = $date->format('Y-m-d H:i:s');               
 
             $antenna->save();
 
