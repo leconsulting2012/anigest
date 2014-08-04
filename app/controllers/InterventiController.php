@@ -143,8 +143,8 @@ class InterventiController extends AdminController {
 
         // Modifico il formato delle date
         $format = 'Y-m-d H:i:s';
-        $date = DateTime::createFromFormat($format, $intervento->dataInstallazione);
-        if($date != FALSE) $intervento->dataInstallazione = $date->format('d-m-Y H:i');
+        $date = DateTime::createFromFormat($format, $intervento->dataIntervento);
+        if($date != FALSE) $intervento->dataIntervento = $date->format('d-m-Y H:i');
 
         // Mode
         $mode = 'edit';       
@@ -199,7 +199,7 @@ class InterventiController extends AdminController {
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));
-            if($date != FALSE) $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');
+            if($date != FALSE) $this->intervento->dataIntervento = $date->format('Y-m-d H:i:s');
 
             // Was the intervento created?
             if($this->intervento->save())
@@ -281,8 +281,8 @@ class InterventiController extends AdminController {
 
             // Modifico il formato delle date
             $format = 'd-m-Y H:i';
-            $date = DateTime::createFromFormat($format, Input::get('dataInstallazione'));  
-            if($date != FALSE) $this->intervento->dataInstallazione = $date->format('Y-m-d H:i:s');            
+            $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));  
+            if($date != FALSE) $this->intervento->dataIntervento = $date->format('Y-m-d H:i:s');            
 
             if($intervento->save()){
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'));
@@ -313,7 +313,7 @@ class InterventiController extends AdminController {
         // estraggo tutti i modelli
         //$modelliIntervento = $this->modelloIntervento->all(); 
 
-        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'interventi.dataInstallazione', 'users.username', 'interventi.confermato', 'interventi.completato'))
+        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'interventi.dataIntervento', 'users.username', 'interventi.confermato', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->join('users','users.id','=', 'interventi.user_id')
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);

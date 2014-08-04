@@ -24,6 +24,24 @@
 
 
 	<div class="row">
+		<div class="col-md-6">	
+				<!-- Data di Ricezione -->
+				<div class="form-group {{ $errors->first('dataRicezione', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($intervento) ? $intervento->dataInstallazione : null) }}}" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						{{ $errors->first('dataRicezione', '<label id="dataRicezione-error" class="control-label" for="inputError">:message</label>') }}
+					</div>
+				</div>
+				<!-- ./ Data di ricezione -->
+			</div>
+		</div>
+
+	<div class="row">
 		<div class="col-md-6">
 
 			<!-- cognome -->
@@ -249,7 +267,12 @@
 
 @stop
 
-{{-- Scripts --}}
 @section('scripts')
-
+        <script type="text/javascript">
+            $(function () {
+                $('.date').datetimepicker({
+                    language: 'it'
+                });
+            });
+        </script>
 @stop

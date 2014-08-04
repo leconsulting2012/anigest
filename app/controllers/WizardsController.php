@@ -77,8 +77,9 @@ class WizardsController extends AdminController {
             'serialeAntenna'       => 'required|unique:antenne,mac',
             'modelloRouter_id'   => 'required|integer',
             'serialeRouter'       => 'required|unique:routers,mac',
-            'installatore' => 'integer',
+            'installatore_id' => 'integer',
         );
+
 
         // Validate the inputs
         $validator = Validator::make(Input::all(), $rules);
@@ -108,9 +109,9 @@ class WizardsController extends AdminController {
             $this->anagrafica->cellulare            = Input::get('cellulare');
             $this->anagrafica->azienda_id           = Auth::user()->azienda_id;
 
-            $this->router->azienda_id          = Auth::user()->azienda_id;
-            $this->intervento->azienda_id          = Auth::user()->azienda_id;
-            $this->intervento->tipiIntervento_id          = 1;
+            $this->intervento->azienda_id           = Auth::user()->azienda_id;
+            $this->intervento->user_id              = Input::get('installatore_id');
+            $this->intervento->tipiIntervento_id    = 1;
 
             if($this->router->save()){
                 $this->intervento->router_id = DB::getPdo()->lastInsertId();

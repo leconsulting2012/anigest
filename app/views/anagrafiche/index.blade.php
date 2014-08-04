@@ -61,7 +61,7 @@
 				    "sInfoThousands":  ",",
 				    "sLengthMenu":     "Visualizza _MENU_ elementi",
 				    "sLoadingRecords": "Caricamento...",
-				    "sProcessing":     "Elaborazione...",
+				    "sProcessing":     "<img src='{{ URL::to('images/loading.gif') }}' /><br /><b>Caricamento...</b>",
 				    "sSearch":         "Cerca:",
 				    "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
 					"oPaginate": {

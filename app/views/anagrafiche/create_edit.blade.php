@@ -73,7 +73,7 @@
 				<div class="form-group {{{ $errors->has('citta') ? 'error' : '' }}}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Città</label>
-						<input class="form-control" type="text" name="citta" id="citta" value="{{{ Input::old('citta', isset($anagrafica) ? $anagrafica->citta : null) }}}" />
+						<input class="form-control" data-provide="typeahead" type="text" name="citta" id="citta" value="{{{ Input::old('citta', isset($anagrafica) ? $anagrafica->citta : null) }}}" />
 						{{{ $errors->first('citta', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
@@ -198,4 +198,50 @@
 		</div>
 		<!-- ./ form actions -->
 	</form>
+
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+ var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "AppleScript2",
+      "AppleScript3",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+
+ $("#citta").autocomplete({
+		source: "/cercaCitta?term="+ $('#citta').val(),
+		appendTo: $("form:first")
+	});
+
+	$("#citta").data( "ui-autocomplete" )._renderMenu = function( ul, items ) {
+		var that = this;		
+		ul.attr("class", "nav nav-pills nav-stacked");
+		$.each( items, function( index, item ) {
+			that._renderItemData( ul, item );
+		});
+	};	
+
+</script>
 @stop

@@ -60,7 +60,7 @@
 				    "sInfoThousands":  ",",
 				    "sLengthMenu":     "Visualizza _MENU_ elementi",
 				    "sLoadingRecords": "Caricamento...",
-				    "sProcessing":     "Elaborazione...",
+				    "sProcessing":     "<img src='<?php echo URL::to('images/loading.gif'); ?>' /><br /><b>Caricamento...</b>",
 				    "sSearch":         "Cerca:",
 				    "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
 					"oPaginate": {

@@ -40,26 +40,24 @@
 				<!-- ./ seriale router -->
 
 				<!-- Modello -->
-				<div class="form-group {{ $errors->first('modelloRouter_id', 'has-error') }}">
+				<div class="form-group {{ $errors->first('modelliRouter_id', 'has-error') }}">
 					<div class="col-md-12">
-	                	<label class="control-label" for="modelloRouter_id">Modello Router</label>
+	                	<label class="control-label" for="modelliRouter_id">Modello Router</label>
+	                	<select class="col-md-6 form-control" name="modelliRouter_id" id="modelliRouter_id">
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliRouter as $modello)
-		                        		<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == $router->modelloRouter_id) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
+		                        		<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == $router->modelliRouter_id) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
 		                        @endforeach
-						</select>
 						@else
-		                <select class="col-md-6 form-control" name="modelloRouter_id" id="modelloRouter_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliRouter as $modello)
 		                        		<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
 		                        @endforeach
-						</select>
 						@endif
+						</select>
 	            	</div>
-	            	{{ $errors->first('modelloRouter_id', '<label id="modelloRouter_id-error" class="control-label" for="inputError">:message</label>') }}
+	            	{{ $errors->first('modelliRouter_id', '<label id="modelliRouter_id-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
 				<!-- ./ modello router -->	
 							

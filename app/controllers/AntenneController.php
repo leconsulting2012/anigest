@@ -136,11 +136,11 @@ class AntenneController extends AdminController {
             if($this->antenna->save())
             {
                 // Redirect to the new antenna page
-                return Redirect::to('antenne/' . $this->antenna->id . '/edit')->with('success', Lang::get('user/antenne/messages.create.success'));
+                return Redirect::to('antenne/' . $this->antenna->id . '/edit')->with('success', 'Antenna create con successo.');
             }
 
             // Redirect to the antenna page
-            return Redirect::to('antenne/create')->with('error', Lang::get('user/antenne/messages.create.error'));
+            return Redirect::to('antenne/create')->with('error', 'Errore E3000.');
         }
 
         // Form validation failed

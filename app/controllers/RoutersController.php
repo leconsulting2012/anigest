@@ -113,7 +113,7 @@ class RoutersController extends AdminController {
 	{
         // Declare the rules for the form validation
         $rules = array(
-            'modelloRouter_id'   => 'required|integer',
+            'modelliRouter_id'   => 'required|integer',
             'seriale' => 'required|unique:routers',
             'mac' => 'unique:routers'
         );
@@ -130,21 +130,21 @@ class RoutersController extends AdminController {
             // Update the router data
             $this->router->mac 				= Input::get('mac');
             $this->router->seriale 			= Input::get('seriale');
-            $this->router->modelliRouter_id  = Input::get('modelloRouter_id');
-            $this->router->azienda_id          = Auth::user()->azienda_id;
+            $this->router->modelliRouter_id  = Input::get('modelliRouter_id');
+            $this->router->azienda_id         = Auth::user()->azienda_id;
 
             // Was the router created?
             if($this->router->save())
             {
                 // Redirect to the new router page
-                return Redirect::to('routers/' . $this->router->id . '/edit')->with('success', Lang::get('user/routers/messages.create.success'));
+                return Redirect::to('routers/' . $this->router->id . '/edit')->with('success', 'Router inserito correttamente.');
             }
             // Redirect to the router page
-            return Redirect::to('routers/create')->with('error', Lang::get('user/routers/messages.create.error'));
+            return Redirect::to('routers/create')->with('error', 'Errore E1000');
+        } else {
+            // Form validation failed
+            return Redirect::to('routers/create')->with('error', 'Errore. Controlla i messaggi seguenti.')->withInput()->withErrors($validator);
         }
-
-        // Form validation failed
-        return Redirect::to('routers/create')->withInput()->withErrors($validator);
 	}
 
     /**
@@ -178,7 +178,7 @@ class RoutersController extends AdminController {
             }
         }
         // There was a problem deleting the blog post
-        return Redirect::to('routers')->with('error', Lang::get('admin/blogs/messages.delete.error'));
+        return Redirect::to('routers')->with('error', 'Errore E1001.');
     } 
 
     /**
@@ -192,36 +192,33 @@ class RoutersController extends AdminController {
 
         // Declare the rules for the form validation
         $rules = array(
-            'seriale' => 'required|unique:routers',
             'mac' => 'unique:routers',            
-            'modelloRouter_id' => 'required|integer',
+            'modelliRouter_id' => 'required|integer',
         );
 
         // Validate the inputs
         $validator = Validator::make(Input::all(), $rules);
-
 
         if ($validator->passes())
         {
             $oldRouter = clone $router;
             $router->mac                 = Input::get('mac');
             $router->seriale             = Input::get('seriale');
-            $router->modelliRouter_id    = Input::get('modelloRouter_id');
+            $router->modelliRouter_id    = Input::get('modelliRouter_id');
             $router->azienda_id          = Auth::user()->azienda_id;
 
-            $router->save();
 
+            if($router->save())
+            {
+                return Redirect::to('routers/' . $router->id . '/edit')->with('success', 'Salvataggio effettuato correttamente.'); 
+            } 
 
-        } else {
-            return Redirect::to('routers/' . $router->id . '/edit')->with('error', Lang::get('users/routers/messages.edit.error'));
+            // Rimando alla pagina di errore.
+            return Redirect::to('routers/' . $router->id . '/edit')->with('error', 'Errore E1002.')->withInput()->withErrors($validator);
         }
 
-        if(empty($error)) {
-            // Redirect to the new user page
-            return Redirect::to('routers/' . $router->id . '/edit')->with('success', Lang::get('users/routers/messages.edit.success'));
-        } else {
-            return Redirect::to('routers/' . $router->id . '/edit')->with('error', Lang::get('users/routers/messages.edit.error'));
-        }
+        // Form di validazione fallitto
+        return Redirect::to('routers/' . $router->id . '/edit')->withInput()->withErrors($validator);
     }       	
 
     /**

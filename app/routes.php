@@ -129,12 +129,17 @@ Route::group(array('before' => 'auth'), function()
     Route::get('routers/create', 'RoutersController@getCreate');
     Route::controller('routers', 'RoutersController');
 
+    # Calendari Management
+    Route::get('calendario', 'CalendariController@getIndex');
+    Route::get('calendario/getEventi', 'CalendariController@getEventi');
+
     # Wizards
     Route::get('wizardAria', 'WizardsController@index');
     Route::post('wizardAria', 'WizardsController@salva');
 
     # Pagina Iniziale
     Route::get('/', 'InterventiController@getIndex');
+    Route::get('cercaCitta', 'CittaController@getIndex');    
 });
 
 /** ------------------------------------------

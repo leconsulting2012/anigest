@@ -33,6 +33,8 @@
 		<?php echo HTML::style('css/jquery.dataTables.css'); ?>
 		<?php echo HTML::style('css/dataTables.bootstrap.css'); ?>
 		<?php echo HTML::style('css/bootstrap-datetimepicker.min.css'); ?>
+		<?php echo HTML::style('css/fullcalendar.css'); ?>
+
 
 		
 		<style>
@@ -87,6 +89,7 @@
     							<?php endif; ?>
     						</ul>
     					</li>
+    					<li<?php echo (Request::is('admin/blogs*') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('calendario')); ?>"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
     				</ul>
     				<ul class="nav navbar-nav pull-right">
     					<li class="divider-vertical"></li>
@@ -147,8 +150,10 @@
 		<?php echo HTML::script('js/bootstrap.file-input.js'); ?>
 		<?php echo HTML::script('js/DT_bootstrap.js'); ?>
 		<?php echo HTML::script('js/jquery-DT-pagination.js'); ?>
-		<?php echo HTML::script('js/bootstrap-datetimepicker.min.js'); ?>
-		<?php echo HTML::script('js/bootstrap-datetimepicker.pt-IT.js'); ?>
+		<?php echo HTML::script('js/moment.js'); ?>
+		<?php echo HTML::script('js/fullcalendar.min.js'); ?>
+		<?php echo HTML::script('js/locales/fullcalendar_it.js'); ?>
+
 
 		<script type="text/javascript">
 

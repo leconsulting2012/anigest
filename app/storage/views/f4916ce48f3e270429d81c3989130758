@@ -29,6 +29,10 @@
     	<meta name="DC.creator" content="<?php echo $__env->yieldContent('author'); ?>">
 
     	<!-- CSS are placed here -->
+
+      <?php echo HTML::style('js/jquery-ui.min.css'); ?>
+      <?php echo HTML::style('js/jquery-ui.structure.min.css'); ?>
+      <?php echo HTML::style('js/jquery-ui.theme.min.css'); ?>
     	<?php echo HTML::style('bootstrap/css/bootstrap.min.css'); ?>
     	<?php echo HTML::style('css/bootstrap-combobox.css'); ?>
     	<?php echo HTML::style('css/colorbox.css'); ?>
@@ -81,7 +85,12 @@
 
 
         <!-- Scripts are placed here -->
+
+        <!-- Carico jquery -->
         <?php echo HTML::script('js/jquery-1.11.1.min.js'); ?>
+        <?php echo HTML::script('js/jquery-ui.js'); ?>
+
+        <!-- Carico twitter bootstrap e "derivati"-->
         <?php echo HTML::script('bootstrap/js/bootstrap.min.js'); ?>
         <?php echo HTML::script('js/bootstrap-combobox.js'); ?>
         <?php echo HTML::script('js/jquery.colorbox-min.js'); ?>
@@ -89,7 +98,7 @@
         <?php echo HTML::script('js/moment.js'); ?>
         <?php echo HTML::script('js/bootstrap-datetimepicker.min.js'); ?>
         <?php echo HTML::script('js/bootstrap-datetimepicker.pt-IT.js'); ?>        
-
+        <?php echo HTML::script('js/bootstrap3-typeahead.min.js'); ?>   
 
         <script type="text/javascript">
         $(document).ready(function(){
@@ -124,6 +133,8 @@
               });
              event.preventDefault();
              });
+
+          <?php echo $__env->yieldContent('documentReady'); ?>
           });
 
         </script>

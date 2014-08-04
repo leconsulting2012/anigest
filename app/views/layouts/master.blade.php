@@ -33,6 +33,8 @@
 		{{ HTML::style('css/jquery.dataTables.css') }}
 		{{ HTML::style('css/dataTables.bootstrap.css') }}
 		{{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
+		{{ HTML::style('css/fullcalendar.css') }}
+
 
 		
 		<style>
@@ -87,6 +89,7 @@
     							@endif
     						</ul>
     					</li>
+    					<li{{ (Request::is('admin/blogs*') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
     				</ul>
     				<ul class="nav navbar-nav pull-right">
     					<li class="divider-vertical"></li>
@@ -147,8 +150,10 @@
 		{{ HTML::script('js/bootstrap.file-input.js') }}
 		{{ HTML::script('js/DT_bootstrap.js') }}
 		{{ HTML::script('js/jquery-DT-pagination.js') }}
-		{{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
-		{{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}
+		{{ HTML::script('js/moment.js') }}
+		{{ HTML::script('js/fullcalendar.min.js') }}
+		{{ HTML::script('js/locales/fullcalendar_it.js') }}
+
 
 		<script type="text/javascript">
 

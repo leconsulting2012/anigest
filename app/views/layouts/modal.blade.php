@@ -29,6 +29,10 @@
     	<meta name="DC.creator" content="@yield('author')">
 
     	<!-- CSS are placed here -->
+
+      {{ HTML::style('js/jquery-ui.min.css') }}
+      {{ HTML::style('js/jquery-ui.structure.min.css') }}
+      {{ HTML::style('js/jquery-ui.theme.min.css') }}
     	{{ HTML::style('bootstrap/css/bootstrap.min.css') }}
     	{{ HTML::style('css/bootstrap-combobox.css') }}
     	{{ HTML::style('css/colorbox.css') }}
@@ -81,7 +85,12 @@
 
 
         <!-- Scripts are placed here -->
+
+        <!-- Carico jquery -->
         {{ HTML::script('js/jquery-1.11.1.min.js') }}
+        {{ HTML::script('js/jquery-ui.js') }}
+
+        <!-- Carico twitter bootstrap e "derivati"-->
         {{ HTML::script('bootstrap/js/bootstrap.min.js') }}
         {{ HTML::script('js/bootstrap-combobox.js') }}
         {{ HTML::script('js/jquery.colorbox-min.js') }}
@@ -89,7 +98,7 @@
         {{ HTML::script('js/moment.js') }}
         {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
         {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}        
-
+        {{ HTML::script('js/bootstrap3-typeahead.min.js') }}   
 
         <script type="text/javascript">
         $(document).ready(function(){
@@ -124,6 +133,8 @@
               });
              event.preventDefault();
              });
+
+          @yield('documentReady')
           });
 
         </script>

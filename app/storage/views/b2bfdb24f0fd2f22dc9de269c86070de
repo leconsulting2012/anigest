@@ -23,6 +23,24 @@
 
 
 	<div class="row">
+		<div class="col-md-6">	
+				<!-- Data di Ricezione -->
+				<div class="form-group <?php echo $errors->first('dataRicezione', 'has-error'); ?>">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="<?php echo e(Input::old('dataRicezione', isset($intervento) ? $intervento->dataInstallazione : null)); ?>" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						<?php echo $errors->first('dataRicezione', '<label id="dataRicezione-error" class="control-label" for="inputError">:message</label>'); ?>
+					</div>
+				</div>
+				<!-- ./ Data di ricezione -->
+			</div>
+		</div>
+
+	<div class="row">
 		<div class="col-md-6">
 
 			<!-- cognome -->
@@ -248,8 +266,13 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php /* Scripts */ ?>
 <?php $__env->startSection('scripts'); ?>
-
+        <script type="text/javascript">
+            $(function () {
+                $('.date').datetimepicker({
+                    language: 'it'
+                });
+            });
+        </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
