@@ -58,6 +58,18 @@ class RoutersController extends AdminController {
         return View::make('routers/index', compact('routers', 'title'));
 	}
 
+    public function getIndexMagazzino()
+    {
+        // Title
+        $title = "Magazzino Routers";
+
+        // Grabbo tutte le antenne dell'azienda
+        $routers = $this->router->elencoRoutersMagazzino($this->user);
+
+        // Show the page
+        return View::make('routers/index', compact('routers', 'title'));
+    }    
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

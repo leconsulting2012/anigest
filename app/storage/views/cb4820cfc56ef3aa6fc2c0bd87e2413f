@@ -37,6 +37,8 @@
 		<?php $__env->startSection('cssEsterni'); ?>
 		<?php echo $__env->yieldSection(); ?>
 
+		<?php $__env->startSection('jsEsterniBefore'); ?>
+		<?php echo $__env->yieldSection(); ?>
 		
 		<style>
 		<?php $__env->startSection('styles'); ?>
@@ -47,8 +49,9 @@
 		</style>
 		</head>
 
-		<body  <?php $__env->startSection('bodyOnLoad'); ?>  
-		<?php echo $__env->yieldSection(); ?> >
+	<?php $__env->startSection('bodyOnLoad'); ?>
+	:: <body>
+	<?php echo $__env->yieldSection(); ?>
 
 		<div class="bs-component">
 		<!-- Navbar -->
@@ -97,7 +100,7 @@
     						</a>
     						<ul class="dropdown-menu">
     						    <li<?php echo (Request::is('magazzino/antenne') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('magazzino/antenne')); ?>"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
-    						    <li<?php echo (Request::is('magazzino') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('magazzino')); ?>"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
+    						    <li<?php echo (Request::is('magazzino/routers') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('magazzino/routers')); ?>"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
     						</ul>
     					</li>    					
     					<li<?php echo (Request::is('calendario') ? ' class="active"' : ''); ?>><a href="<?php echo e(URL::to('calendario')); ?>"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>

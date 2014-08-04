@@ -9,9 +9,9 @@ class Antenna extends Eloquent {
         return $this->where('azienda_id', '=', $user->azienda_id );
     }
 
-	public function elencoAntenneDisponibili($user)
+	public function elencoAntenneMagazzino($user)
     {
-        return $this->where('azienda_id', '=', $user->azienda_id );
+        return $this->where('azienda_id', '=', $user->azienda_id )->where('dataRicezione', '!=', '0000-00-00 00:00:00')->where('dataMontaggio', '!=', '0000-00-00 00:00:00');
     }    
 
 }

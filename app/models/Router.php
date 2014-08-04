@@ -14,6 +14,11 @@ class Router extends Eloquent {
 	public function elencoRoutersDisponibili($user)
     {
         return $this->where('azienda_id', '=', $user->azienda_id );
-    }    
+    }  
+
+    public function elencoRoutersMagazzino($user)
+    {
+        return $this->where('azienda_id', '=', $user->azienda_id )->where('dataRicezione', '!=', '0000-00-00 00:00:00')->where('dataMontaggio', '!=', '0000-00-00 00:00:00');
+    }        
 
 }

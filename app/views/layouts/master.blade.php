@@ -37,6 +37,8 @@
 		@section('cssEsterni')
 		@show
 
+		@section('jsEsterniBefore')
+		@show
 		
 		<style>
 		@section('styles')
@@ -47,8 +49,9 @@
 		</style>
 		</head>
 
-		<body  @section('bodyOnLoad')  
-		@show >
+	@section('bodyOnLoad')
+	:: <body>
+	@show
 
 		<div class="bs-component">
 		<!-- Navbar -->
@@ -97,7 +100,7 @@
     						</a>
     						<ul class="dropdown-menu">
     						    <li{{ (Request::is('magazzino/antenne') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino/antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
-    						    <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
+    						    <li{{ (Request::is('magazzino/routers') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino/routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
     						</ul>
     					</li>    					
     					<li{{ (Request::is('calendario') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>

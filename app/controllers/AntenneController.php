@@ -60,7 +60,7 @@ class AntenneController extends AdminController {
         $title = "Magazzino Antenne";
 
         // Grabbo tutte le antenne dell'azienda
-        $antenne = $this->antenna->elencoAntenne($this->user);
+        $antenne = $this->antenna->elencoAntenneMagazzino($this->user);
 
         // Show the page
         return View::make('antenne/index', compact('antenne', 'title'));

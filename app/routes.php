@@ -135,6 +135,7 @@ Route::group(array('before' => 'auth'), function()
 
     # Magazzini Management
     Route::get('magazzino/antenne', 'AntenneController@getIndexMagazzino');
+    Route::get('magazzino/routers', 'RoutersController@getIndexMagazzino');
 
     # Mappa Management
     Route::get('mappa', 'MappeController@getIndex');
