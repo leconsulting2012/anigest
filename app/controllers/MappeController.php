@@ -17,9 +17,14 @@ class MappeController extends \BaseController {
         // Title
         $title = "Mappa degli Interventi";
 
-        $p = DB::table('anagrafiche')
-            ->where('azienda_id', '=', Auth::user()->azienda_id )
-            ->get();
+        $p = DB::table('interventi')
+            ->select(array('tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
+            ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+            ->join('users','users.id','=', 'interventi.user_id')
+            ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
+            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
+            ->where('interventi.completato', '!=', '1' )
+            ->get()
             ; 
         
 
@@ -30,7 +35,13 @@ class MappeController extends \BaseController {
             if ($riga->lat != 0)
             {
                 $temp['nominativo'] = $riga->cognome." ".$riga->nome;
-                $temp['descrizione'] = 'prova';
+                if ($riga->username == '-')
+                {
+                    $temp['descrizione'] = $riga->tipo . " da assegnare"; 
+                } else
+                {
+                    $temp['descrizione'] = $riga->tipo . " in carico a ". $riga->username;
+                }
                 $temp['indirizzo'] = $riga->indirizzo1." ".$riga->indirizzo2." ";
                 $temp['citta'] = $riga->citta." (".$riga->provincia.")";
                 $temp['lat']=$riga->lat;

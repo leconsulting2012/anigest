@@ -80,8 +80,3 @@
 		});
 	</script>
 @stop
-
-@section('footer')
-<hr>
-fine.
-@stop

@@ -85,7 +85,7 @@ function initMap() {
     }
   });
 @foreach ($elenco as $riga)
-  addMarker({{$riga['lat']}}, {{$riga['lon']}},'<div class="popup"><h2 id="{{$riga['nominativo']}}">{{$riga['nominativo']}}</h2><p>{{$riga['indirizzo']}}</b><br/>{{$riga['citta']}}<br/><small><b>Lat.</b> 52.520196, <b>Lon.</b> 13.406067</small></p></div>');
+  addMarker({{$riga['lat']}}, {{$riga['lon']}},'<div class="popup"><h2 id="{{$riga['nominativo']}}">{{$riga['nominativo']}}</h2><p><b>{{$riga['descrizione']}}</b><br/>{{$riga['indirizzo']}}<br/>{{$riga['citta']}}<br/><small><b>Lat.</b> 52.520196, <b>Lon.</b> 13.406067</small></p></div>');
 
 @endforeach
 
@@ -95,12 +95,5 @@ function initMap() {
 }
 </script>
 
-@stop
-
-
-
-@section('footer')
-<hr>
-fine.
 @stop
 
