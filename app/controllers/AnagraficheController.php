@@ -58,7 +58,7 @@ class AnagraficheController extends \BaseController {
 
         // Declare the rules for the form validation
         $rules = array(
-            'cognome'   => 'required|min:2|max:50|alpha_dash',
+            'cognome'   => 'required|min:2|max:50',
             'nome'   => 'min:2|max:50|alpha_dash',
             'indirizzo1'   => 'min:2|max:50',
             'indirizzo2'   => 'min:2|max:50',
@@ -83,13 +83,13 @@ class AnagraficheController extends \BaseController {
             $user = Auth::user();
 
             // Update the antenna data
-            $this->anagrafica->cognome 				= Input::get('cognome');
-            $this->anagrafica->nome 				= Input::get('nome');
-            $this->anagrafica->indirizzo1  			= Input::get('indirizzo1');
-            $this->anagrafica->indirizzo2  			= Input::get('indirizzo2');
+            $this->anagrafica->cognome 				= strtoupper(Input::get('cognome'));
+            $this->anagrafica->nome 				= ucwords(strtolower(Input::get('nome')));
+            $this->anagrafica->indirizzo1  			= ucwords(strtolower(Input::get('indirizzo1')));
+            $this->anagrafica->indirizzo2  			= ucwords(strtolower(Input::get('indirizzo2')));
             $this->anagrafica->cap       			= Input::get('cap');
-            $this->anagrafica->citta 				= Input::get('citta');
-            $this->anagrafica->provincia    		= Input::get('provincia');
+            $this->anagrafica->citta 				= strtoupper(Input::get('citta'));
+            $this->anagrafica->provincia    		= ucwords(strtolower(Input::get('provincia')));
             $this->anagrafica->telefono    			= Input::get('telefono');
             $this->anagrafica->fax    				= Input::get('fax');
             $this->anagrafica->cellulare    		= Input::get('cellulare');
