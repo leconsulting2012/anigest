@@ -106,14 +106,33 @@ class AntenneController extends AdminController {
 
         // Modifico il formato delle date
         $format = 'Y-m-d H:i:s';
-        $date = DateTime::createFromFormat($format, $antenna->dataRicezione);    
-        if($date != FALSE) $antenna->dataRicezione = $date->format('d-m-Y H:i');     
 
-        $date = DateTime::createFromFormat($format, $antenna->dataConsegna);
-        if($date != FALSE) $antenna->dataConsegna = $date->format('d-m-Y H:i'); 
+        if($antenna->dataRicezione != '0000-00-00 00:00:00') 
+        {
+            $date = DateTime::createFromFormat($format, $antenna->dataRicezione);    
+            if($date != FALSE) $antenna->dataRicezione = $date->format('d-m-Y H:i');  
+        } else
+        {
+            $antenna->dataRicezione = '';
+        }
+   
+        if($antenna->dataConsegna != '0000-00-00 00:00:00') 
+        {
+            $date = DateTime::createFromFormat($format, $antenna->dataConsegna);    
+            if($date != FALSE) $antenna->dataConsegna = $date->format('d-m-Y H:i');  
+        } else
+        {
+            $antenna->dataConsegna = '';
+        }
 
-        $date = DateTime::createFromFormat($format, $antenna->dataMontaggio);
-        if($date != FALSE) $antenna->dataMontaggio = $date->format('d-m-Y H:i');  
+        if($antenna->dataMontaggio != '0000-00-00 00:00:00') 
+        {
+            $date = DateTime::createFromFormat($format, $antenna->dataMontaggio);    
+            if($date != FALSE) $antenna->dataMontaggio = $date->format('d-m-Y H:i');  
+        } else
+        {
+            $antenna->dataMontaggio = '';
+        }
 
         // Mode
         $mode = 'edit';       
@@ -250,18 +269,17 @@ class AntenneController extends AdminController {
             $date = DateTime::createFromFormat($format, Input::get('dataMontaggio'));  
             if($date != FALSE) $antenna->dataMontaggio = $date->format('Y-m-d H:i:s');               
 
-            $antenna->save();
-
-
+            // Was the antenna created?
+            if($this->antenna->save())
+            {
+                // Redirect to the new antenna page
+                return Redirect::to('antenne/' . $this->antenna->id . '/edit')->with('success', 'antenna inserito correttamente.');
+            }
+            // Redirect to the antenna page
+            return Redirect::to('antenne/' . $antenna->id . '/edit')->with('error', 'Errore E3000');
         } else {
-            return Redirect::to('antenne/' . $antenna->id . '/edit')->with('error', Lang::get('users/antenne/messages.edit.error'));
-        }
-
-        if(empty($error)) {
-            // Redirect to the new user page
-            return Redirect::to('antenne/' . $antenna->id . '/edit')->with('success', Lang::get('users/antenne/messages.edit.success'));
-        } else {
-            return Redirect::to('antenne/' . $antenna->id . '/edit')->with('error', Lang::get('users/antenne/messages.edit.error'));
+            // Form validation failed
+            return Redirect::to('antenne/' . $antenna->id . '/edit')->withInput()->withErrors($validator);
         }
     }       	
 
