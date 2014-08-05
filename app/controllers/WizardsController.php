@@ -74,9 +74,9 @@ class WizardsController extends AdminController {
             'cellulare'     => 'min:2|max:50|alpha_dash',
             'cfiscale'      => 'min:16|max:16|alpha_dash',
             'modelloAntenna_id'   => 'required|integer',
-            'serialeAntenna'       => 'required|unique:antenne,mac',
+            'serialeAntenna'       => 'required|unique:antenne,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
             'modelloRouter_id'   => 'required|integer',
-            'serialeRouter'       => 'required|unique:routers,mac',
+            'serialeRouter'       => 'required|unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
             'installatore_id' => 'integer',
         );
 
