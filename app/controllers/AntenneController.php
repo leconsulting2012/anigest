@@ -243,7 +243,10 @@ class AntenneController extends AdminController {
         // Declare the rules for the form validation
         $rules = array(
             'modelloAntenna_id' => 'required|integer',
-            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
+            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
+           // 'dataRicezione' => 'regex:/\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}/',
+       //     'dataConsegna' => 'regex:/^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-./])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/',
+       //     'dataMontaggio' => 'regex:/^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-./])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/',
         );
 
         // Validate the inputs
@@ -255,7 +258,7 @@ class AntenneController extends AdminController {
             $oldAntenna = clone $antenna;
             $antenna->mac                 = Input::get('mac');
             $antenna->seriale             = Input::get('seriale');
-            $antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
+            $antenna->modelloAntenna_id   = Input::get('modelloAntenna_id');
             $antenna->azienda_id          = Auth::user()->azienda_id;
 
             // Modifico il formato delle date
@@ -270,13 +273,15 @@ class AntenneController extends AdminController {
             if($date != FALSE) $antenna->dataMontaggio = $date->format('Y-m-d H:i:s');               
 
             // Was the antenna created?
-            if($this->antenna->save())
+            if($antenna->save())
             {
                 // Redirect to the new antenna page
-                return Redirect::to('antenne/' . $this->antenna->id . '/edit')->with('success', 'antenna inserito correttamente.');
-            }
+                return Redirect::to('antenne/' . $antenna->id . '/edit')->with('success', 'antenna inserito correttamente.');
+            } else
+            {
             // Redirect to the antenna page
             return Redirect::to('antenne/' . $antenna->id . '/edit')->with('error', 'Errore E3000');
+            }
         } else {
             // Form validation failed
             return Redirect::to('antenne/' . $antenna->id . '/edit')->withInput()->withErrors($validator);

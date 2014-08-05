@@ -5,7 +5,8 @@
 	<!-- Tabs -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab-general" data-toggle="tab">Generale</a></li>
-			<li><a href="#tab-meta-data" data-toggle="tab">#######</a></li>
+		<!--	<li><a href="#date" data-toggle="tab">Date</a></li>
+			<li><a href="#storico" data-toggle="tab">Storico</a></li> -->
 		</ul>
 	<!-- ./ tabs -->
 
@@ -109,7 +110,7 @@
 			<!-- ./ general tab -->
 
 			<!-- Meta Data tab -->
-			<div class="tab-pane" id="tab-meta-data">
+			<div class="tab-pane" id="tab-meta-date">
 				<!-- Meta Title -->
 				<div class="form-group {{{ $errors->has('meta-title') ? 'error' : '' }}}">
 					<div class="col-md-12">
@@ -140,7 +141,14 @@
 				</div>
 				<!-- ./ meta keywords -->
 			</div>
-			<!-- ./ meta data tab -->
+			<!-- ./ meta date tab -->
+
+			<!-- Storico tab -->
+			<div class="tab-pane" id="tab-meta-storico">
+
+			</div>
+
+
 		</div>
 		<!-- ./ tabs content -->
 
