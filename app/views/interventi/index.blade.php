@@ -11,9 +11,7 @@
 
 {{-- Content --}}
 @section('content')
-<style type="text/css">
 
-</style>
 	<div class="page-header">
 		<h3>
 			{{{ $title }}}
@@ -81,4 +79,9 @@
 			});
 		});
 	</script>
+@stop
+
+@section('footer')
+<hr>
+fine.
 @stop
