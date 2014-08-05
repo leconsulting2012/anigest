@@ -180,17 +180,25 @@
 
 	<div class="row">
 		<div class="col-md-6">
-
 			<!-- Modello antenna -->
 			<div class="form-group {{ $errors->first('modelloAntenna_id', 'has-error') }}">
 				<div class="col-md-12">
 					<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
+					@if ( Input::old('modelloAntenna_id') != '' )
+					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+						<option value="">-- SELEZIONA --</option>
+						@foreach ($modelliAntenna as $modello)
+						<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('modelloAntenna_id')) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
+						@endforeach
+					</select>
+					@else
 					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
 						<option value="">-- SELEZIONA --</option>
 						@foreach ($modelliAntenna as $modello)
 						<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
 						@endforeach
 					</select>
+					@endif
 				</div>
 			</div>
 			<!-- ./ modello antenna -->	
@@ -213,20 +221,27 @@
 
 		<div class="row">
 			<div class="col-md-6">
-
-				<!-- Modello Router -->
-			<div class="form-group {{ $errors->first('modelloRouter_id', 'has-error') }}">
+				<!-- Modello -->
+				<div class="form-group {{ $errors->first('modelloRouter_id', 'has-error') }}">
 					<div class="col-md-12">
-						<label class="control-label" for="modelloRouter_id">Modello Router</label>
-						<select class="col-md-6 form-control" name="modelloRouter_id" id="modelloRouter_id">
-							<option value="">-- SELEZIONA --</option>
-							@foreach ($modelliRouters as $modello)
-							<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
-							@endforeach
+	                	<label class="control-label" for="modelloRouter_id">Modello Router</label>
+	                	<select class="col-md-6 form-control" name="modelloRouter_id" id="modelloRouter_id">
+	                	@if ( Input::old('modelloRouter_id') != '' )
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($modelliRouters as $modello)
+		                        		<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('modelloRouter_id')) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
+		                        @endforeach
+						@else
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($modelliRouters as $modello)
+		                        		<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
+		                        @endforeach
+						@endif
 						</select>
-					</div>
+	            	</div>
+	            	{{ $errors->first('modelloRouter_id', '<label id="modelloRouter_id-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
-				<!-- ./ modello router -->	
+				<!-- ./ modello router -->
 
 			</div>
 			<div class="col-md-6">
@@ -244,25 +259,33 @@
 			</div>
 		</div>	
 
-				<div class="row">
+		<div class="row">
 			<div class="col-md-6">
 
 				<!-- Installatore -->
-			<div class="form-group {{ $errors->first('installatore_id', 'has-error') }}">
+				<div class="form-group {{ $errors->first('installatore_id', 'has-error') }}">
 					<div class="col-md-12">
-						<label class="control-label" for="installatore_id">Installatore Incaricato</label>
-						<select class="col-md-6 form-control" name="installatore_id" id="installatore_id">
+						<label class="control-label" for="installatore_id">Modello Router</label>
+						<select class="form-control" name="installatore_id" id="installatore_id">
+							@if ( Input::old('installatore_id') != '' )
+							<option value="">-- SELEZIONA --</option>
+							@foreach ($installatori as $installatore)
+							<option value="{{{ $installatore->id }}}" {{{ ( ($installatore->id == Input::old('installatore_id')) ? ' selected="selected"' : 'dddd') }}}>{{{ $installatore->username }}}</option>
+							@endforeach
+							@else
 							<option value="">-- SELEZIONA --</option>
 							@foreach ($installatori as $installatore)
 							<option value="{{{ $installatore->id }}}" >{{{ $installatore->username }}}</option>
 							@endforeach
+							@endif
 						</select>
 					</div>
+					{{ $errors->first('installatore_id', '<label id="installatore_id-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
-				<!-- ./ installatore -->	
-
 			</div>
-		</div>				
+			<!-- ./ installatore -->	
+
+		</div>			
 
 		<!-- Form Actions -->
 		<div class="form-group">

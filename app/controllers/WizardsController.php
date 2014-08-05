@@ -42,6 +42,7 @@ class WizardsController extends AdminController {
 	{
         // Title
         $title = "Procedura Wizard \"Aria C/O Terna Servizi\"";
+        $mode = 'new';
 
         // Grabbo tutti modelli di Antenna
         $modelliAntenna = $this->modelloAntenna->all(); 
@@ -56,7 +57,7 @@ class WizardsController extends AdminController {
 
         // Show the page
         //return View::make('routers/index', compact('routers', 'title'));
-        return View::make('admin/wizards/aria', compact('title', 'modelliAntenna', 'modelliRouters', 'installatori'));
+        return View::make('admin/wizards/aria', compact('title', 'modelliAntenna', 'modelliRouters', 'installatori', 'mode'));
 	}
 
     public function salva()
@@ -140,7 +141,9 @@ class WizardsController extends AdminController {
             }
 
         }
+
         // Form validation failed
+        $mode = 'errore';
         return Redirect::to('wizardAria')->withInput()->withErrors($validator);
 
     }
