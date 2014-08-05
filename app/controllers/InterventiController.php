@@ -185,8 +185,8 @@ class InterventiController extends AdminController {
             $this->intervento->router_id                    = Input::get('router_id');
             $this->intervento->anagrafica_id       			  = Input::get('anagrafica_id');
             $this->intervento->user_id                  = Input::get('user_id');
-            $this->intervento->confermato                  = Input::get('confermato');
-            $this->intervento->completato                  = Input::get('completato');
+            $this->intervento->confermato                  = (int)Input::get('confermato');
+            $this->intervento->completato                  = (int)Input::get('completato');
             $this->intervento->priorita                  = '1';
             $this->intervento->consegnaACPE                  = 0;
             $this->intervento->note                  = Input::get('note');
@@ -275,8 +275,8 @@ class InterventiController extends AdminController {
             $intervento->router_id                    = Input::get('router_id');
             $intervento->anagrafica_id                  = Input::get('anagrafica_id');
             $intervento->user_id                  = Input::get('user_id');
-            $intervento->confermato                  = Input::get('confermato');
-            $intervento->completato                  = Input::get('completato');
+            $intervento->confermato                  = (int)Input::get('confermato');
+            $intervento->completato                  = (int)Input::get('completato');
             $intervento->priorita                  = '1';
             $intervento->consegnaACPE                  = 0;
             $intervento->note                  = Input::get('note');
