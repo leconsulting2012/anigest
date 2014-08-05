@@ -102,9 +102,9 @@
     						    <li{{ (Request::is('magazzino/antenne') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino/antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
     						    <li{{ (Request::is('magazzino/routers') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino/routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
     						</ul>
-    					</li>    					
+    					</li>     -->					
     					<li{{ (Request::is('calendario') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
-    					<li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa') }}}"><span class="glyphicon glyphicon-globe"></span> Mappa</a></li> -->
+    				<!--	<li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa') }}}"><span class="glyphicon glyphicon-globe"></span> Mappa</a></li> -->
     				</ul>
     				<ul class="nav navbar-nav pull-right">
     					<li class="divider-vertical"></li>
