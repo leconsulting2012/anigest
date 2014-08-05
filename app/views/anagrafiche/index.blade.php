@@ -29,8 +29,8 @@
 	<table id="anagrafiche" cellpadding="0" cellspacing="0" border="0"  class="table table-striped table-bordered dataTable">
 		<thead>
 			<tr>
-				<th class="col-md-2">{{{ Lang::get('user/anagrafiche/table.nome') }}}</th>
 				<th class="col-md-2">{{{ Lang::get('user/anagrafiche/table.cognome') }}}</th>
+				<th class="col-md-2">{{{ Lang::get('user/anagrafiche/table.nome') }}}</th>
 				<th class="col-md-2">{{{ Lang::get('user/anagrafiche/table.indirizzo1') }}}</th>
 				<th class="col-md-2">{{{ Lang::get('user/anagrafiche/table.aggiornato') }}}</th>
 				<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
