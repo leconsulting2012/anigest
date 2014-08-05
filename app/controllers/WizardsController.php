@@ -120,6 +120,12 @@ class WizardsController extends AdminController {
             $this->intervento->user_id              = (int)Input::get('installatore_id');
             $this->intervento->tipiIntervento_id    = 1;
 
+            $utente = (int)Input::get('installatore_id');
+            if ( $utente != 0)
+            {
+                $this->intervento->dataAssegnazione = date("Y-m-d H:i:s");
+            }
+
             if($this->router->save()){
                 $this->intervento->router_id = DB::getPdo()->lastInsertId();
                 if($this->antenna->save()){

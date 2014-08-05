@@ -11,6 +11,9 @@
 /public/assets/compiled/public
 /public/assets/compiled/admin
 
+# Storage
+/app/storage
+
 # Composer
 composer.phar
 composer.lock

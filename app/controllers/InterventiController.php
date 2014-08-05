@@ -196,6 +196,12 @@ class InterventiController extends AdminController {
             $this->intervento->cmri    			      = Input::get('cmri');
             $this->intervento->azienda_id             = Auth::user()->azienda_id;
 
+            $utente = (int)Input::get('user_id');
+            if ( $utente != 0)
+            {
+                $this->intervento->dataAssegnazione = date("Y-m-d H:i:s");
+            }            
+
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));
@@ -282,6 +288,12 @@ class InterventiController extends AdminController {
             $intervento->note                  = Input::get('note');
             $intervento->ip                  = Input::get('ip');
 
+            $utente = (int)Input::get('user_id');
+            if ( $utente != 0)
+            {
+                $intervento->dataAssegnazione = date("Y-m-d H:i:s");
+            }
+
             $intervento->azienda_id          = Auth::user()->azienda_id;
 
             // Modifico il formato delle date
@@ -318,17 +330,25 @@ class InterventiController extends AdminController {
         // estraggo tutti i modelli
         //$modelliIntervento = $this->modelloIntervento->all(); 
 
-        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'interventi.dataIntervento', 'users.username', 'interventi.confermato', 'interventi.completato'))
+        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'interventi.dataAssegnazione', 'users.username', 'interventi.dataIntervento', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->join('users','users.id','=', 'interventi.user_id')
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
         return Datatables::of($interventi)
 
-        ->edit_column('confermato','@if($confermato == 0)
-                    <span class="glyphicon glyphicon-thumbs-down"></span>
+        ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}}' )
+
+    //    ->edit_column('confermato','@if($confermato == 0)
+     //               <span class="glyphicon glyphicon-thumbs-down"></span>
+     //           @else
+     //               <span class="glyphicon glyphicon-thumbs-up"></span>
+     //           @endif')
+
+        ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
+                    
                 @else
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                @endif')
+                    {{{ $dataAssegnazione }}}
+                @endif')           
 
         ->edit_column('completato','@if($completato == 0)
                     <span class="glyphicon glyphicon-thumbs-down"></span>
@@ -342,7 +362,7 @@ class InterventiController extends AdminController {
                 <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
             ')
 
-        ->remove_column('id')
+        ->remove_column('id', 'nome')
 
         ->make();
     }

@@ -2,10 +2,10 @@
 
 return array(
 
-	'anagrafica'      => 'Anagrafica',
-	'data'   => 'Data',
+	'anagrafica'      => 'Cliente',
+	'data'   => 'Data Assegnazione',
 	'installatore' => 'Installatore',
-	'confermato' => 'Confermato?', 
+	'confermato' => 'Data Intervento', 
 	'completato' => 'Completato?',
 	'azioni' => 'Azioni'
 );

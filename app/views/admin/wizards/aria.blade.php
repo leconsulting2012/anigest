@@ -265,7 +265,7 @@
 				<!-- Installatore -->
 				<div class="form-group {{ $errors->first('installatore_id', 'has-error') }}">
 					<div class="col-md-12">
-						<label class="control-label" for="installatore_id">Modello Router</label>
+						<label class="control-label" for="installatore_id">Installatore</label>
 						<select class="form-control" name="installatore_id" id="installatore_id">
 							@if ( Input::old('installatore_id') != '' )
 							<option value="">-- SELEZIONA --</option>
