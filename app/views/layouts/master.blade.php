@@ -141,6 +141,7 @@
 
 		<!-- Footer -->
 		<footer class="clearfix">
+		<hr>
 		@yield('footer')
 		</footer>
 		<!-- ./ Footer -->

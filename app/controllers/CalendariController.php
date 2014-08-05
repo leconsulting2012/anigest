@@ -29,13 +29,14 @@ class CalendariController extends \BaseController {
         $temp = array();
 
         foreach ($elenco as $riga) {
-            $temp['id'] = $riga['id'];
-            $temp['title'] = $riga['tipo'];
-            $temp['start'] = $riga['dataIntervento'];
+            $temp['id'] = $riga->id;
+            $temp['title'] = $riga->tipo;
+            $temp['start'] = $riga->dataIntervento;
             $temp['allDay'] = false;
+            $temp['durationEditable'] = true;
+            $temp['description'] = 'prova';
             $elencoNew[] = $temp;
         }
-
 
 
         return Response::json($elencoNew);
