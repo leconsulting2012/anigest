@@ -134,7 +134,8 @@ class AntenneController extends AdminController {
         // Declare the rules for the form validation
         $rules = array(
             'modelloAntenna_id'   => 'required|integer',
-            'seriale' => 'required'
+            'seriale' => 'required',
+            'mac' => 'unique:antenne,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs
@@ -222,7 +223,8 @@ class AntenneController extends AdminController {
     {
         // Declare the rules for the form validation
         $rules = array(
-            'modelloAntenna_id' => 'required|integer'
+            'modelloAntenna_id' => 'required|integer',
+            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs

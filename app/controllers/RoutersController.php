@@ -127,7 +127,7 @@ class RoutersController extends AdminController {
         $rules = array(
             'modelliRouter_id'   => 'required|integer',
             'seriale' => 'required|unique:routers',
-            'mac' => 'unique:routers'
+            'mac' => 'unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs
@@ -205,6 +205,7 @@ class RoutersController extends AdminController {
         // Declare the rules for the form validation
         $rules = array(           
             'modelliRouter_id' => 'required|integer',
+            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs
