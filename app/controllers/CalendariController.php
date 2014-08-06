@@ -30,7 +30,7 @@ class CalendariController extends \BaseController {
 
         foreach ($elenco as $riga) {
             $temp['id'] = $riga->id;
-            $temp['title'] = $riga->tipo;
+            $temp['title'] = $riga->tipo . " - " . $riga->cognome . " " . $riga->nome;
             $temp['start'] = $riga->dataIntervento;
             $temp['allDay'] = false;
             $temp['durationEditable'] = true;

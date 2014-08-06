@@ -1,4 +1,4 @@
-@extends('layouts.public')
+@extends('layouts.master')
 
 {{-- Web site Title --}}
 @section('title')

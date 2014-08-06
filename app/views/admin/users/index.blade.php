@@ -2,7 +2,27 @@
 
 {{-- Web site Title --}}
 @section('title')
-	{{{ $title }}} :: @parent
+{{{ $title }}} :: @parent
+@stop
+
+@section('keywords')Blogs administration @stop
+@section('author')Laravel 4 Bootstrap Starter SIte @stop
+@section('description')Blogs administration index @stop
+
+
+@section('cssEsterni')
+{{ HTML::style('css/datatables/dataTables.bootstrap.css') }}
+{{ HTML::style('css/colorbox.css') }}
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/jquery.colorbox-min.js') }}
+{{ HTML::script('js/plugins/datatables/jquery.dataTables.js') }}.
+{{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js') }} 
+@stop
+
+@section('bodyOnLoad')
+<body class="skin-blue">
 @stop
 
 {{-- Content --}}

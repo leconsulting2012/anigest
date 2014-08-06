@@ -9,6 +9,15 @@
 @section('author')Mauro Gallo @stop
 @section('description')gestione delle installazioni anenne @stop
 
+@section('cssEsterni')
+{{ HTML::style('css/datatables/dataTables.bootstrap.css') }}
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/plugins/datatables/jquery.dataTables.js') }}.
+{{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js') }} 
+@stop
+
 {{-- Content --}}
 @section('content')
 <style type="text/css">

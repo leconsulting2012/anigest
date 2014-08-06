@@ -9,30 +9,50 @@
 @section('author')Laravel 4 Bootstrap Starter SIte @stop
 @section('description')Blogs administration index @stop
 
+
+@section('cssEsterni')
+{{ HTML::style('css/datatables/dataTables.bootstrap.css') }}
+{{ HTML::style('css/colorbox.css') }}
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/jquery.colorbox-min.js') }}
+{{ HTML::script('js/plugins/datatables/jquery.dataTables.js') }}.
+{{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js') }} 
+@stop
+
+@section('bodyOnLoad')
+<body class="skin-blue">
+@stop
+
 {{-- Content --}}
 @section('content')
-	<div class="page-header">
-		<h3>
-			{{{ $title }}}
-
+<div class="col-xs-12">
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">{{{ $title }}}</h3>
 			<div class="pull-right">
-				<a href="{{{ URL::to('admin/blogs/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Crea</a>
+				@if (!Auth::user()->hasRole('installatore'))
+				<a href="{{{ URL::to('interventi/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
+				@endif
 			</div>
-		</h3>
+		</div><!-- /.box-header -->
+		<div class="box-body table-responsive">
+			<table id="blogs" class="table table-bordered table-hover dataTable">
+				<thead>
+					<tr>
+						<th class="col-md-4">{{{ Lang::get('admin/blogs/table.title') }}}</th>
+						<th class="col-md-2">{{{ Lang::get('admin/blogs/table.comments') }}}</th>
+						<th class="col-md-2">{{{ Lang::get('admin/blogs/table.created_at') }}}</th>
+						<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-	<table id="blogs" class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th class="col-md-4">{{{ Lang::get('admin/blogs/table.title') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('admin/blogs/table.comments') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('admin/blogs/table.created_at') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+</div>
 @stop
 
 {{-- Scripts --}}
