@@ -60,7 +60,7 @@ class InterventiController extends AdminController {
 	public function getIndex()
 	{
         // Title
-        $title = 'Elenco di tutti gli Interventi';
+        $title = 'Gestione Interventi';
 
         // Grabbo tutte le interventi dell'azienda
         $interventi = $this->intervento->elencoInterventi($this->user);

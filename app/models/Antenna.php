@@ -19,4 +19,13 @@ class Antenna extends Eloquent {
         return $this->where('azienda_id', '=', $user->azienda_id );
     }
 
+    public function contaMagazzino()
+    {
+        return $this->where('azienda_id', '=', Auth::user()->azienda_id )
+            ->where('dataRicezione', '!=', '0000-00-00 00:00:00')
+            ->where('dataConsegna', '=', '0000-00-00 00:00:00')
+            ->count()
+            ;
+    }
+
 }

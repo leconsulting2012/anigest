@@ -2,30 +2,29 @@
 
 {{-- Web site Title --}}
 @section('title')
-{{{ $title }}} :: @parent
+{{{ $title }}}
 @stop
 
 @section('keywords')antenne @stop
 @section('author')Mauro Gallo @stop
 @section('description')gestione delle interventi anenne @stop
 
-
 @section('bodyOnLoad')
-<body onload="initMap()">
+<body onload="initMap()" class="skin-blue fixed">
 @stop
 
+{{-- Content --}}
 @section('content')
-  <div class="page-header">
-    <h3>
-      {{{ $title }}}
-
-      <div class="pull-right">
-
-      </div>
-    </h3>
+<div class="col-xs-12">
+  <div class="box box-info">
+    <div class="box-header">
+      <h3 class="box-title">Mappa degli Interventi non Completati</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+      <div id='map'></div>
+    </div>
   </div>
-
-<div id="map"></div>
+</div>
 @stop
 
 

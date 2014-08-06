@@ -2,42 +2,59 @@
 
 {{-- Web site Title --}}
 @section('title')
-{{{ $title }}} :: @parent
+{{{ $title }}}
 @stop
 
-@section('keywords')routers @stop
+@section('keywords')antenne @stop
 @section('author')Mauro Gallo @stop
-@section('description')gestione delle installazioni anenne @stop
+@section('description')gestione delle interventi anenne @stop
+
+
+@section('cssEsterni')
+{{ HTML::style('css/datatables/dataTables.bootstrap.css') }}
+{{ HTML::style('css/colorbox.css') }}
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/jquery.colorbox-min.js') }}
+{{ HTML::script('js/plugins/datatables/jquery.dataTables.js') }}.
+{{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js') }} 
+@stop
+
+@section('bodyOnLoad')
+<body class="skin-blue fixed">
+@stop
 
 {{-- Content --}}
 @section('content')
-<style type="text/css">
 
-</style>
-	<div class="page-header">
-		<h3>
-			{{{ $title }}}
-
-			<div class="pull-right">
+<div class="col-xs-12">
+	<div class="box box-info">
+		<div class="box-header">
+			<h3 class="box-title">Elenco di tutti i Routers</h3>
+			<div class="box-tools pull-right">
 				@if (!Auth::user()->hasRole('installatore'))
 				<a href="{{{ URL::to('routers/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
 				@endif
 			</div>
-		</h3>
-	</div>
+		</div><!-- /.box-header -->
+		<div class="box-body table-responsive">
 
-	<table id="routers" cellpadding="0" cellspacing="0" border="0"  class="table table-striped table-bordered dataTable">
-		<thead>
-			<tr>
-				<th class="col-md-2">{{{ Lang::get('user/antenne/table.seriale') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('user/antenne/table.modello') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('user/antenne/table.aggiornato') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+			<table id="routers" cellpadding="0" cellspacing="0" border="0"  class="table table-striped table-bordered dataTable">
+				<thead>
+					<tr>
+						<th class="col-md-2">{{{ Lang::get('user/antenne/table.seriale') }}}</th>
+						<th class="col-md-2">{{{ Lang::get('user/antenne/table.modello') }}}</th>
+						<th class="col-md-2">{{{ Lang::get('user/antenne/table.aggiornato') }}}</th>
+						<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>	
 @stop
 
 {{-- Scripts --}}
@@ -58,9 +75,9 @@
 				    "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
 				    "sInfoPostFix":    "",
 				    "sInfoThousands":  ",",
-				    "sLengthMenu":     "Visualizza _MENU_ elementi",
+				    "sLengthMenu":     "_MENU_ elementi per pagina",
 				    "sLoadingRecords": "Caricamento...",
-				    "sProcessing":     "<img src='{{ URL::to('images/loading.gif') }}' /><br /><b>Caricamento...</b>",
+				    "sProcessing":     "<b>Caricamento...</b>",
 				    "sSearch":         "Cerca:",
 				    "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
 					"oPaginate": {
@@ -72,11 +89,17 @@
 				},
 				"bProcessing": true,
 		        "bServerSide": true,
+		        "bPaginate": true,
+                "bLengthChange": true,
+                "bFilter": true,
+                "bSort": true,
+                "bInfo": true,
+                "bAutoWidth": true,
 		        "sAjaxSource": "{{ URL::to('routers/data') }}",
 		        "fnDrawCallback": function ( oSettings ) {
-	           		$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+	           		$(".iframe").colorbox({iframe:true, width:"90%", height:"90%"});
 	     		}
-			});
+			})
 		});
 	</script>
 @stop

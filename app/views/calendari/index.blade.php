@@ -1,21 +1,47 @@
 @extends('layouts.master')
 
+{{-- Web site Title --}}
+@section('title')
+{{{ $title }}}
+@stop
+
+@section('keywords')antenne @stop
+@section('author')Mauro Gallo @stop
+@section('description')gestione delle interventi anenne @stop
+
+
+@section('cssEsterni')
+{{ HTML::style('css/colorbox.css') }}
+{{ HTML::style('css/fullcalendar/fullcalendar.css') }}
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/jquery.colorbox-min.js') }}
+{{ HTML::script('js/moment.js') }}
+{{ HTML::script('js/plugins/fullcalendar/fullcalendar.min.js') }}
+{{ HTML::script('js/plugins/fullcalendar/lang-all.js') }}
+@stop
+
+@section('bodyOnLoad')
+<body class="skin-blue fixed">
+@stop
+
+{{-- Content --}}
 @section('content')
-	<div class="page-header">
-		<h3>
-			{{{ $title }}}
 
-		</h3>
-	</div>
+<div class="col-xs-12">
+  <div class="box box-info">
+    <div class="box-header">
+      <h3 class="box-title">Calendario degli Interventi</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
 
 
-<style type='text/css'>
-#calendar { 
-  width: 800px;
-  margin: 0 auto;
-}
-</style>
-<div id='calendar'></div>
+
+      <div id='calendar'></div>
+    </div>
+  </div>
+</div>
 @stop
 
 
@@ -24,6 +50,7 @@
 <script type='text/javascript'>
 $(document).ready(function() {
   $('#calendar').fullCalendar({
+    lang: 'it',
     day: 'dddd, MMM d, yyyy',
     header: {
       left: 'prev,next today',

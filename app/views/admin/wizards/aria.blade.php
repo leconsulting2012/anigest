@@ -2,34 +2,42 @@
 
 {{-- Web site Title --}}
 @section('title')
-{{{ $title }}} :: @parent
+{{{ $title }}}
 @stop
 
-@section('keywords')Blogs administration @stop
-@section('author')Laravel 4 Bootstrap Starter SIte @stop
-@section('description')Blogs administration index @stop
+@section('keywords')antenne @stop
+@section('author')Mauro Gallo @stop
+@section('description')gestione delle interventi anenne @stop
 
-@section('jsEsterni') 
-    {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
-    {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
-@stop
 
 @section('cssEsterni')
-	{{ HTML::style('css/bootstrap-datetimepicker.min.css') }} 
+{{ HTML::style('css/bootstrap-datetimepicker.min.css') }} 
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/moment.js') }}
+{{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
+{{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
+@stop
+
+@section('bodyOnLoad')
+<body class="skin-blue fixed">
 @stop
 
 {{-- Content --}}
 @section('content')
-<div class="page-header">
-	<h3>
-		{{{ $title }}}
-	</h3>
-</div>
 
-<form class="form-horizontal" method="post" action="{{ URL::to('wizardAria/') }}" autocomplete="off">
-	<!-- CSRF Token -->
-	<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-	<!-- ./ csrf token -->
+<div class="col-xs-12">
+	<div class="box box-info">
+		<div class="box-header">
+			<h3 class="box-title">Procedura per l'inserimento Veloce dei DDT Aria</h3>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+
+			<form class="form-horizontal" method="post" action="{{ URL::to('wizardAria/') }}" autocomplete="off">
+				<!-- CSRF Token -->
+				<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+				<!-- ./ csrf token -->
 
 
 	<div class="row">
@@ -296,7 +304,9 @@
 		</div>
 		<!-- ./ form actions -->
 	</form>
-
+		</div>
+	</div>
+</div>	
 @stop
 
 @section('scripts')

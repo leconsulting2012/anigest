@@ -1,5 +1,25 @@
 @extends('layouts.modal')
 
+{{-- Web site Title --}}
+@section('title')
+{{{ $title }}}
+@stop
+
+@section('keywords')antenne @stop
+@section('author')Mauro Gallo @stop
+@section('description')gestione delle interventi anenne @stop
+
+
+@section('cssEsterni')
+{{ HTML::style('css/bootstrap-datetimepicker.min.css') }} 
+@stop
+
+@section('jsEsterni')
+{{ HTML::script('js/moment.js') }}
+{{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
+{{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
+@stop
+
 {{-- Content --}}
 @section('content')
 	<!-- Tabs -->
@@ -165,11 +185,11 @@
 @stop
 
 @section('scripts')
-        <script type="text/javascript">
-            $(function () {
-                $('.date').datetimepicker({
-                    language: 'it'
-                });
-            });
-        </script>
+	<script type="text/javascript">
+	    $(function () {
+	        $('.date').datetimepicker({
+	            language: 'it'
+	        });
+	    });
+	</script>
 @stop

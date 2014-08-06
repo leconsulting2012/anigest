@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-{{{ $title }}} :: @parent
+{{{ $title }}}
 @stop
 
 @section('keywords')antenne @stop
@@ -22,21 +22,21 @@
 @stop
 
 @section('bodyOnLoad')
-<body class="skin-blue">
+<body class="skin-blue fixed">
 @stop
 
 {{-- Content --}}
 @section('content')
 
 <div class="col-xs-12">
-	<div class="box">
+	<div class="box box-info">
 		<div class="box-header">
-			<h3 class="box-title">{{{ $title }}}</h3>
-					<div class="pull-right">
-			@if (!Auth::user()->hasRole('installatore'))
-			<a href="{{{ URL::to('interventi/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
-			@endif
-		</div>
+			<h3 class="box-title">Elenco di tutti gli Interventi</h3>
+			<div class="box-tools pull-right">
+				@if (!Auth::user()->hasRole('installatore'))
+				<a href="{{{ URL::to('interventi/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
+				@endif
+			</div>
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive">
 
@@ -77,7 +77,7 @@
 				    "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
 				    "sInfoPostFix":    "",
 				    "sInfoThousands":  ",",
-				    "sLengthMenu":     "Visualizza _MENU_ elementi",
+				    "sLengthMenu":     "_MENU_ elementi per pagina",
 				    "sLoadingRecords": "Caricamento...",
 				    "sProcessing":     "<b>Caricamento...</b>",
 				    "sSearch":         "Cerca:",
@@ -92,7 +92,7 @@
 				"bProcessing": true,
 		        "bServerSide": true,
 		        "bPaginate": true,
-                "bLengthChange": false,
+                "bLengthChange": true,
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": true,

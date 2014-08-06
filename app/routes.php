@@ -145,7 +145,7 @@ Route::group(array('before' => 'auth'), function()
     Route::post('wizardAria', 'WizardsController@salva');
 
     # Pagina Iniziale
-    Route::get('/', 'InterventiController@getIndex');
+    Route::get('/', 'DashboardController@getIndex');
     Route::get('cercaCitta', 'CittaController@getIndex');    
 });
 

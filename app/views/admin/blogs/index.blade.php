@@ -2,12 +2,12 @@
 
 {{-- Web site Title --}}
 @section('title')
-{{{ $title }}} :: @parent
+{{{ $title }}}
 @stop
 
-@section('keywords')Blogs administration @stop
-@section('author')Laravel 4 Bootstrap Starter SIte @stop
-@section('description')Blogs administration index @stop
+@section('keywords')antenne @stop
+@section('author')Mauro Gallo @stop
+@section('description')gestione delle interventi anenne @stop
 
 
 @section('cssEsterni')
@@ -22,22 +22,23 @@
 @stop
 
 @section('bodyOnLoad')
-<body class="skin-blue">
+<body class="skin-blue fixed">
 @stop
 
 {{-- Content --}}
 @section('content')
 <div class="col-xs-12">
-	<div class="box">
+	<div class="box box-info">
 		<div class="box-header">
-			<h3 class="box-title">{{{ $title }}}</h3>
-			<div class="pull-right">
+			<h3 class="box-title">Elenco di tutte le Notizie</h3>
+			<div class="box-tools pull-right">
 				@if (!Auth::user()->hasRole('installatore'))
-				<a href="{{{ URL::to('interventi/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
+				<a href="{{{ URL::to('admin/blogs/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
 				@endif
 			</div>
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive">
+
 			<table id="blogs" class="table table-bordered table-hover dataTable">
 				<thead>
 					<tr>
@@ -63,6 +64,9 @@
 			oTable = $('#blogs').dataTable( {
 				"sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-6'i><'col-md-6'p>>",
 				"sPaginationType": "bootstrap",
+				"oStdClasses": {
+					"sFilter": "dataTables_filter",
+				},
 				"oLanguage": {
 					"sEmptyTable":     "Nessun dato presente nella tabella",
 				    "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
@@ -70,9 +74,9 @@
 				    "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
 				    "sInfoPostFix":    "",
 				    "sInfoThousands":  ",",
-				    "sLengthMenu":     "Visualizza _MENU_ elementi",
+				    "sLengthMenu":     "_MENU_ elementi per pagina",
 				    "sLoadingRecords": "Caricamento...",
-				    "sProcessing":     "Elaborazione...",
+				    "sProcessing":     "<b>Caricamento...</b>",
 				    "sSearch":         "Cerca:",
 				    "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
 					"oPaginate": {
@@ -84,11 +88,17 @@
 				},
 				"bProcessing": true,
 		        "bServerSide": true,
+		        "bPaginate": true,
+                "bLengthChange": true,
+                "bFilter": true,
+                "bSort": true,
+                "bInfo": true,
+                "bAutoWidth": true,
 		        "sAjaxSource": "{{ URL::to('admin/blogs/data') }}",
 		        "fnDrawCallback": function ( oSettings ) {
-	           		$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+	           		$(".iframe").colorbox({iframe:true, width:"90%", height:"90%"});
 	     		}
-			});
-		});
+			})
+		});				
 	</script>
 @stop

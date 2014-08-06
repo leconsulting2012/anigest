@@ -28,13 +28,16 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+
+        @section('jsEsterniBefore')
+        @show
     </head>
     @section('bodyOnLoad')
     @show
 
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="index.html" class="logo">
+            <a href="/" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 AniGEST
             </a>
@@ -78,7 +81,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="img/avatar5.png" class="img-circle" alt="User Image" />
+                                    <img src="{{{ URL::to('img') }}}/avatar5.png" class="img-circle" alt="User Image" />
                                     <p>
                                         {{{ Auth::user()->username }}} - {{{ Auth::user()->profile }}}
                                         <small>Membro da {{{ Auth::user()->created_at }}}</small>
@@ -107,7 +110,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="img/avatar5.png" class="img-circle" alt="User Image" />
+                            <img src="{{{ URL::to('img') }}}/avatar5.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Ciao, {{{ Auth::user()->username }}}</p>
@@ -128,7 +131,7 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="{{{ URL::to('dashboard') }}}">
+                            <a href="{{{ URL::to('/') }}}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -151,26 +154,19 @@
                         <li{{ (Request::is('routers*') ? ' class="active"' : '') }}><a href="{{{ URL::to('routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
                         <li{{ (Request::is('interventi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi') }}}"><span class="glyphicon glyphicon-wrench"></span> Interventi</a></li>
                         @if (!Auth::user()->hasRole('installatore'))
-                        <li{{ (Request::is('wizardAria') ? ' class="active"' : '') }}><a href="{{{ URL::to('wizardAria') }}}"><span class="glyphicon glyphicon-star"></span> Wizard Aria</a></li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-folder"></i> <span>Wizards</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li{{ (Request::is('wizardAria') ? ' class="active"' : '') }}><a href="{{{ URL::to('wizardAria') }}}"><span class="glyphicon glyphicon-star"></span> Aria Terna Servizi</a></li>
+                             </ul>
+                        </li>                       
                         @endif
                         <li{{ (Request::is('calendario') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
                         <li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa') }}}"><span class="glyphicon glyphicon-globe"></span> Mappa</a></li>
 
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-folder"></i> <span>Examples</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="pages/examples/invoice.html"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
-                                <li><a href="pages/examples/login.html"><i class="fa fa-angle-double-right"></i> Login</a></li>
-                                <li><a href="pages/examples/register.html"><i class="fa fa-angle-double-right"></i> Register</a></li>
-                                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
-                                <li><a href="pages/examples/404.html"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
-                                <li><a href="pages/examples/500.html"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>                                
-                                <li><a href="pages/examples/blank.html"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -206,12 +202,12 @@
 
 
         <!-- jQuery 2.0.2 -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        {{ HTML::script('js/jquery.min.js') }} 
         <!-- Bootstrap -->
         {{ HTML::script('js/bootstrap.min.js') }}        
         <!-- Colorbox -->
         {{ HTML::script('js/jquery.colorbox-min.js') }}
-
+        {{ HTML::script('js/jquery.colorbox-it.js') }}
         <!-- Js esterni -->
         @yield('jsEsterni')
 

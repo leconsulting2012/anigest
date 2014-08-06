@@ -1,146 +1,68 @@
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
     <head>
+        <meta charset="UTF-8">
+        <title>
+            @section('title')
+            Anigest - Modale
+            @show
+        </title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- bootstrap 3.0.2 -->
+        {{ HTML::style('css/bootstrap.min.css') }}
+        <!-- font Awesome -->
+        {{ HTML::style('css/font-awesome.min.css') }}
+        <!-- Ionicons -->
+        {{ HTML::style('css/ionicons.min.css') }}
+        <!-- Theme style -->
+        {{ HTML::style('css/AdminLTE.css') }}
 
-    	<meta charset="UTF-8">
+        {{ HTML::style('css/colorbox.css') }}
 
-    	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
-    	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>
-    		@section('title')
-    		{{{ $title }}} :: Gestionale Fatturazione
-    		@show
-    	</title>
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        @section('cssEsterni')
+        @show
 
-    	<!--  Mobile Viewport Fix -->
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">        
-    	<meta name="keywords" content="@yield('keywords')" />
-    	<meta name="author" content="@yield('author')" />
-    	<!-- Google will often use this as its description of your page/site. Make it good. -->
-    	<meta name="description" content="@yield('description')" />
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
 
-    	<!-- Speaking of Google, don't forget to set your site up: http://google.com/webmasters -->
-    	<meta name="google-site-verification" content="">
+        @section('jsEsterniBefore')
+        @show
+    </head>
+    @section('bodyOnLoad')
+    @show
 
-    	<!-- Dublin Core Metadata : http://dublincore.org/ -->
-    	<meta name="DC.title" content="Project Name">
-    	<meta name="DC.subject" content="@yield('description')">
-    	<meta name="DC.creator" content="@yield('author')">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
 
-    	<!-- CSS are placed here -->
-
-      {{ HTML::style('js/jquery-ui.min.css') }}
-      {{ HTML::style('js/jquery-ui.structure.min.css') }}
-      {{ HTML::style('js/jquery-ui.theme.min.css') }}
-    	{{ HTML::style('bootstrap/css/bootstrap.min.css') }}
-    	{{ HTML::style('css/bootstrap-combobox.css') }}
-    	{{ HTML::style('css/colorbox.css') }}
-
-    	{{ HTML::style('css/jquery.dataTables.css') }}
-        {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}        
-
-    	<style>
-    	@section('styles')
-    	body {
-    		padding-top: 60px;
-    	}
-    	@show
-    	</style>
-
-    	</head>
-
-    	<body>
-	<!-- Container -->
-	<div class="container">
-
-		<!-- Notifications -->
-		@include('notifications')
-		<!-- ./ notifications -->
-
-		<div class="page-header">
-			<h3>
-				{{ $title }}
-				<div class="pull-right">
-					<button class="btn btn-default btn-small btn-inverse close_popup"><span class="glyphicon glyphicon-circle-arrow-left"></span> Torna</button>
-				</div>
-			</h3>
-		</div>
-
-    	<!-- Content -->
-    	@yield('content')
-
-
-
-        <!-- Footer -->
-        <footer class="clearfix">
-        @yield('footer')
-        </footer>
-        <!-- ./ Footer -->
-
+            <div class="col-xs-12">
+                <!-- Notifications -->
+                @include('notifications')
+                <!-- ./ notifications -->
+                @yield('content')
+            </div>
         </div>
-        <!-- ./ container -->
+    </section>
+    <!-- /.content -->    
 
+    <!-- jQuery 2.0.2 -->
+    {{ HTML::script('js/jquery.min.js') }} 
+    <!-- Bootstrap -->
+    {{ HTML::script('js/bootstrap.min.js') }}        
+    <!-- Colorbox -->
+    {{ HTML::script('js/jquery.colorbox-min.js') }}
 
+    <!-- Js esterni -->
+    @yield('jsEsterni')
 
+    <!-- AdminLTE App -->
+    {{ HTML::script('js/plugins/AdminLTE/app.js') }}
 
-        <!-- Scripts are placed here -->
+    @yield('scripts')
 
-        <!-- Carico jquery -->
-        {{ HTML::script('js/jquery-1.11.1.min.js') }}
-        {{ HTML::script('js/jquery-ui.js') }}
-
-        <!-- Carico twitter bootstrap e "derivati"-->
-        {{ HTML::script('bootstrap/js/bootstrap.min.js') }}
-        {{ HTML::script('js/bootstrap-combobox.js') }}
-        {{ HTML::script('js/jquery.colorbox-min.js') }}
-        {{ HTML::script('js/jquery.dataTables.js') }}
-        {{ HTML::script('js/moment.js') }}
-        {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
-        {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}        
-        {{ HTML::script('js/bootstrap3-typeahead.min.js') }}   
-
-        <script type="text/javascript">
-        $(document).ready(function(){
-          $('.combobox').combobox();
-
-          });
-
-        $('#tooltip').tooltip('show')
-
-
-        $(document).ready(function(){
-          $('.close_popup').click(function(){
-           parent.oTable.fnReloadAjax();
-           parent.jQuery.fn.colorbox.close();
-           return false;
-           });
-          $('.cboxClose').click(function(){
-           parent.oTable.fnReloadAjax();
-           parent.jQuery.fn.colorbox.close();
-           return false;
-           });
-          $('#deleteForm').submit(function(event) {
-           var form = $(this);
-           $.ajax({
-            type: form.attr('method'),
-            url: form.attr('action'),
-            data: form.serialize()
-            }).done(function() {
-             parent.jQuery.colorbox.close();
-             parent.oTable.fnReloadAjax();
-             }).fail(function() {
-              });
-             event.preventDefault();
-             });
-
-          @yield('documentReady')
-          });
-
-        </script>
-
-         <!-- Scripts specifici -->
-        @yield('scripts')
-
-        </body>
-        </html>
+    </body>
+</html>    
