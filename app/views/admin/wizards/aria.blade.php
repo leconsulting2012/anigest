@@ -56,6 +56,32 @@
 				</div>
 				<!-- ./ Data di ricezione -->
 			</div>
+		<div class="col-md-6">
+			<!-- Modello antenna -->
+			<div class="form-group {{ $errors->first('tipoIntervento', 'has-error') }}">
+				<div class="col-md-12">
+					<label class="control-label" for="tipoIntervento">Tipo di Intervento</label>
+					@if ( Input::old('tipoIntervento') != '' )
+					<select class="col-md-6 form-control" name="tipoIntervento" id="tipoIntervento">
+						<option value="">-- SELEZIONA --</option>
+						@foreach ($tipiIntervento as $modello)
+						<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('tipoIntervento')) ? ' selected="selected"' : '') }}}>{{{ $modello->tipo }}}</option>
+						@endforeach
+					</select>
+					@else
+					<select class="col-md-6 form-control" name="tipoIntervento" id="tipoIntervento">
+						<option value="">-- SELEZIONA --</option>
+						@foreach ($tipiIntervento as $modello)
+						<option value="{{{ $modello->id }}}" >{{{ $modello->tipo }}}</option>
+						@endforeach
+					</select>
+					@endif
+				</div>
+			</div>
+			<!-- ./ modello antenna -->	
+</div>
+
+
 		</div>
 
 	<div class="row">

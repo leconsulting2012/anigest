@@ -48,7 +48,13 @@ class WizardsController extends AdminController {
         $modelliAntenna = $this->modelloAntenna->all(); 
 
         // Grabbo tutti i modelli di roouters
-        $modelliRouters = $this->modelloRouter->all();  
+        $modelliRouters = $this->modelloRouter->all();
+
+        $tipiIntervento = DB::table('tipiIntervento')
+                            ->select(array('id', 'tipo'))
+                            ->where('id', '=', '1')
+                            ->orWhere('id', '=', '4')
+                            ->get();
 
         // Grabbo tutti gli installatori
         $installatori = array();
@@ -57,7 +63,7 @@ class WizardsController extends AdminController {
 
         // Show the page
         //return View::make('routers/index', compact('routers', 'title'));
-        return View::make('admin/wizards/aria', compact('title', 'modelliAntenna', 'modelliRouters', 'installatori', 'mode'));
+        return View::make('admin/wizards/aria', compact('tipiIntervento', 'title', 'modelliAntenna', 'modelliRouters', 'installatori', 'mode'));
 	}
 
     public function salva()
