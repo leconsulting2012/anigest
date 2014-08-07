@@ -147,7 +147,7 @@ class InterventiController extends AdminController {
         // Modifico il formato delle date
         $format = 'Y-m-d H:i:s';
         $date = DateTime::createFromFormat($format, $intervento->dataIntervento);
-        if($date != FALSE) $intervento->dataIntervento = $date->format('d-m-Y H:i');
+        if($date != FALSE) $intervento->dataIntervento = $date->format('d/m/Y H:i');
 
         // Mode
         $mode = 'edit';       
