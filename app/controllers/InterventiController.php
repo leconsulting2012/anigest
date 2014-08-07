@@ -355,13 +355,14 @@ class InterventiController extends AdminController {
         // estraggo tutti i modelli
         //$modelliIntervento = $this->modelloIntervento->all(); 
 
-        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'interventi.dataAssegnazione', 'users.username', 'interventi.dataIntervento', 'interventi.completato'))
+        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'interventi.dataAssegnazione', 'users.username', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->join('users','users.id','=', 'interventi.user_id')
+                            ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
         return Datatables::of($interventi)
 
-        ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}}' )
+        ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} ({{{ $tipo }}})' )
 
     //    ->edit_column('confermato','@if($confermato == 0)
      //               <span class="glyphicon glyphicon-thumbs-down"></span>
@@ -387,7 +388,7 @@ class InterventiController extends AdminController {
                 <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
             ')
 
-        ->remove_column('id', 'nome')
+        ->remove_column('id', 'nome', 'tipo')
 
         ->make();
     }
