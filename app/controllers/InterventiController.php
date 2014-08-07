@@ -339,6 +339,17 @@ class InterventiController extends AdminController {
         return View::make('interventi/delete', compact('intervento', 'title'));
     }    
 
+    public function putCompletato($intervento)
+    {     
+        $intervento->completato   = 1;
+
+        if($intervento->save()){
+            return Redirect::to('interventi/' )->with('success', 'Salvataggio effetuato con successo.');
+        } else {
+            return Redirect::to('interventi/' )->with('error', Lang::get('users/interventi/messages.edit.error'))->withErrors($validator);
+        }
+    }  
+
     public function getData()
     {
         // estraggo tutti i modelli
@@ -365,9 +376,9 @@ class InterventiController extends AdminController {
                 @endif')           
 
         ->edit_column('completato','@if($completato == 0)
-                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                    <center><a href="{{{ URL::to(\'interventi/\' . $id . \'/putCompletato\' ) }}}"><span class="glyphicon glyphicon-thumbs-down"></span></a></center>
                 @else
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                    <center><span class="glyphicon glyphicon-thumbs-up"></span></center>
                 @endif')        
 
         //->edit_column('updated_at', Carbon::createFromFormat('Y/m/d H:i:s', time()))

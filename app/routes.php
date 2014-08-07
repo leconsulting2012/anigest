@@ -116,6 +116,7 @@ Route::group(array('before' => 'auth'), function()
     Route::get('interventi/data', 'InterventiController@getData');
     Route::get('interventi/', 'InterventiController@getIndex');
     Route::get('interventi/create', 'InterventiController@getCreate');
+    Route::get('interventi/{intervento}/putCompletato', 'InterventiController@putCompletato');
     Route::controller('interventi', 'InterventiController');
 
     # Routers Management
