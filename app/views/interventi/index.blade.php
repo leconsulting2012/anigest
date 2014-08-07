@@ -42,12 +42,12 @@
 			<table id="interventi" cellpadding="0" cellspacing="0" border="0"  class="table table-bordered table-hover dataTable">
 				<thead>
 					<tr>
-						<th class="col-md-2">{{{ Lang::get('user/interventi/table.anagrafica') }}}</th>
-						<th class="col-md-1">{{{ Lang::get('user/interventi/table.data') }}}</th>
-						<th class="col-md-1">{{{ Lang::get('user/interventi/table.installatore') }}}</th>
-						<th class="col-md-1">{{{ Lang::get('user/interventi/table.confermato') }}}</th>
-						<th class="col-md-1">{{{ Lang::get('user/interventi/table.completato') }}}</th>
-						<th class="col-md-1">{{{ Lang::get('table.actions') }}}</th>
+						<th class="col-xs-12 col-md-2">{{{ Lang::get('user/interventi/table.anagrafica') }}}</th>
+						<th class="col-xs-6 col-md-1">{{{ Lang::get('user/interventi/table.data') }}}</th>
+						<th class="col-xs-6 col-md-1">{{{ Lang::get('user/interventi/table.installatore') }}}</th>
+						<th class="col-xs-6 col-md-1">{{{ Lang::get('user/interventi/table.confermato') }}}</th>
+						<th class="col-xs-6 col-md-1">{{{ Lang::get('user/interventi/table.completato') }}}</th>
+						<th class="col-xs-6 col-md-1">{{{ Lang::get('table.actions') }}}</th>
 					</tr>
 				</thead>
 				<tbody>
