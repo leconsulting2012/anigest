@@ -62,6 +62,9 @@ $(document).ready(function() {
     eventDrop: function(event, delta) {
       alert(event.title + ' modificato ');
     },
+    eventClick: function(calEvent, jsEvent, view) {
+    $.colorbox({href:"interventi/" + calEvent.id + "/edit", width:"90%", height:"90%"});
+  },
     eventDrop: function(event, delta, revertFunc) {
       $.ajax({  
        url: "calendario/update",  

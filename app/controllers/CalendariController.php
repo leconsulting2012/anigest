@@ -38,7 +38,7 @@ class CalendariController extends \BaseController {
             $temp['end'] = $riga->dataFineIntervento;
             $temp['allDay'] = false;
             $temp['editable'] = true;
-            $temp['url'] = "http://www.google.it/";
+        //    $temp['url'] = "http://www.google.it/";
             $temp['description'] = 'prova';
             $elencoNew[] = $temp;
         }
