@@ -29,7 +29,7 @@
 {{-- Content --}}
 @section('content')
 
-<div class="col-xs-12">
+<div class="col-xs-8">
   <div class="box box-info">
     <div class="box-header">
       <h3 class="box-title">Calendario degli Interventi</h3>
@@ -57,13 +57,14 @@ $(document).ready(function() {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
-    editable: true, 	
+    editable: true, 
+    eventDurationEditable: true,	
     events: "calendario/getEventi",
     eventDrop: function(event, delta) {
       alert(event.title + ' modificato ');
     },
     eventClick: function(calEvent, jsEvent, view) {
-    $.colorbox({href:"interventi/" + calEvent.id + "/edit", width:"90%", height:"90%"});
+    $.colorbox({href:"interventi/" + calEvent.id + "/edit", width:"90%", height:"90%",iframe:true});
   },
     eventDrop: function(event, delta, revertFunc) {
       $.ajax({  

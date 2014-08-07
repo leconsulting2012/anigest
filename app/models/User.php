@@ -104,4 +104,8 @@ class User extends ConfideUser implements UserInterface, RemindableInterface{
         return $this->email;
     }
 
+    public function getAllUsers()
+    {
+        return $this->where('azienda_id', '=', Auth::user()->azienda_id )->where('id', '>', '2')->get();        
+    }
 }
