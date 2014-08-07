@@ -44,35 +44,23 @@ class CalendariController extends \BaseController {
         return Response::json($elencoNew);
     }
 
-    public function updateEvento($intervento)
+    public function updateEvento()
     {
         $user = Auth::user();
+        $i = new Intervento;
+        $intervento = $i->find((int)Input::get('id'));
 
         $oldIntervento = clone $intervento;      
-        $intervento->tipiIntervento_id   = Input::get('tipiIntervento_id');
-        $intervento->antenna_id                      = Input::get('antenna_id');
-        $intervento->router_id                    = Input::get('router_id');
-        $intervento->anagrafica_id                  = Input::get('anagrafica_id');
+        $intervento->dataFineIntervento              = Input::get('start');
+        $intervento->dataFineIntervento              = Input::get('end');
 
-$id = $_POST['id'];
-$title = $_POST['title'];
-$start = $_POST['start'];
-$end = $_POST['end'];
-
-
-        $elenco = $interventi->elencoInterventiPeriodo($user, Input::get('start'), Input::get('end') );
-        $elencoNew = array();
-        $temp = array();
-
-        foreach ($elenco as $riga) {
-            $temp['id'] = $riga->id;
-            $temp['title'] = $riga->tipo . " - " . $riga->cognome . " " . $riga->nome;
-            $temp['start'] = $riga->dataIntervento;
-            $temp['allDay'] = false;
-            $temp['durationEditable'] = true;
-            $temp['description'] = 'prova';
-            $elencoNew[] = $temp;
+        if($intervento->save()){
+            var_dump($intervento);
+            echo 'salvato correttamente';
+            var_dump(Input::get('start'));
+            var_dump(Input::get('end'));
+        } else {
+            
         }
-        return Response::json($elencoNew);
     }
 }

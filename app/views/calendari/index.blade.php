@@ -58,10 +58,21 @@ $(document).ready(function() {
       right: 'month,agendaWeek,agendaDay'
     },
     editable: true, 	
+    droppable: false,
     events: "calendario/getEventi",
-    eventDrop: function(event, delta) {
-      alert(event.title + ' modificato ');
-    }, 
+
+eventDrop: function(event, delta) {
+   var start = event.start;
+   var end = event;
+   $.ajax({
+   url: 'calendario/update',
+   data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
+   type: "GET",
+   success: function(json) {
+    alert("Updated Successfully");
+   }
+   });
+   },
     loading: function(bool) { 
       if (bool) $('#loading').show(); 
       else $('#loading').hide();

@@ -294,6 +294,9 @@ class InterventiController extends AdminController {
             $intervento->consegnaACPE                  = 0;
             $intervento->note                  = Input::get('note');
             $intervento->ip                  = Input::get('ip');
+            $intervento->bsid                   = Input::get('bsid');
+            $intervento->rssi                   = Input::get('rssi');
+            $intervento->cmri                   = Input::get('cmri');
 
             $utente = (int)Input::get('user_id');
             if ( $utente != 0)
