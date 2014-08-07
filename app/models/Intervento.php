@@ -27,7 +27,7 @@ class Intervento extends Eloquent {
     public function elencoInterventiPeriodo($dataInizio, $dataFine)
     {
         return DB::table('interventi')
-            ->select(array('interventi.id', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
+            ->select(array('interventi.id', 'interventi.dataIntervento', 'interventi.dataFineIntervento', 'tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
             ->join('users','users.id','=', 'interventi.user_id')
             ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')

@@ -16,10 +16,9 @@
 @stop
 
 @section('jsEsterni')
-{{ HTML::script('js/moment.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}
-{{ HTML::script('js/plugins/combobox/bootstrap-combobox.js') }} 
+{{ HTML::script('js/plugins/combobox/bootstrap-combobox.js') }}
 @stop
 
 {{-- Content --}}
@@ -251,15 +250,15 @@
 
 @section('scripts')
 <script type="text/javascript">
-	    $(function () {
-	        $('.date').datetimepicker({
-	            language: 'it'
-	        });
-	    });
+$(function () {
+	$('.date').datetimepicker({
+		language: 'it'
+	});
+});
 
-  $(document).ready(function(){
-    $('.combobox').combobox();
-  });
+$(document).ready(function(){
+	$('.combobox').combobox();
+});
 
 </script>
 @stop

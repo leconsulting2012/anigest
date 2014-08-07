@@ -34,6 +34,8 @@ class InterventiController extends AdminController {
     protected $router;
     protected $modelloIntervento;
 
+    protected $tempoIntervento;
+
     /**
      * Inject the models.
      * @param Post $post
@@ -50,6 +52,7 @@ class InterventiController extends AdminController {
         $this->router = $router;
         $this->anagrafica = $anagrafica;
         $this->modelloIntervento = $modelloIntervento;
+        $this->tempoIntervento = 'PT3H';
     }
     
 	/**
@@ -205,7 +208,11 @@ class InterventiController extends AdminController {
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));
-            if($date != FALSE) $this->intervento->dataIntervento = $date->format('Y-m-d H:i:s');
+            if($date != FALSE) 
+            {
+                $this->intervento->dataIntervento = $date->format('Y-m-d H:i:s');
+                $this->intervento->dataFineIntervento = $date->add(new DateInterval($this->tempoIntervento));
+            }
 
             // Was the intervento created?
             if($this->intervento->save())
@@ -299,7 +306,11 @@ class InterventiController extends AdminController {
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));  
-            if($date != FALSE) $intervento->dataIntervento = $date->format('Y-m-d H:i:s');            
+            if($date != FALSE)
+            {
+                $intervento->dataIntervento = $date->format('Y-m-d H:i:s'); 
+                $intervento->dataFineIntervento = $date->add(new DateInterval($this->tempoIntervento));
+            }             
 
             if($intervento->save()){
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', Lang::get('user/interventi/messages.create.success'));

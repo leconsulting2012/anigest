@@ -15,7 +15,6 @@
 @stop
 
 @section('jsEsterni')
-{{ HTML::script('js/moment.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
 @stop

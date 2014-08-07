@@ -202,7 +202,9 @@
 
 
         <!-- jQuery 2.0.2 -->
+        {{ HTML::script('js/moment.min.js') }}        
         {{ HTML::script('js/jquery.min.js') }} 
+        {{ HTML::script('js/jquery-ui.custom.min.js') }}
         <!-- Bootstrap -->
         {{ HTML::script('js/bootstrap.min.js') }}        
         <!-- Colorbox -->

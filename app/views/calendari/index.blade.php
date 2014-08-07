@@ -13,13 +13,13 @@
 @section('cssEsterni')
 {{ HTML::style('css/colorbox.css') }}
 {{ HTML::style('css/fullcalendar/fullcalendar.css') }}
+{{ HTML::style('css/fullcalendar/fullcalendar.print.css') }}
 @stop
 
 @section('jsEsterni')
 {{ HTML::script('js/jquery.colorbox-min.js') }}
-{{ HTML::script('js/moment.js') }}
 {{ HTML::script('js/plugins/fullcalendar/fullcalendar.min.js') }}
-{{ HTML::script('js/plugins/fullcalendar/lang-all.js') }}
+{{ HTML::script('js/plugins/fullcalendar/lang/it.js') }}
 @stop
 
 @section('bodyOnLoad')
