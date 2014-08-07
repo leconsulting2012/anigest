@@ -85,6 +85,7 @@ class WizardsController extends AdminController {
             'modelloRouter_id'   => 'required|integer',
             'serialeRouter'       => 'required|unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
             'installatore_id' => 'integer',
+            'tipoIntervento' => 'integer|required',
         );
 
 
@@ -124,7 +125,7 @@ class WizardsController extends AdminController {
 
             $this->intervento->azienda_id           = Auth::user()->azienda_id;
             $this->intervento->user_id              = (int)Input::get('installatore_id');
-            $this->intervento->tipiIntervento_id    = 1;
+            $this->intervento->tipiIntervento_id    = (int)Input::get('tipoIntervento');
 
             $utente = (int)Input::get('installatore_id');
             if ( $utente != 0)
