@@ -51,7 +51,7 @@
 						<div class="icon">
 							<i class="ion ion-person-add"></i>
 						</div>
-						<a href="{{{ URL::to('antenne') }}}" class="small-box-footer">
+						<a href="{{{ URL::to('anagrafiche') }}}" class="small-box-footer">
 							Vai alla Scheda <i class="fa fa-arrow-circle-right"></i>
 						</a>
 					</div>
