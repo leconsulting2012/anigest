@@ -62,12 +62,7 @@ $(document).ready(function() {
     eventDrop: function(event, delta) {
       alert(event.title + ' modificato ');
     },
-    event: {
-      durationEditable: true
-    },
     eventDrop: function(event, delta, revertFunc) {
-
-      alert(event.title + " was dropped on " + event.start.format());
       $.ajax({  
        url: "calendario/update",  
        type: 'GET',  

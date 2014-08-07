@@ -37,7 +37,7 @@ class CalendariController extends \BaseController {
             $temp['start'] = $riga->dataIntervento;
             $temp['end'] = $riga->dataFineIntervento;
             $temp['allDay'] = false;
-            $temp['durationEditable'] = true;
+            $temp['editable'] = true;
             $temp['url'] = "http://www.google.it/";
             $temp['description'] = 'prova';
             $elencoNew[] = $temp;
@@ -51,16 +51,19 @@ class CalendariController extends \BaseController {
         $i = new Intervento;
         $intervento = $i->find((int)Input::get('id'));
 
+
         // Modifico il formato delle date
-        $format = 'Y-m-dTH:i:s';
-        $date = DateTime::createFromFormat($format, Input::get('data'));
+        $format = 'Y-m-d H:i:s';
+        $new = str_replace("T", " ", Input::get('data'));
+        $date = DateTime::createFromFormat($format, $new);
+
         if($date != FALSE){
-            $intervento->dataIntervento = $date->format('d-m-Y H:i');     
+            $intervento->dataIntervento = $date->format('Y-m-d H:i');     
             $intervento->dataFineIntervento = $date->add(new DateInterval('PT3H'));
         }    
-
         if($intervento->save()){
-
+            var_dump($intervento->dataIntervento);
+            var_dump($intervento->dataFineIntervento);
         } else {
             
         }
