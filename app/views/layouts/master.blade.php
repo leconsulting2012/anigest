@@ -63,7 +63,6 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-warning"></i>
                             </a>
-
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
@@ -206,6 +205,7 @@
         {{ HTML::script('js/moment.min.js') }}        
         {{ HTML::script('js/jquery.min.js') }} 
         {{ HTML::script('js/jquery-ui.custom.min.js') }}
+        {{ HTML::script('js/jquery.blockUI.js') }}
         <!-- Bootstrap -->
         {{ HTML::script('js/bootstrap.min.js') }}        
         <!-- Colorbox -->
@@ -218,6 +218,52 @@
         {{ HTML::script('js/plugins/AdminLTE/app.js') }}
 
         @yield('scripts')
+
+
+        <script>
+
+
+
+var uiBlocked = false;
+
+window.setInterval(function() {
+    $.ajax({
+      cache: false,
+      type: 'GET',
+      url: '{{{ URL::to('alive.txt') }}}',
+      timeout: 1000,
+      success: function(data, textStatus, XMLHttpRequest) {
+        //alert ('>' + data + '<');
+        if (data != 'online\n') {
+          if (uiBlocked == false) {
+            uiBlocked = true;
+            $.blockUI({
+              message: 'm trying to connect to the server.',
+              css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+              } });
+          }
+        } else {
+          if (uiBlocked == true) {
+            uiBlocked = false;
+            $.unblockUI();
+          }
+        }
+      }
+    })
+
+  }, 5000);
+
+
+        </script>
+
+
 
     </body>
 </html>
