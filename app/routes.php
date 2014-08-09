@@ -137,6 +137,7 @@ Route::group(array('before' => 'auth'), function()
 
     # Magazzini Management
     Route::get('magazzino', 'MagazzinoController@getIndex');
+    Route::get('magazzino/{user}/getElencoConosciuto', 'MagazzinoController@getElencoMaterialeDaConsegnare');
 
     # Mappa Management
     Route::get('mappa', 'MappeController@getIndex');

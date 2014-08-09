@@ -253,7 +253,7 @@ class RoutersController extends AdminController {
         // estraggo tutti i modelli
         $modelliRouter = $this->modelliRouter->all(); 
 
-        $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.updated_at'))
+        $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
                             ->join('modelliRouter','modelliRouter.id','=', 'routers.modelliRouter_id')
                             ->where('routers.azienda_id', '=', Auth::user()->azienda_id);
         return Datatables::of($routers)

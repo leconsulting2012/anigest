@@ -45,6 +45,7 @@
 					<tr>
 						<th class="col-md-2">{{{ Lang::get('user/antenne/table.seriale') }}}</th>
 						<th class="col-md-2">{{{ Lang::get('user/antenne/table.modello') }}}</th>
+						<th class="col-md-2">Indirizzo MAC</th>
 						<th class="col-md-2">{{{ Lang::get('user/antenne/table.aggiornato') }}}</th>
 						<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
 					</tr>

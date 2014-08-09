@@ -238,7 +238,7 @@ window.setInterval(function() {
           if (uiBlocked == false) {
             uiBlocked = true;
             $.blockUI({
-              message: 'm trying to connect to the server.',
+              message: 'Non risulta connessione di rete attiva.',
               css: {
                 border: 'none',
                 padding: '15px',

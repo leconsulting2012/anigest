@@ -28,4 +28,14 @@ class Antenna extends Eloquent {
             ;
     }
 
+    public function daConsegnareUtente($idUser)
+    {
+        return $this->select(array('modelliAntenna.nome AS modello', 'antenne.mac AS mac', 'antenne.seriale AS seriale' ))
+                    ->join('interventi', 'interventi.antenna_id', '=', 'antenne.id')
+                    ->join('modelliAntenna', 'modelliAntenna.id', '=', 'antenne.modelloAntenna_id')
+               //
+                    ->where('interventi.user_id', '=', $idUser)
+                    ->get();
+    }
+
 }
