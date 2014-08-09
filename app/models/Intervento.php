@@ -48,6 +48,41 @@ class Intervento extends Eloquent {
             ;               
     }    
 
+    public function elencoIntrventiIndex(){
+        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'interventi.completato'))
+                    ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+                    ->join('users','users.id','=', 'interventi.user_id')
+                    ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
+                    ->where('interventi.azienda_id', '=', Auth::user()->azienda_id)
+                    ->get();
+
+        $temp = array();
+        $elenco = array();
+
+        foreach ($interventi as $riga) {
+            $temp['id'] = $riga->id;
+            $temp['nominativo'] = $riga->cognome." ".$riga->nome;
+            $temp['installatore'] = $riga->username."<br>Assegnato il ".$riga->dataAssegnazione;
+            $temp['dataIntervento'] = $riga->dataIntervento;
+            if($riga->dataIntervento == '0000-00-00 00:00:00')
+            {
+                $temp['completato'] = '';
+            } else 
+            {
+                if ($riga->completato == 0)
+                {
+                    $temp['completato'] = "<center><a href=\"". URL::to('interventi/') . $riga->id . "/chiudi\" class=\"iframe\"><span class=\"glyphicon glyphicon-thumbs-down\"></span></a></center>";
+                } else
+                {
+                    $temp['completato'] = "<center><span class=\"glyphicon glyphicon-thumbs-up\"></span></a></center>";
+                }
+            }
+            $temp['azioni'] = '<a href="'. URL::to('interventi/') . $riga->id . '/edit" class="btn btn-default btn-xs iframe" >Modifica</a>
+                <a href="'. URL::to('interventi/') . $riga->id . '/delete" class="btn btn-xs btn-danger iframe">Elimina</a>';
+            $elenco[] = $temp;
+        }
+    }
+
     public function elencoInterventiDaCompletare()
     {
         $elenco = DB::table('interventi')

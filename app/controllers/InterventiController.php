@@ -145,17 +145,23 @@ class InterventiController extends AdminController {
         $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get(); 
 
         // Modifico il formato delle date
-        $format = 'Y-m-d H:i:s';
-        $date = DateTime::createFromFormat($format, $intervento->dataIntervento);
-        if($date != FALSE) $intervento->dataIntervento = $date->format('d/m/Y H:i');
+        if ($intervento->dataIntervento != '0000-00-00 00:00:00'){
+            $format = 'Y-m-d H:i:s';
+            $date = DateTime::createFromFormat($format, $intervento->dataIntervento);
+            if($date != FALSE) $intervento->dataIntervento = $date->format('d/m/Y H:i');
+        } else {
+            $intervento->dataIntervento = '';   
+        }
 
         // Mode
-        $mode = 'edit';       
+        $mode = 'edit';  
+        if ($intervento->completato == 1) $disabled = 'disabled';
+            else $disabled = '';     
 
         // Selected groups
         $selectedModelloIntervento = Input::old('modelloIntervento', array());          
         // Show the page
-        return View::make('interventi/create_edit', compact('intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
+        return View::make('interventi/create_edit', compact('disabled', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
 	}
 
 	/**
@@ -322,6 +328,47 @@ class InterventiController extends AdminController {
             }
         }
         return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
+    } 
+
+    public function postClose($intervento)
+    {
+        // Declare the rules for the form validation
+        $rules = array(
+            'esito' => 'in:div1,div2|required'
+        );
+
+        // Validate the inputs
+        $validator = Validator::make(Input::all(), $rules); 
+
+       if ($validator->passes())
+        {
+            $oldIntervento = clone $intervento;      
+            
+            if (Input::get('esito') == 'div1')
+            {
+                $intervento->esito                      = 0;
+                $intervento->testoEsito             = Input::get('noteMale');
+            } 
+            else
+            {
+                $intervento->esito                      = 1;
+                $intervento->testoEsito             = Input::get('noteBene');                
+            }
+
+            $intervento->router_id              = Input::get('router_id');
+            $intervento->ip                     = Input::get('ip');
+            $intervento->bsid                   = Input::get('bsid');
+            $intervento->rssi                   = Input::get('rssi');
+            $intervento->cmri                   = Input::get('cmri');
+            $intervento->completato             = 1;
+
+            if($intervento->save()){
+                return Redirect::to('interventi/' )->with('success', Lang::get('user/interventi/messages.create.success'));
+            } else {
+                return Redirect::to('interventi/' . $intervento->id . '/chiudi')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
+            }
+        }
+        return Redirect::to('interventi/' . $intervento->id . '/chiudi')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator); 
     }       	
 
     /**
@@ -339,7 +386,7 @@ class InterventiController extends AdminController {
         return View::make('interventi/delete', compact('intervento', 'title'));
     }    
 
-    public function putCompletato($intervento)
+    public function putCompletato_bak($intervento)
     {     
         $intervento->completato   = 1;
 
@@ -348,12 +395,23 @@ class InterventiController extends AdminController {
         } else {
             return Redirect::to('interventi/' )->with('error', Lang::get('users/interventi/messages.edit.error'))->withErrors($validator);
         }
-    }  
+    } 
+
+    public function putCompletato($intervento)
+    {
+        // Title
+        $title = Lang::get('user/interventi/title.interventi_delete');
+
+        // Show the page
+        return View::make('interventi/chiudiEvento', compact('intervento', 'title'));        
+    }
 
     public function getData()
     {
-        // estraggo tutti i modelli
-        //$modelliIntervento = $this->modelloIntervento->all(); 
+   //     $interventi = $this->intervento->elencoIntrventiIndex();
+
+   //     return Datatables::of($interventi)
+   //     ->make();
 
         $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
@@ -364,26 +422,19 @@ class InterventiController extends AdminController {
 
         ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} (<b>{{{ $tipo }}})</b><br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
 
-    //    ->edit_column('confermato','@if($confermato == 0)
-     //               <span class="glyphicon glyphicon-thumbs-down"></span>
-     //           @else
-     //               <span class="glyphicon glyphicon-thumbs-up"></span>
-     //           @endif')
-
         ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
                     
                 @else
                     {{{ formato($dataAssegnazione) }}}
                 @endif')   
 
-        ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')
-                    
+        ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
                 @else
                     {{{ formato($dataIntervento) }}}
                 @endif')         
 
         ->edit_column('completato','@if($completato == 0)
-                    <center><a href="{{{ URL::to(\'interventi/\' . $id . \'/putCompletato\' ) }}}"><span class="glyphicon glyphicon-thumbs-down"></span></a></center>
+                    <center><a href="{{{ URL::to(\'interventi/\' . $id . \'/chiudi\' ) }}}" class="iframe"><span class="glyphicon glyphicon-thumbs-down"></span></a></center>
                 @else
                     <center><span class="glyphicon glyphicon-thumbs-up"></span></center>
                 @endif')        

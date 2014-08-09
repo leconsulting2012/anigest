@@ -111,12 +111,14 @@ Route::group(array('before' => 'auth'), function()
     Route::get('interventi/{intervento}/show', 'InterventiController@getShow');
     Route::get('interventi/{intervento}/edit', 'InterventiController@getEdit');
     Route::post('interventi/{intervento}/edit', 'InterventiController@postEdit');
+    Route::post('interventi/{intervento}/close', 'InterventiController@postClose');
     Route::get('interventi/{intervento}/delete', 'InterventiController@getDelete');
     Route::post('interventi/{intervento}/delete', 'InterventiController@postDelete');
     Route::get('interventi/data', 'InterventiController@getData');
     Route::get('interventi/', 'InterventiController@getIndex');
     Route::get('interventi/create', 'InterventiController@getCreate');
-    Route::get('interventi/{intervento}/putCompletato', 'InterventiController@putCompletato');
+    //Route::get('interventi/{intervento}/putCompletato', 'InterventiController@putCompletato');
+    Route::get('interventi/{intervento}/chiudi', 'InterventiController@putCompletato');
     Route::controller('interventi', 'InterventiController');
 
     # Routers Management

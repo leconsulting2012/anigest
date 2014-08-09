@@ -40,6 +40,10 @@ class CalendariController extends \BaseController {
             $temp['editable'] = true;
         //    $temp['url'] = "http://www.google.it/";
             $temp['description'] = 'prova';
+
+            $temp['backgroundColor'] = "#0073b7"; //Blue
+            $temp['borderColor'] = "#0073b7"; //Blue
+
             $elencoNew[] = $temp;
         }
         return Response::json($elencoNew);
