@@ -88,7 +88,7 @@ class AnagraficheController extends \BaseController {
             $this->anagrafica->indirizzo1  			= ucwords(strtolower(Input::get('indirizzo1')));
             $this->anagrafica->indirizzo2  			= ucwords(strtolower(Input::get('indirizzo2')));
             $this->anagrafica->cap       			= Input::get('cap');
-            $this->anagrafica->citta 				= strtoupper(Input::get('citta'));
+            $this->anagrafica->citta 				= maiuscolo(Input::get('citta'));
             $this->anagrafica->provincia    		= ucwords(strtolower(Input::get('provincia')));
             $this->anagrafica->telefono    			= Input::get('telefono');
             $this->anagrafica->fax    				= Input::get('fax');
@@ -152,7 +152,7 @@ class AnagraficheController extends \BaseController {
             $anagrafica->indirizzo1           = ucwords(strtolower(Input::get('indirizzo1')));
             $anagrafica->indirizzo2           = ucwords(strtolower(Input::get('indirizzo2')));
             $anagrafica->cap                  = Input::get('cap');
-            $anagrafica->citta                = strtoupper(Input::get('citta'));
+            $anagrafica->citta                = maiuscolo(Input::get('citta'));
             $anagrafica->provincia            = ucwords(strtolower(Input::get('provincia')));
             $anagrafica->telefono             = Input::get('telefono');
             $anagrafica->fax                  = Input::get('fax');
