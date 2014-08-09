@@ -154,7 +154,7 @@ class AntenneController extends AdminController {
         $rules = array(
             'modelloAntenna_id'   => 'required|integer',
             'seriale' => 'required',
-            'mac' => 'unique:antenne,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
+            'mac' => 'unique:antenne,mac|regex:/^([0-9a-fA-F][0-9a-fA-F][:-]){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs
@@ -167,7 +167,7 @@ class AntenneController extends AdminController {
             $user = Auth::user();
 
             // Update the antenna data
-            $this->antenna->mac 				= Input::get('mac');
+            $this->antenna->mac 				= str_replace("-", ":", Input::get('mac'));
             $this->antenna->seriale 			= Input::get('seriale');
             $this->antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
@@ -243,7 +243,7 @@ class AntenneController extends AdminController {
         // Declare the rules for the form validation
         $rules = array(
             'modelloAntenna_id' => 'required|integer',
-            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
+            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F][:-]){5}([0-9a-fA-F][0-9a-fA-F])$/',
            // 'dataRicezione' => 'regex:/\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}/',
        //     'dataConsegna' => 'regex:/^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-./])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/',
        //     'dataMontaggio' => 'regex:/^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-./])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/',
@@ -256,7 +256,7 @@ class AntenneController extends AdminController {
         if ($validator->passes())
         {
             $oldAntenna = clone $antenna;
-            $antenna->mac                 = Input::get('mac');
+            $antenna->mac                 = str_replace("-", ":", Input::get('mac'));
             $antenna->seriale             = Input::get('seriale');
             $antenna->modelloAntenna_id   = Input::get('modelloAntenna_id');
             $antenna->azienda_id          = Auth::user()->azienda_id;

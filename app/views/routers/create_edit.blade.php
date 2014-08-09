@@ -1,5 +1,18 @@
 @extends('layouts.modal')
 
+{{-- Web site Title --}}
+@section('title')
+{{{ $title }}}
+@stop
+
+@section('keywords')antenne @stop
+@section('author')Mauro Gallo @stop
+@section('description')gestione delle interventi anenne @stop
+
+@section('jsEsterni')
+{{ HTML::script('js/jquery.maskedinput.min.js') }}
+@stop
+
 {{-- Content --}}
 @section('content')
 	<!-- Tabs -->
@@ -110,4 +123,12 @@
 		</div>
 		<!-- ./ form actions -->
 	</form>
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+jQuery(function($){
+   $("#mac").mask("**:**:**:**:**:**");
+});
+</script>
 @stop

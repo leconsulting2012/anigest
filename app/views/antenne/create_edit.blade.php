@@ -17,6 +17,7 @@
 @section('jsEsterni')
 {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
+{{ HTML::script('js/jquery.maskedinput.min.js') }}
 @stop
 
 {{-- Content --}}
@@ -184,11 +185,15 @@
 @stop
 
 @section('scripts')
-	<script type="text/javascript">
-	    $(function () {
-	        $('.date').datetimepicker({
-	            language: 'it'
-	        });
-	    });
-	</script>
+<script type="text/javascript">
+$(function () {
+	$('.date').datetimepicker({
+		language: 'it'
+	});
+});
+jQuery(function($){
+	$("#mac").mask("**:**:**:**:**:**");
+});
+</script>
+@stop	
 @stop
