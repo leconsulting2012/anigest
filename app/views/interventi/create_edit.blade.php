@@ -19,6 +19,7 @@
 {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }}
 {{ HTML::script('js/plugins/combobox/bootstrap-combobox.js') }}
+{{ HTML::script('js/jquery.maskedinput.min.js') }}
 @stop
 
 {{-- Content --}}
@@ -205,7 +206,7 @@
 				<!-- BSID -->
 				<div class="form-group {{ $errors->first('bsid', 'has-error') }}">
 					<div class="col-md-6">
-						<label class="control-label" for="content">BSID</label>
+						<label class="control-label" for="content">BSSID</label>
 						<input type='text' class="form-control" name="bsid" value="{{{ Input::old('bsid', isset($intervento) ? $intervento->bsid : null) }}}" />
 						{{ $errors->first('bsid', '<label id="bsid-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
@@ -258,6 +259,10 @@ $(function () {
 
 $(document).ready(function(){
 	$('.combobox').combobox();
+});
+
+jQuery(function($){
+	$("#bsid").mask("**:**:**:**:**:**");
 });
 
 </script>

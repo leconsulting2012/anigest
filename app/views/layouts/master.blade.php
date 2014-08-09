@@ -220,9 +220,14 @@
         @yield('scripts')
 
 
-        <script>
-
-
+<script>
+    $(document).ready(function(){
+        $('#cboxClose').click(function(){
+            parent.oTable.fnReloadAjax();
+            parent.jQuery.fn.colorbox.close();
+            return false;
+        }); 
+    });
 
 var uiBlocked = false;
 
@@ -261,7 +266,7 @@ window.setInterval(function() {
   }, 5000);
 
 
-        </script>
+</script>
 
 
 

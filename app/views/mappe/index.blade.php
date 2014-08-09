@@ -31,12 +31,7 @@
 @section('jsEsterniBefore')
 <style type="text/css">
   #map {  width: 100%; 
-          height: 400px; 
-          border: 10px;
-          max-width: none; 
-          padding: 0px;}
-  #map img { max-width: none; }
-  #map label { width: auto; display: inline; }
+          height: 400px; }
       
 </style>
   
@@ -102,4 +97,3 @@ function initMap() {
 </script>
 
 @stop
-

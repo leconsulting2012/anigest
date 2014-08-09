@@ -19,6 +19,7 @@
 {{ HTML::script('js/jquery.colorbox-min.js') }}
 {{ HTML::script('js/plugins/datatables/jquery.dataTables.js') }}.
 {{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js') }} 
+{{ HTML::script('js/plugins/datatables/datatables.fnReloadAjax.js') }}
 @stop
 
 @section('bodyOnLoad')
