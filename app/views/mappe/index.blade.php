@@ -21,7 +21,7 @@
       <h3 class="box-title">Mappa degli Interventi non Completati</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
-      <div id='map'></div>
+      <div id='map-canvas'></div>
     </div>
   </div>
 </div>
@@ -30,7 +30,7 @@
 
 @section('jsEsterniBefore')
 <style type="text/css">
-  #map {  width: 100%; 
+  #map-canvas {  width: 100%; 
           height: 400px; }
       
 </style>
@@ -72,7 +72,7 @@ function addMarker(lat, lng, info) {
   });
 }
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map-canvas"), {
     center: new google.maps.LatLng(0, 0),
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP,

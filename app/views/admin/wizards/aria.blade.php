@@ -17,6 +17,7 @@
 @section('jsEsterni')
 {{ HTML::script('js/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/bootstrap-datetimepicker.pt-IT.js') }} 
+{{ HTML::script('js/jquery.maskedinput.min.js') }}
 @stop
 
 @section('bodyOnLoad')
@@ -243,7 +244,7 @@
 			<div class="form-group {{ $errors->first('serialeAntenna', 'has-error') }}">
 				<div class="col-md-12">
 					<label class="control-label" for="content">MAC Address Antenna</label>
-					<input class="form-control" type="text" name="serialeAntenna" id="seriale" value="{{{ Input::old('serialeAntenna', isset($antenna) ? $antenna->seriale : null) }}}" />
+					<input class="form-control mac" type="text" name="serialeAntenna" id="seriale" value="{{{ Input::old('serialeAntenna', isset($antenna) ? $antenna->seriale : null) }}}" />
 					{{ $errors->first('serialeAntenna', '<label id="serialeAntenna-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
 			</div>
@@ -283,7 +284,7 @@
 			<div class="form-group {{ $errors->first('serialeRouter', 'has-error') }}">
 					<div class="col-md-12">
 						<label class="control-label" for="content">MAC Address Router</label>
-						<input class="form-control" type="text" name="serialeRouter" id="serialeRouter" value="{{{ Input::old('serialeRouter', isset($router) ? $antenna->router : null) }}}" />
+						<input class="form-control mac" type="text" name="serialeRouter" id="serialeRouter" value="{{{ Input::old('serialeRouter', isset($router) ? $antenna->router : null) }}}" />
 						{{ $errors->first('serialeRouter', '<label id="serialeRouter-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -341,5 +342,8 @@
                     language: 'it'
                 });
             });
+            jQuery(function($){
+	$(".mac").mask("**:**:**:**:**:**");
+});
         </script>
 @stop

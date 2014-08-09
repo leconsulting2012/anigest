@@ -245,10 +245,12 @@ class AnagraficheController extends \BaseController {
 
         $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', 'anagrafiche.indirizzo1', 'anagrafiche.updated_at'))
         ->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id);
-                          //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');
-        return Datatables::of($anagrafiche)
+                               //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');
+        
 
-        //->edit_column('updated_at', Carbon::createFromFormat('Y/m/d H:i:s', time()))
+        return Datatables::of($anagrafiche)      
+
+        ->edit_column('updated_at', '{{ formato($updated_at) }}') 
 
         ->add_column('actions', '<a href="{{{ URL::to(\'anagrafiche/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
                 <a href="{{{ URL::to(\'anagrafiche/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>

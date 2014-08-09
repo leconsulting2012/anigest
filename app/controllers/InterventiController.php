@@ -373,8 +373,14 @@ class InterventiController extends AdminController {
         ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
                     
                 @else
-                    {{{ $dataAssegnazione }}}
-                @endif')           
+                    {{{ formato($dataAssegnazione) }}}
+                @endif')   
+
+        ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')
+                    
+                @else
+                    {{{ formato($dataIntervento) }}}
+                @endif')         
 
         ->edit_column('completato','@if($completato == 0)
                     <center><a href="{{{ URL::to(\'interventi/\' . $id . \'/putCompletato\' ) }}}"><span class="glyphicon glyphicon-thumbs-down"></span></a></center>
@@ -382,7 +388,6 @@ class InterventiController extends AdminController {
                     <center><span class="glyphicon glyphicon-thumbs-up"></span></center>
                 @endif')        
 
-        //->edit_column('updated_at', Carbon::createFromFormat('Y/m/d H:i:s', time()))
 
         ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
                 <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>

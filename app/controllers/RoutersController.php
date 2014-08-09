@@ -258,7 +258,7 @@ class RoutersController extends AdminController {
                             ->where('routers.azienda_id', '=', Auth::user()->azienda_id);
         return Datatables::of($routers)
 
-        //->edit_column('updated_at', Carbon::createFromFormat('Y/m/d H:i:s', time()))
+        ->edit_column('updated_at', '{{ formato($updated_at) }}')
 
         ->add_column('actions', '<a href="{{{ URL::to(\'routers/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
                 <a href="{{{ URL::to(\'routers/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
