@@ -127,7 +127,7 @@ class RoutersController extends AdminController {
         $rules = array(
             'modelliRouter_id'   => 'required|integer',
             'seriale' => 'required|unique:routers',
-            'mac' => 'unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
+            'mac' => 'unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F][:-]){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs
@@ -140,7 +140,7 @@ class RoutersController extends AdminController {
             $user = Auth::user();
 
             // Update the router data
-            $this->router->mac 				= Input::get('mac');
+            $this->router->mac 				= str_replace("-", ":", Input::get('mac'));
             $this->router->seriale 			= Input::get('seriale');
             $this->router->modelliRouter_id  = Input::get('modelliRouter_id');
             $this->router->azienda_id         = Auth::user()->azienda_id;
@@ -205,7 +205,7 @@ class RoutersController extends AdminController {
         // Declare the rules for the form validation
         $rules = array(           
             'modelliRouter_id' => 'required|integer',
-            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/'
+            'mac' => 'regex:/^([0-9a-fA-F][0-9a-fA-F][:-]){5}([0-9a-fA-F][0-9a-fA-F])$/'
         );
 
         // Validate the inputs
@@ -214,7 +214,7 @@ class RoutersController extends AdminController {
         if ($validator->passes())
         {
             $oldRouter = clone $router;
-            $router->mac                 = Input::get('mac');
+            $router->mac                 = str_replace("-", ":", Input::get('mac'));
             $router->seriale             = Input::get('seriale');
             $router->modelliRouter_id    = Input::get('modelliRouter_id');
             $router->azienda_id          = Auth::user()->azienda_id;
