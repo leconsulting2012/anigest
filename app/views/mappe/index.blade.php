@@ -80,6 +80,7 @@ function initMap() {
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
     },
+    disableDefaultUI: true,
     navigationControl: true,
     navigationControlOptions: {
       style: google.maps.NavigationControlStyle.SMALL
