@@ -197,7 +197,7 @@
 				<div class="form-group {{ $errors->first('ip', 'has-error') }}">
 					<div class="col-md-6">
 						<label class="control-label" for="content">Indirizzo IP</label>
-						<input type='text' {{ $disabled }} class="form-control" name="ip" value="{{{ Input::old('ip', isset($intervento) ? $intervento->ip : null) }}}" />
+						<input type='text' disabled class="form-control" name="ip" value="{{{ Input::old('ip', isset($intervento) ? $intervento->ip : null) }}}" />
 						{{ $errors->first('ip', '<label id="ip-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -207,7 +207,7 @@
 				<div class="form-group {{ $errors->first('bsid', 'has-error') }}">
 					<div class="col-md-6">
 						<label class="control-label" for="content">BSSID</label>
-						<input type='text' {{ $disabled }} class="form-control" name="bsid" value="{{{ Input::old('bsid', isset($intervento) ? $intervento->bsid : null) }}}" />
+						<input type='text' disabled class="form-control" name="bsid" value="{{{ Input::old('bsid', isset($intervento) ? $intervento->bsid : null) }}}" />
 						{{ $errors->first('bsid', '<label id="bsid-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -217,7 +217,7 @@
 				<div class="form-group {{ $errors->first('rssi', 'has-error') }}">
 					<div class="col-md-6">
 						<label class="control-label" for="content">RSSI</label>
-						<input type='text' {{ $disabled }} class="form-control" name="rssi" value="{{{ Input::old('rssi', isset($intervento) ? $intervento->rssi : null) }}}" />
+						<input type='text' disabled class="form-control" name="rssi" value="{{{ Input::old('rssi', isset($intervento) ? $intervento->rssi : null) }}}" />
 						{{ $errors->first('rssi', '<label id="rssi-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -227,11 +227,21 @@
 				<div class="form-group {{ $errors->first('cmri', 'has-error') }}">
 					<div class="col-md-6">
 						<label class="control-label" for="content">CMRI</label>
-						<input type='text' {{ $disabled }} class="form-control" name="cmri" value="{{{ Input::old('cmri', isset($intervento) ? $intervento->cmri : null) }}}" />
+						<input type='text' disabled class="form-control" name="cmri" value="{{{ Input::old('cmri', isset($intervento) ? $intervento->cmri : null) }}}" />
 						{{ $errors->first('cmri', '<label id="cmri-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
+				</div>				
+				<!-- ./ cmri -->	
+
+				<!-- EsitoTeto -->
+				<div class="form-group {{{ $errors->has('esitoTesto') ? 'error' : '' }}}">
+					<div class="col-xs-6">
+						<label class="control-label" for="content">Esito</label>
+						<textarea disabled class="form-control" name="esitoTesto" id="esitoTesto" rows="3" placeholder="Mancanza di segnale">{{{ Input::old('esitoTesto', isset($intervento) ? $intervento->esitoTesto : null) }}}</textarea>
+						{{{ $errors->first('esitoTesto', '<span class="help-inline">:message</span>') }}}
+					</div>
 				</div>
-				<!-- ./ cmri -->				
+				<!-- ./ EsitoTeto -->			
 			</div>
 			<!-- ./ meta data tab -->
 		</div>
@@ -241,8 +251,10 @@
 		<div class="form-group">
 			<div class="col-md-12">
 				<element class="btn btn-default close_popup">Indietro</element>
+				@if ($disabled != 'disabled')
 				<button type="reset" class="btn btn-cancel">Annulla</button>
 				<button type="submit" class="btn btn-success">Salva</button>
+				@endif
 			</div>
 		</div>
 		<!-- ./ form actions -->

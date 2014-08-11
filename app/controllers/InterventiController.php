@@ -105,10 +105,11 @@ class InterventiController extends AdminController {
         $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();             
 
         // Mode
-        $mode = 'create';                      
+        $mode = 'create';  
+        $disabled = '';                    
 
         // Show the page
-        return View::make('interventi/create_edit', compact('intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
+        return View::make('interventi/create_edit', compact('disabled', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
 	}
 
     /**
@@ -176,7 +177,6 @@ class InterventiController extends AdminController {
            // 'modelloIntervento_id'   => 'required|integer',
             'ip'   => 'regex:[\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b]',
             'tipiIntervento_id' => 'required|integer',
-
         );
 
         // Validate the inputs
@@ -279,7 +279,7 @@ class InterventiController extends AdminController {
     {
         // Declare the rules for the form validation
         $rules = array(
-            'tipiIntervento_id' => 'required|integer'
+            'tipiIntervento_id' => 'required|integer',          
         );
 
         // Validate the inputs
@@ -413,38 +413,37 @@ class InterventiController extends AdminController {
    //     return Datatables::of($interventi)
    //     ->make();
 
-        $interventi = Intervento::select(array('interventi.id', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'interventi.completato'))
+        $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
-                            ->join('users','users.id','=', 'interventi.user_id')
+                            ->leftjoin('users','users.id','=', 'interventi.user_id')
                             ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
         return Datatables::of($interventi)
 
-        ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} (<b>{{{ $tipo }}})</b><br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
+        ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
 
         ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
-                    
+                   <center>Non Assegnato </center>
                 @else
-                    {{{ formato($dataAssegnazione) }}}
+                   <center>{{{ $username }}}<br>{{{ formato($dataAssegnazione) }}}</center>
                 @endif')   
 
         ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
                 @else
                     {{{ formato($dataIntervento) }}}
-                @endif')         
-
-        ->edit_column('completato','@if($completato == 0)
-                    <center><a href="{{{ URL::to(\'interventi/\' . $id . \'/chiudi\' ) }}}" class="iframe"><span class="glyphicon glyphicon-thumbs-down"></span></a></center>
-                @else
-                    <center><span class="glyphicon glyphicon-thumbs-up"></span></center>
-                @endif')        
+                @endif')           
 
 
         ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
-                <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
-            ')
+                @if($completato == 1)
+                
+                @elseif (($dataIntervento != \'0000-00-00 00:00:00\') and ($username != \'\'))
+                <a href="{{{ URL::to(\'interventi/\' . $id . \'/chiudi\' ) }}}" class="btn btn-xs btn-danger iframe"><span class="glyphicon glyphicon-thumbs-up"></span> Chiudi</a>
+                @else
+                    <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+                @endif')
 
-        ->remove_column('id', 'nome', 'tipo', 'indirizzo1', 'citta')
+        ->remove_column('id', 'nome', 'indirizzo1', 'citta', 'username', 'completato')
 
         ->make();
     }

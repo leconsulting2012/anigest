@@ -71,9 +71,9 @@ class DashboardController extends AdminController {
         $totAntenneMagazzino = $this->antenna->contaMagazzino();
         $totRoutersMagazzino = $this->router->contaMagazzino();
         $totInterventiScoperti = $this->intervento->contaInterventiScoperti();
-
+        $totInterventiNonAssegnati = $this->intervento->contaInterventiNonAssegnati();
         // Show the page
-        return View::make('dashboard/index', compact('totInterventiScoperti', 'interventi', 'title', 'totAnagrafiche', 'totInterventi', 'totAntenneMagazzino', 'totRoutersMagazzino'));
+        return View::make('dashboard/index', compact('totInterventiNonAssegnati', 'totInterventiScoperti', 'interventi', 'title', 'totAnagrafiche', 'totInterventi', 'totAntenneMagazzino', 'totRoutersMagazzino'));
 	}
 
 }

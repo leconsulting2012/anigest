@@ -68,7 +68,7 @@
 							</p>
 						</div>
 						<div class="icon">
-							<i class="ion ion-stats-bars"></i>
+							<i class="ion ion-clock"></i>
 						</div>
 						<a href="{{{ URL::to('interventi') }}}" class="small-box-footer">
 							Vai alla Scheda <i class="fa fa-arrow-circle-right"></i>
@@ -77,17 +77,42 @@
 				</div><!-- ./col -->
 				<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
+					<div class="small-box bg-blue">
+						<div class="inner">
+							<h3>
+								{{ $totInterventiNonAssegnati }}
+							</h3>
+							<p>
+								Interventi non Assegnati
+							</p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-exclamation"></i>
+						</div>
+						@if ($totInterventiNonAssegnati != 0)
+						<a href="{{{ URL::to('interventi') }}}" class="small-box-footer">
+							Maggiori Informazioni <i class="fa fa-arrow-circle-right"></i>
+						</a>
+						@else
+						<a href="#" class="small-box-footer">
+							Nessuna Informazione </i>
+						</a>
+						@endif
+					</div>
+				</div><!-- ./col -->				
+				<div class="col-lg-3 col-xs-6">
+					<!-- small box -->
 					<div class="small-box bg-red">
 						<div class="inner">
 							<h3>
 								{{ $totInterventiScoperti }}
 							</h3>
 							<p>
-								Interventi Scoperti
+								Interventi non Programmati
 							</p>
 						</div>
 						<div class="icon">
-							<i class="ion ion-pie-graph"></i>
+							<i class="fa fa-calendar-o"></i>
 						</div>
 						@if ($totInterventiScoperti != 0)
 						<a href="{{{ URL::to('interventi') }}}" class="small-box-footer">

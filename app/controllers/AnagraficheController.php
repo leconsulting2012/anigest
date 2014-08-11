@@ -243,7 +243,7 @@ class AnagraficheController extends \BaseController {
     public function getData()
     {
 
-        $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', 'anagrafiche.indirizzo1', 'anagrafiche.updated_at'))
+        $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', DB::raw('CONCAT(anagrafiche.indirizzo1," - ",anagrafiche.citta) as indirizzo'), 'anagrafiche.updated_at'))
         ->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id);
                                //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');
         
