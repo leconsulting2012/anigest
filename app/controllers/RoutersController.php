@@ -105,7 +105,19 @@ class RoutersController extends AdminController {
         $title = Lang::get('user/routers/title.router_update');
 
         // Get all the available permissions
-        $modelliRouter = $this->modelliRouter->all();      
+        $modelliRouter = $this->modelliRouter->all();  
+
+        // Modifico il formato delle date
+        $format = 'Y-m-d H:i:s';
+
+        if($router->dataRicezione != '0000-00-00 00:00:00') 
+        {
+            $date = DateTime::createFromFormat($format, $router->dataRicezione);    
+            if($date != FALSE) $router->dataRicezione = $date->format('d/m/Y H:i');  
+        } else
+        {
+            $router->dataRicezione = '';
+        }            
 
         // Mode
         $mode = 'edit';       
@@ -144,6 +156,17 @@ class RoutersController extends AdminController {
             $this->router->seriale 			= Input::get('seriale');
             $this->router->modelliRouter_id  = Input::get('modelliRouter_id');
             $this->router->azienda_id         = Auth::user()->azienda_id;
+
+            // Modifico il formato delle date
+            $format = 'd/m/Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataRicezione'));  
+            if($date != FALSE) $this->router->dataRicezione = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataConsegna'));  
+            if($date != FALSE) $this->router->dataConsegna = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataMontaggio'));  
+            if($date != FALSE) $this->router->dataMontaggio = $date->format('Y-m-d H:i:s');  
 
             // Was the router created?
             if($this->router->save())
@@ -219,6 +242,16 @@ class RoutersController extends AdminController {
             $router->modelliRouter_id    = Input::get('modelliRouter_id');
             $router->azienda_id          = Auth::user()->azienda_id;
 
+            // Modifico il formato delle date
+            $format = 'd/m/Y H:i';
+            $date = DateTime::createFromFormat($format, Input::get('dataRicezione'));  
+            if($date != FALSE) $router->dataRicezione = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataConsegna'));  
+            if($date != FALSE) $router->dataConsegna = $date->format('Y-m-d H:i:s');
+
+            $date = DateTime::createFromFormat($format, Input::get('dataMontaggio'));  
+            if($date != FALSE) $router->dataMontaggio = $date->format('Y-m-d H:i:s');     
 
             if($router->save())
             {

@@ -73,6 +73,20 @@
 	            	{{ $errors->first('modelliRouter_id', '<label id="modelliRouter_id-error" class="control-label" for="inputError">:message</label>') }}
 				</div>
 				<!-- ./ modello router -->	
+
+				<!-- Data di Ricezione -->
+				<div class="form-group {{ $errors->first('dataRicezione', 'has-error') }}">
+					<div class="col-md-6">
+						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($router) ? $router->dataRicezione : null) }}}" />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						
+						</div>
+						{{ $errors->first('dataRicezione', '<label id="dataRicezione-error" class="control-label" for="inputError">:message</label>') }}
+					</div>
+				</div>
+				<!-- ./ Data di ricezione -->				
 							
 			</div>
 			<!-- ./ general tab -->
