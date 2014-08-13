@@ -66,8 +66,7 @@ class CalendariController extends \BaseController {
             $intervento->dataFineIntervento = $date->add(new DateInterval('PT3H'));
         }    
         if($intervento->save()){
-            var_dump($intervento->dataIntervento);
-            var_dump($intervento->dataFineIntervento);
+
         } else {
             
         }

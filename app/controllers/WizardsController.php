@@ -105,11 +105,13 @@ class WizardsController extends AdminController {
             $this->router->mac              = Input::get('serialeRouter');
             $this->router->modelliRouter_id  = Input::get('modelloRouter_id');
             $this->router->azienda_id          = Auth::user()->azienda_id;
+            $this->router->magazzino_id          = Auth::user()->id;
             if($date != FALSE) $this->router->dataRicezione = $date->format('Y-m-d H:i:s');            
 
             $this->antenna->mac                 = Input::get('serialeAntenna');
             $this->antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
+            $this->antenna->magazzino_id          = Auth::user()->id;
             if($date != FALSE) $this->antenna->dataRicezione = $date->format('Y-m-d H:i:s');
 
             $this->anagrafica->cognome              = strtoupper(Input::get('cognome'));

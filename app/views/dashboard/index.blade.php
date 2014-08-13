@@ -127,6 +127,12 @@
 				</div><!-- ./col -->
 			</div>
 
+			<style>
+			.hiddenRow {
+				padding: 0 !important;
+			}
+			</style>
+
 			<div class="row">
 				<div class="col-md-6">
 					<!-- Danger box -->
@@ -140,19 +146,39 @@
 						</div>
 						<div class="box-body">
 							<div class="box-body no-padding">
-								<table class="table table-condensed">
-									<tbody><tr>
+								<table class="table table-condensed" style="border-collapse:collapse;">
+									<thead><tr>
 										<th style="width: 10px">#</th>
 										<th>Anagrafica</th>
 										<th>Telefono</th>
 										<th style="width: 40px">Tipo</th>
 									</tr>
+								</thead>
+								<tbody>
 									@foreach ($interventi as $riga)
-									<tr>
+									<tr data-toggle="collapse" data-target="#riga{{$riga['n']}}" class="accordion-toggle">
 										<td>{{$riga['n']}}</td>
 										<td>{{$riga['anagrafica'] }}</td>
 										<td><a href="tel:{{$riga['telefono']}}">{{$riga['telefono']}}</a></td>
   										<td><span class="badge bg-{{ $riga['livello'] }}">{{$riga['livTesto']}}</span></td>
+  									</tr>
+  									<tr>
+  										<td class="hiddenRow" colspan="4">
+  											<div class="accordian-body collapse" id="riga{{$riga['n']}}"> 
+  												<table>
+<tr>
+<td style="width: 10px"> </td>
+<td class="col-sx-12 col-md 4"><b>{{$riga['cognome']}}<br>{{$riga['nome']}}</b></td>
+<td class="col-sx-4 col-md 2">{{$riga['tipo']}}</td>
+<td class="col-sx-12 col-md 2">{{$riga['indirizzo']}}<br>{{$riga['citta']}}</td>
+<td class="col-sx-12 col-md 2">{{$riga['dataIntervento']}}</td>
+</tr>
+
+  												</table>
+  													
+  													
+  											</div>
+  										</td>
   									</tr>
 									@endforeach
 	

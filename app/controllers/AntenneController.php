@@ -110,7 +110,7 @@ class AntenneController extends AdminController {
         if($antenna->dataRicezione != '0000-00-00 00:00:00') 
         {
             $date = DateTime::createFromFormat($format, $antenna->dataRicezione);    
-            if($date != FALSE) $antenna->dataRicezione = $date->format('d-m-Y H:i');  
+            if($date != FALSE) $antenna->dataRicezione = $date->format('d/m/Y H:i');  
         } else
         {
             $antenna->dataRicezione = '';
@@ -119,7 +119,7 @@ class AntenneController extends AdminController {
         if($antenna->dataConsegna != '0000-00-00 00:00:00') 
         {
             $date = DateTime::createFromFormat($format, $antenna->dataConsegna);    
-            if($date != FALSE) $antenna->dataConsegna = $date->format('d-m-Y H:i');  
+            if($date != FALSE) $antenna->dataConsegna = $date->format('d/m/Y H:i');  
         } else
         {
             $antenna->dataConsegna = '';
@@ -128,7 +128,7 @@ class AntenneController extends AdminController {
         if($antenna->dataMontaggio != '0000-00-00 00:00:00') 
         {
             $date = DateTime::createFromFormat($format, $antenna->dataMontaggio);    
-            if($date != FALSE) $antenna->dataMontaggio = $date->format('d-m-Y H:i');  
+            if($date != FALSE) $antenna->dataMontaggio = $date->format('d/m/Y H:i');  
         } else
         {
             $antenna->dataMontaggio = '';
@@ -171,6 +171,7 @@ class AntenneController extends AdminController {
             $this->antenna->seriale 			= Input::get('seriale');
             $this->antenna->modelloAntenna_id  = Input::get('modelloAntenna_id');
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
+            $this->antenna->magazzino_id          = Auth::user()->id;
 
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';

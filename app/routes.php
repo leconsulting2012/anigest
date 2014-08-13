@@ -40,7 +40,6 @@ Route::pattern('modelloAntenna', '[0-9a-z]+');
 Route::pattern('anagrafica', '[0-9a-z]+');
 Route::pattern('router', '[0-9a-z]+');
 Route::pattern('intervento', '[0-9a-z]+');
-
 /** ------------------------------------------
  *  Admin Routes
  *  ------------------------------------------
@@ -139,7 +138,12 @@ Route::group(array('before' => 'auth'), function()
 
     # Magazzini Management
     Route::get('magazzino', 'MagazzinoController@getIndex');
-    Route::get('magazzino/{user}/getElencoConosciuto', 'MagazzinoController@getElencoMaterialeDaConsegnare');
+    Route::get('magazzino/getMioMagazzinoAntenne', 'MagazzinoController@getTuoMagazzinoAntenne');
+    Route::get('magazzino/getMioMagazzinoRouters', 'MagazzinoController@getTuoMagazzinoRouters');
+    Route::get('magazzino/{user}/getElencoConosciutoAntenne', 'MagazzinoController@getElencoMaterialeDaConsegnareAntenne');
+    Route::get('magazzino/{user}/getElencoConosciutoRouters', 'MagazzinoController@getElencoMaterialeDaConsegnareRouters');
+    Route::get('magazzino/{user}/{router}/consegnaR', 'MagazzinoController@consegnaRouter');
+    Route::get('magazzino/{user}/{antenna}/consegnaA', 'MagazzinoController@consegnaAntenna');
 
     # Mappa Management
     Route::get('mappa', 'MappeController@getIndex');

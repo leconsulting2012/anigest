@@ -125,6 +125,18 @@ class Intervento extends Eloquent {
             $temp['livello'] = $livelli[$riga->idTipo];
             $temp['livTesto'] = substr($riga->tipo, 0,4);
             $temp['telefono'] = $riga->telefono;
+            if ($riga->dataIntervento == '0000-00-00 00:00:00')
+            {
+                $temp['dataIntervento'] = 'Non Programmato!';
+            } else
+                $temp['dataIntervento'] = $riga->dataIntervento;            {
+            }
+            $temp['indirizzo'] = $riga->indirizzo1.' '.$riga->indirizzo2;
+            $temp['citta'] = $riga->citta;
+            $temp['tipo'] = $riga->tipo;
+            $temp['cognome'] = $riga->cognome;
+            $temp['nome'] = $riga->nome;
+            
             $elencoNew[] = $temp;
         }    
         return $elencoNew;                  
