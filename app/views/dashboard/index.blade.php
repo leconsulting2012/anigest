@@ -35,9 +35,11 @@
 				
 
 			</h4>
+
+			@if ((Auth::user()->hasRole('admin'))  or (Auth::user()->hasRole('gestore')))
 			<div class="row">
 
-								<div class="col-lg-3 col-xs-6">
+					<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
 					<div class="small-box bg-yellow">
 						<div class="inner">
@@ -126,6 +128,7 @@
 					</div>
 				</div><!-- ./col -->
 			</div>
+			@endif
 
 			<style>
 			.hiddenRow {
@@ -166,13 +169,13 @@
   										<td class="hiddenRow" colspan="4">
   											<div class="accordian-body collapse" id="riga{{$riga['n']}}"> 
   												<table>
-<tr>
-<td style="width: 10px"> </td>
-<td class="col-sx-12 col-md 4"><b>{{$riga['cognome']}}<br>{{$riga['nome']}}</b></td>
-<td class="col-sx-4 col-md 2">{{$riga['tipo']}}</td>
-<td class="col-sx-12 col-md 2">{{$riga['indirizzo']}}<br>{{$riga['citta']}}</td>
-<td class="col-sx-12 col-md 2">{{$riga['dataIntervento']}}</td>
-</tr>
+													<tr>
+														<td style="width: 10px"> </td>
+														<td class="col-sx-12 col-md 4"><b>{{$riga['cognome']}}<br>{{$riga['nome']}}</b></td>
+														<td class="col-sx-4 col-md 2">{{$riga['tipo']}}</td>
+														<td class="col-sx-12 col-md 2">{{$riga['indirizzo']}}<br>{{$riga['citta']}}</td>
+														<td class="col-sx-12 col-md 2">{{$riga['dataIntervento']}}</td>
+													</tr>
 
   												</table>
   													
@@ -187,7 +190,7 @@
 						</div><!-- /.box-body -->
 					</div><!-- /.box -->
 				</div>
-
+			@if ((Auth::user()->hasRole('admin'))  or (Auth::user()->hasRole('gestore')))
 				<div class="col-md-6">
 					<!-- Danger box -->
 					<div class="box box-info">
@@ -212,7 +215,7 @@
 						</div>
 					</div>
 				</div>
-
+				@endif
 			</div>
 		</div>
 	</div>	
