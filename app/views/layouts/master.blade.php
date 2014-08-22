@@ -4,11 +4,12 @@
         <meta charset="UTF-8">
         <title>
             @section('title')
-            Anigest
-            @show
+            Anigest @show
         </title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <!-- bootstrap 3.0.2 -->
+        <meta name="_token" content="{{ csrf_token() }}" />
+
+        <!-- bootstrap 3.2.0 -->
         {{ HTML::style('css/bootstrap.min.css') }}
         <!-- font Awesome -->
         {{ HTML::style('css/font-awesome.min.css') }}
@@ -59,7 +60,7 @@
                             </a>
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
+                        <li id="popUpNotifiche" class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-warning"></i>
                             </a>
@@ -146,6 +147,7 @@
                                 <li{{ (Request::is('admin/roles*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/roles') }}}"><span class="glyphicon glyphicon-user"></span> Ruoli</a></li>
                             </ul>
                         </li>
+                        <li{{ (Request::is('notifications*') ? ' class="active"' : '') }}><a href="{{{ URL::to('notifications') }}}"><span class="fa fa-bell"></span> Notifiche</a></li>
                         @endif
 
                         <li{{ (Request::is('anagrafiche*') ? ' class="active"' : '') }}><a href="{{{ URL::to('anagrafiche') }}}"><span class="glyphicon glyphicon-user"></span> Anagrafiche</a></li>
@@ -203,9 +205,11 @@
 
         <!-- jQuery 2.0.2 -->
         {{ HTML::script('js/moment.min.js') }}        
-        {{ HTML::script('js/jquery.min.js') }} 
+        {{ HTML::script('js/jquery-2.0.3.js') }} 
         {{ HTML::script('js/jquery-ui.custom.min.js') }}
         {{ HTML::script('js/jquery.blockUI.js') }}
+        {{ HTML::script('js/jquery.bootstrap-growl.min.js') }}
+
         <!-- Bootstrap -->
         {{ HTML::script('js/bootstrap.min.js') }}        
         <!-- Colorbox -->
@@ -221,49 +225,83 @@
 
 
 <script>
-    $(document).ready(function(){
-        $('#cboxClose').click(function(){
-            parent.oTable.fnReloadAjax();
-            parent.jQuery.fn.colorbox.close();
-            return false;
-        }); 
+$(document).ready(function(){
+    @yield('documentReady')
+
+    $('#cboxClose').click(function(){
+        parent.oTable.fnReloadAjax();
+        parent.jQuery.fn.colorbox.close();
+        return false;
+    }); 
+
+    $(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+            }
+        });
     });
+});
+
+function avvisoScheda(tipo, testo){
+    setTimeout(function() {
+        $.bootstrapGrowl(testo, {
+            type: tipo,
+            stackup_spacing: 10
+        });
+    }, 10);
+}
 
 var uiBlocked = false;
 
+function checkNotifiche(){
+    $.ajax({
+        cache: false,
+        type: 'POST',
+        url: '{{ URL::to('notifications/getMine') }}',
+        timeout: 2000,
+        success: function(data) {
+            //console.log ( data );
+            $("#popUpNotifiche").replaceWith(data);
+            $('.dropdown-menu').css('display','block');
+        }
+    })
+    console.log ( 'ok' );
+}
+
+
 window.setInterval(function() {
     $.ajax({
-      cache: false,
-      type: 'GET',
-      url: '{{{ URL::to('alive.txt') }}}',
-      timeout: 1000,
-      success: function(data, textStatus, XMLHttpRequest) {
-        //alert ('>' + data + '<');
-        if (data != 'online\n') {
-          if (uiBlocked == false) {
-            uiBlocked = true;
-            $.blockUI({
-              message: 'Non risulta connessione di rete attiva.',
-              css: {
-                border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
-              } });
-          }
-        } else {
-          if (uiBlocked == true) {
-            uiBlocked = false;
-            $.unblockUI();
-          }
+        cache: false,
+        type: 'GET',
+        url: '{{{ URL::to('alive.txt') }}}',
+        timeout: 1000,
+        success: function(data, textStatus, XMLHttpRequest) {
+            if (data != 'online\n') {
+                if (uiBlocked == false) {
+                    uiBlocked = true;
+                    $.blockUI({
+                        message: 'Non risulta connessione di rete attiva.',
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        } });
+                }
+            } else {       
+                if (uiBlocked == true) {
+                    uiBlocked = false;
+                    $.unblockUI();
+                }
+            }
         }
-      }
     })
-
-  }, 5000);
+    //checkNotifiche();
+}, 5000);
 
 
 </script>

@@ -25,6 +25,7 @@ Route::model('modelloAntenna', 'ModelloAntenna');
 Route::model('anagrafica', 'Anagrafica');
 Route::model('router', 'Router');
 Route::model('intervento', 'Intervento');
+Route::model('notification', 'Notification');
 
 /** ------------------------------------------
  *  Route constraint patterns
@@ -35,11 +36,12 @@ Route::pattern('post', '[0-9]+');
 Route::pattern('user', '[0-9]+');
 Route::pattern('role', '[0-9]+');
 Route::pattern('token', '[0-9a-z]+');
-Route::pattern('antenna', '[0-9a-z]+');
-Route::pattern('modelloAntenna', '[0-9a-z]+');
-Route::pattern('anagrafica', '[0-9a-z]+');
-Route::pattern('router', '[0-9a-z]+');
-Route::pattern('intervento', '[0-9a-z]+');
+Route::pattern('antenna', '[0-9]+');
+Route::pattern('modelloAntenna', '[0-9]+');
+Route::pattern('anagrafica', '[0-9]+');
+Route::pattern('router', '[0-9]+');
+Route::pattern('intervento', '[0-9]+');
+Route::pattern('notification', '[0-9]+');
 /** ------------------------------------------
  *  Admin Routes
  *  ------------------------------------------
@@ -144,9 +146,19 @@ Route::group(array('before' => 'auth'), function()
     Route::get('magazzino/{user}/getElencoConosciutoRouters', 'MagazzinoController@getElencoMaterialeDaConsegnareRouters');
     Route::get('magazzino/{user}/{router}/consegnaR', 'MagazzinoController@consegnaRouter');
     Route::get('magazzino/{user}/{antenna}/consegnaA', 'MagazzinoController@consegnaAntenna');
+    Route::get('magazzino/nonAssegnatiR', 'MagazzinoController@getNonAssegnatiRouters');
+    Route::get('magazzino/nonAssegnatiA', 'MagazzinoController@getNonAssegnatiAntenne');
 
     # Mappa Management
     Route::get('mappa', 'MappeController@getIndex');
+
+    # Notification Management
+    Route::get('notifications', 'NotificationsController@getIndex');
+    Route::post('notifications/save', 'NotificationsController@save');
+    Route::post('notifications/getMine', 'NotificationsController@getMie');
+    Route::post('notifications/{notification}/open', 'NotificationsController@open');
+    Route::post('notifications/{notification}/delete', 'NotificationsController@delete');
+    Route::get('notifications/data', 'NotificationsController@getData');
 
     # Wizards
     Route::get('wizardAria', 'WizardsController@index');

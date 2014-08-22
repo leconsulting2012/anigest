@@ -308,6 +308,9 @@ class InterventiController extends AdminController {
             if ( $utente != 0)
             {
                 $intervento->dataAssegnazione = date("Y-m-d H:i:s");
+            } else 
+            {
+                $intervento->dataAssegnazione = '0000-00-00 00:00:00';
             }
 
             $intervento->azienda_id          = Auth::user()->azienda_id;

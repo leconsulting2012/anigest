@@ -74,7 +74,7 @@
 		</div>
 
 		<div class="box-body col-xs-12">
-			<div class="col-md-8">
+			<div class="col-md-7">
 				<!-- Danger box -->
 				<div class="box box-danger">
 					<div class="box-header">
@@ -85,29 +85,21 @@
 					</div>
 					<div class="box-body">
 						<div class="box-body no-padding">
-							<table class="table table-condensed">
-								<tbody>
+							<table id="tabellaNonAssegnatiA" class="table table-condensed">
+								<thead>
 									<tr>
 										<th>MAC</th>
 										<th>Seriale</th>
 										<th>Modello</th>
-										<th>Consegnatario</th>
 										<th>Data Ricezione</th>
 									</tr>
-									@foreach ($totAntenneMagazzino as $riga)
-									<tr>
-										<td><a href="{{ URL::to("interventi/". $riga->id . "/edit") }}" width:"90%", height:"90%", iframe:true>{{ $riga->mac }}</a></td>
-										<td>{{ $riga->seriale }}</a></td>
-										<td>{{ $riga->nome }}</a></td>
-										<td>{{ $riga->username }}</a></td>
-										<td>{{ formato($riga->dataRicezione) }}</a></td>
-									</tr>
-									@endforeach
-
-								</tbody></table>
-							</div>
-						</div><!-- /.box-body -->
-					</div><!-- /.box -->
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
 
 					<!-- Danger box -->
 					<div class="box box-danger">
@@ -119,31 +111,23 @@
 						</div>
 						<div class="box-body">
 							<div class="box-body no-padding">
-								<table class="table table-condensed">
+								<table id="tabellaNonAssegnatiR" class="table table-condensed">
 									<tbody>
 										<tr>
 											<th>MAC</th>
 											<th>Seriale</th>
 											<th>Modello</th>
-											<th>Consegnatario</th>
 											<th>Data Ricezione</th>
 										</tr>
-										@foreach ($totRoutersMagazzino as $riga)
-										<tr>
-											<td><a href="{{ URL::to("interventi/". $riga->id . "/edit") }}" width:"90%", height:"90%", iframe:true>{{ $riga->mac }}</a></td>
-											<td>{{ $riga->seriale }}</a></td>
-											<td>{{ $riga->nome }}</a></td>
-											<td>{{ $riga->username }}</a></td>
-											<td>{{ formato($riga->dataRicezione) }}</a></td>
-										</tr>
-										@endforeach
-
-									</tbody></table>
-								</div>
-							</div><!-- /.box-body -->
-						</div><!-- /.box -->
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div><!-- /.box-body -->
+					</div><!-- /.box -->
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<!-- Danger box -->
 						<div class="box box-info">
 							<div class="box-header">
@@ -199,7 +183,27 @@ function AggiornaBoxInstallatore(tipo, installatore,aggiorna) {
 	});
 }
 
-function ElencoMioMagazzino(tipo, aggiorna){
+function ElencoNonAssegnatiMagazzino(tipo){
+	if (tipo == 'R'){
+		var URL = '{{ URL::to('/') }}/magazzino/nonAssegnatiA';
+	} else {
+		var URL = '{{ URL::to('/') }}/magazzino/nonAssegnatiR';
+	}	
+	$.ajax({ 
+		url: URL,
+		context: document.body,
+		success: function(resp) {
+			for(i in resp) {
+				var tableRow = '<tr><td><a class="nonAssegnati" href="{{ URL::to("interventi/") }}/' + resp[i].id + '/edit" >' + resp[i].mac + '</a></td><td>' + resp[i].seriale + '</a></td><td>' + resp[i].nome + '</a></td><td>' + resp[i].dataRicezione + '</a></td></tr>';
+				$("#tabellaNonAssegnati" + tipo + " tbody").append(tableRow);
+			};
+		}  
+	});	
+}
+
+
+
+function ElencoMioMagazzino(tipo){
 	if (tipo == 'A'){
 		var URL = '{{ URL::to('/') }}/magazzino/getMioMagazzinoAntenne';
 	} else {
@@ -211,8 +215,7 @@ function ElencoMioMagazzino(tipo, aggiorna){
 		success: function(resp) {
 			for(i in resp) {
 				var tableRow = "<tr><td>" + resp[i].seriale + "</td><td>" + resp[i].modello + "</td><td>" + resp[i].dataRicezione + "</td></tr>";
-				if (aggiorna == 'si') $("#tabellaMioMateriale tbody").append(tableRow);
-				else $("#tabellaMioMateriale tbody").replaceWith(tableRow);
+				$("#tabellaMioMateriale tbody").append(tableRow);
 			}
 		}  
 	});	
@@ -221,6 +224,8 @@ function ElencoMioMagazzino(tipo, aggiorna){
 
 
 $(document).ready(function(){
+
+	$(".nonAssegnati").colorbox({width:"90%", height:"90%", iframe:true});
 
 	$(".daConsegnare").on('click', '.eseguiConsegna', function( evt ) {
 		var ID = $(this).attr('elemento');
@@ -246,12 +251,20 @@ $(document).ready(function(){
 	});
 
 	@foreach ($operatori as $riga)
-	AggiornaBoxInstallatore('A', {{ $riga->id }}, 'si');
-	AggiornaBoxInstallatore('R', {{ $riga->id }}, 'si');
+	AggiornaBoxInstallatore('A', {{ $riga->id }} );
+	AggiornaBoxInstallatore('R', {{ $riga->id }} );
 	@endforeach
-	ElencoMioMagazzino('A', 'si');
-	ElencoMioMagazzino('R', 'si');	
+
+	ElencoNonAssegnatiMagazzino('R');
+	ElencoNonAssegnatiMagazzino('A');
+	ElencoMioMagazzino('A');
+	ElencoMioMagazzino('R');	
 });
+
+$(document).bind('cbox_closed',
+	function(){
+			location.reload();
+	});
 </script>
 
 @stop

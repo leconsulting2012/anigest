@@ -24,18 +24,33 @@ class Intervento extends Eloquent {
         return $this->where('azienda_id', '=', $user->azienda_id );
     }
 
-    public function elencoInterventiPeriodo($dataInizio, $dataFine)
-    {
+    public function elencoInterventiPeriodo($ruolo = 'installatore', $dataInizio, $dataFine)
+    { if ($ruolo == 'gestore') 
+        { 
         return DB::table('interventi')
             ->select(array('interventi.id', 'interventi.dataIntervento', 'interventi.dataFineIntervento', 'tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
             ->leftJoin('users','users.id','=', 'interventi.user_id')
             ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
-        	->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
-        	->where('interventi.dataIntervento', '>=', date("Y-m-d", strtotime($dataInizio)))
-        //	->where('interventi.completato', '!=', 1)
+            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
+            ->where('interventi.dataIntervento', '>=', date("Y-m-d", strtotime($dataInizio)))
+        //  ->where('interventi.completato', '!=', 1)
             ->get()
-            ;            	
+            ; 
+        }
+        if ($ruolo == 'installatore') 
+        {
+        return DB::table('interventi')
+            ->select(array('interventi.id', 'interventi.dataIntervento', 'interventi.dataFineIntervento', 'tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
+            ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+            ->leftJoin('users','users.id','=', 'interventi.user_id')
+            ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
+            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
+            ->where('interventi.dataIntervento', '>=', date("Y-m-d", strtotime($dataInizio)))
+            ->where('interventi.user_id', '=', Auth::user()->id)
+            ->get()
+            ; 
+        }           	
     }
 
     public function contaInterventiScoperti()

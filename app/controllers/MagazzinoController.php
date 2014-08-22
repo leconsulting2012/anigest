@@ -66,17 +66,26 @@ class MagazzinoController extends \BaseController {
       //  $interventi = $this->intervento->elencoInterventiDaCompletare();
         $operatori = $this->user->getAllOthersUsers();
 
-        $totRoutersMagazzino = $this->router->inMagazzino();
-        $totAntenneMagazzino = $this->antenna->inMagazzino();
-
         $totTuoiRouter = $this->router->totMioMagazzino(Auth::user()->id);
         $totTueAntenne = $this->antenna->totMioMagazzino(Auth::user()->id);
 
         $totTuoMagazzino = $totTuoiRouter;
 
         // Show the page
-        return View::make('magazzino/index', compact('totTuoMagazzino', 'operatori', ' totAntenneMagazzino', 'interventi', 'title', 'totAnagrafiche', 'totInterventi', 'totAntenneMagazzino', 'totRoutersMagazzino'));
+        return View::make('magazzino/index', compact('totTuoMagazzino', 'operatori', ' totAntenneMagazzino', 'interventi', 'title', 'totAnagrafiche', 'totInterventi'));
     }
+
+    public function getNonAssegnatiAntenne()
+    {
+        $elencoNonAssegnateAntenne = $this->antenna->inMagazzino();
+        return Response::json($elencoNonAssegnateAntenne);        
+    }    
+
+    public function getNonAssegnatiRouters()
+    {
+        $elencoNonAssegnateRouters = $this->router->inMagazzino();
+        return Response::json($elencoNonAssegnateRouters);        
+    }         
 
     public function getElencoMaterialeDaConsegnareAntenne($user)
     {
@@ -94,7 +103,8 @@ class MagazzinoController extends \BaseController {
     {
         $elencoDaTeAntenne = $this->antenna->elencoDaTe();
         return Response::json($elencoDaTeAntenne);        
-    }   
+    }  
+
     public function getTuoMagazzinoRouters()
     {
         $elencoRouters = $this->router->elencoDaTe();
