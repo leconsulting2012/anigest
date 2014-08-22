@@ -17,16 +17,30 @@ class MappeController extends \BaseController {
         // Title
         $title = "Mappa degli Interventi";
 
-        $p = DB::table('interventi')
-            ->select(array('tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
-            ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
-            ->join('users','users.id','=', 'interventi.user_id')
-            ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
-            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
-            ->where('interventi.completato', '!=', '1' )
-            ->get()
-            ; 
-        
+        if (Auth::user()->hasRole('gestore')) {
+            $p = DB::table('interventi')
+                ->select(array('tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
+                ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+                ->join('users','users.id','=', 'interventi.user_id')
+                ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
+                ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
+                ->where('interventi.completato', '!=', '1' )
+                ->get()
+            ;            
+        }
+
+        if (Auth::user()->hasRole('installatore')) {
+            $p = DB::table('interventi')
+                ->select(array('tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
+                ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+                ->join('users','users.id','=', 'interventi.user_id')
+                ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
+                ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
+                ->where('interventi.user_id', '=', Auth::user()->id )
+                ->where('interventi.completato', '!=', '1' )
+                ->get()
+            ;            
+        }
 
         $elenco = array();
         $temp = array();
@@ -52,7 +66,13 @@ class MappeController extends \BaseController {
 
         }
 
-        return View::make('mappe/index', compact('title', 'elenco'));
+        if (count($elenco) == 0) {
+            return View::make('mappe/noResults', compact('title'));            
+        } else {
+            return View::make('mappe/index', compact('title', 'elenco'));
+        }
+
+
 	}
 
     public function getEventi()
