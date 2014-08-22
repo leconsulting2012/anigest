@@ -154,8 +154,9 @@
                         <li{{ (Request::is('antenne*') ? ' class="active"' : '') }}><a href="{{{ URL::to('antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
                         <li{{ (Request::is('routers*') ? ' class="active"' : '') }}><a href="{{{ URL::to('routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
                         <li{{ (Request::is('interventi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi') }}}"><span class="glyphicon glyphicon-wrench"></span> Interventi</a></li>
-                        <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-shopping-cart"></span> Magazzino</a></li>
+                        
                         @if (!Auth::user()->hasRole('installatore'))
+                        <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-shopping-cart"></span> Magazzino</a></li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-folder"></i> <span>Wizards</span>
