@@ -17,7 +17,7 @@ class MappeController extends \BaseController {
         // Title
         $title = "Mappa degli Interventi";
 
-        if (Auth::user()->hasRole('gestore')) {
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
             $p = DB::table('interventi')
                 ->select(array('tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
                 ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')

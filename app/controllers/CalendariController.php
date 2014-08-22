@@ -27,7 +27,15 @@ class CalendariController extends \BaseController {
     {
         $user = Auth::user();
         $interventi = new Intervento;
-        $elenco = $interventi->elencoInterventiPeriodo($user, Input::get('start'), Input::get('end') );
+
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) { 
+            $elenco = $interventi->elencoInterventiPeriodo('gestore', Input::get('start'), Input::get('end') );
+        }
+        if (Auth::user()->hasRole('installatore')) {
+            $elenco = $interventi->elencoInterventiPeriodo('installatore' , Input::get('start'), Input::get('end') );
+        }
+
+
         $elencoNew = array();
         $temp = array();
 
