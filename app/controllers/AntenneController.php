@@ -306,22 +306,48 @@ class AntenneController extends AdminController {
 
     public function getData()
     {
-        // estraggo tutti i modelli
-        $modelliAntenna = $this->modelloAntenna->all(); 
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
+            // estraggo tutti i modelli
+            $modelliAntenna = $this->modelloAntenna->all(); 
 
-        $antenne = Antenna::select(array('antenne.id', 'antenne.seriale', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
-                            ->join('modelliAntenna','modelliAntenna.id','=', 'antenne.modelloAntenna_id')
-                            ->where('antenne.azienda_id', '=', Auth::user()->azienda_id);
-        return Datatables::of($antenne)
+            $antenne = Antenna::select(array('antenne.id', 'antenne.seriale', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
+                                ->join('modelliAntenna','modelliAntenna.id','=', 'antenne.modelloAntenna_id')
+                                ->where('antenne.azienda_id', '=', Auth::user()->azienda_id);
+            return Datatables::of($antenne)
 
-        ->edit_column('updated_at', '{{ formato($updated_at) }}')
+            ->edit_column('updated_at', '{{ formato($updated_at) }}')
 
-        ->add_column('actions', '<a href="{{{ URL::to(\'antenne/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
-                <a href="{{{ URL::to(\'antenne/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
-            ')
+            ->add_column('actions', '<a href="{{{ URL::to(\'antenne/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
+                    <a href="{{{ URL::to(\'antenne/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+                ')
 
-        ->remove_column('id')
+            ->remove_column('id')
 
-        ->make();
+            ->make();
+        }
+        if (Auth::user()->hasRole('installatore')) {
+            // estraggo tutti i modelli
+            $modelliAntenna = $this->modelloAntenna->all(); 
+
+            $antenne = Antenna::select(array('antenne.id', 'antenne.seriale', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
+                                ->join('modelliAntenna','modelliAntenna.id','=', 'antenne.modelloAntenna_id')
+                                ->join('interventi','interventi.antenna_id','=', 'antenne.id')
+                                ->where('interventi.user_id', '=', Auth::user()->id)
+                                ->where('antenne.azienda_id', '=', Auth::user()->azienda_id);
+            return Datatables::of($antenne)
+
+            ->edit_column('updated_at', '{{ formato($updated_at) }}')
+
+            ->add_column('actions', '<a href="{{{ URL::to(\'antenne/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
+                    <a href="{{{ URL::to(\'antenne/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+                ')
+
+            ->remove_column('id')
+
+            ->make();
+        }
+
+
+
     }
 }
