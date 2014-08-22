@@ -240,25 +240,42 @@ class AnagraficheController extends \BaseController {
         return Redirect::to('anagrafiche')->with('error', Lang::get('admin/blogs/messages.delete.error'));
     } 
 
+
+
+
     public function getData()
     {
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
 
-        $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', DB::raw('CONCAT(anagrafiche.indirizzo1," - ",anagrafiche.citta) as indirizzo'), 'anagrafiche.updated_at'))
-        ->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id);
-                               //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');
-        
+            $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', DB::raw('CONCAT(anagrafiche.indirizzo1," - ",anagrafiche.citta) as indirizzo'), 'anagrafiche.updated_at'))
+            ->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id);
+                               //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');            
+            return Datatables::of($anagrafiche)      
 
-        return Datatables::of($anagrafiche)      
-
-        ->edit_column('updated_at', '{{ formato($updated_at) }}') 
-
-        ->add_column('actions', '<a href="{{{ URL::to(\'anagrafiche/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
+            ->edit_column('updated_at', '{{ formato($updated_at) }}') 
+            ->add_column('actions', '<a href="{{{ URL::to(\'anagrafiche/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
                 <a href="{{{ URL::to(\'anagrafiche/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
-            ')
+                ')
+            ->remove_column('id')
+            ->make();
+        }
+        if (Auth::user()->hasRole('installatore')) {
 
-        ->remove_column('id')
+            $anagrafiche = Anagrafica::select(array('anagrafiche.id', 'anagrafiche.cognome', 'anagrafiche.nome', DB::raw('CONCAT(anagrafiche.indirizzo1," - ",anagrafiche.citta) as indirizzo'), 'anagrafiche.updated_at'))
+                ->join('interventi','interventi.anagrafica_id','=', 'anagrafiche.id')
+                ->where('interventi.user_id', '=', Auth::user()->id)
+                ->where('anagrafiche.azienda_id', '=', Auth::user()->azienda_id)
+            ;
+                               //  ->join('modelliAntenna','modelliAntenna.id','=', 'anagrafiche.modelloAntenna_id');            
+            return Datatables::of($anagrafiche)      
 
-        ->make();
+            ->edit_column('updated_at', '{{ formato($updated_at) }}') 
+            ->add_column('actions', '<a href="{{{ URL::to(\'anagrafiche/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >Visualizza</a>
+                ')
+            ->remove_column('id')
+            ->make();
+        }
+
     }	
 
 }
