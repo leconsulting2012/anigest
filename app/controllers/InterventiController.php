@@ -411,43 +411,78 @@ class InterventiController extends AdminController {
 
     public function getData()
     {
-   //     $interventi = $this->intervento->elencoIntrventiIndex();
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
 
-   //     return Datatables::of($interventi)
-   //     ->make();
-
-        $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
+            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->leftjoin('users','users.id','=', 'interventi.user_id')
                             ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
-        return Datatables::of($interventi)
 
-        ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
+            return Datatables::of($interventi)
 
-        ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
-                   <center>Non Assegnato </center>
-                @else
-                   <center>{{{ $username }}}<br>{{{ formato($dataAssegnazione) }}}</center>
-                @endif')   
+            ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
 
-        ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
-                @else
-                    {{{ formato($dataIntervento) }}}
-                @endif')           
+            ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
+                       <center>Non Assegnato </center>
+                    @else
+                       <center>{{{ $username }}}<br>{{{ formato($dataAssegnazione) }}}</center>
+                    @endif')   
+
+            ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
+                    @else
+                        {{{ formato($dataIntervento) }}}
+                    @endif')           
 
 
-        ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
-                @if($completato == 1)
-                
-                @elseif (($dataIntervento != \'0000-00-00 00:00:00\') and ($username != \'\'))
-                <a href="{{{ URL::to(\'interventi/\' . $id . \'/chiudi\' ) }}}" class="btn btn-xs btn-danger iframe"><span class="glyphicon glyphicon-thumbs-up"></span> Chiudi</a>
-                @else
-                    <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
-                @endif')
+            ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
+                    @if($completato == 1)
+                    
+                    @elseif (($dataIntervento != \'0000-00-00 00:00:00\') and ($username != \'\'))
+                    <a href="{{{ URL::to(\'interventi/\' . $id . \'/chiudi\' ) }}}" class="btn btn-xs btn-danger iframe"><span class="glyphicon glyphicon-thumbs-up"></span> Chiudi</a>
+                    @else
+                        <a href="{{{ URL::to(\'interventi/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+                    @endif')
 
-        ->remove_column('id', 'nome', 'indirizzo1', 'citta', 'username', 'completato')
+            ->remove_column('id', 'nome', 'indirizzo1', 'citta', 'username', 'completato')
 
-        ->make();
+            ->make();
+        }
+        if (Auth::user()->hasRole('installatore')) {
+            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
+                            ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+                            ->leftjoin('users','users.id','=', 'interventi.user_id')
+                            ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
+                            ->where('interventi.user_id', '=', Auth::user()->id)
+                            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
+
+            return Datatables::of($interventi)
+
+            ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
+
+            ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
+                       <center>Non Assegnato </center>
+                    @else
+                       <center>{{{ $username }}}<br>{{{ formato($dataAssegnazione) }}}</center>
+                    @endif')   
+
+            ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
+                    @else
+                        {{{ formato($dataIntervento) }}}
+                    @endif')           
+
+
+            ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >Visualizza</a>
+                    @if($completato == 1)
+                    
+                    @elseif (($dataIntervento != \'0000-00-00 00:00:00\') and ($username != \'\'))
+                    <a href="{{{ URL::to(\'interventi/\' . $id . \'/chiudi\' ) }}}" class="btn btn-xs btn-danger iframe"><span class="glyphicon glyphicon-thumbs-up"></span> Chiudi</a>
+                    @endif')
+
+            ->remove_column('id', 'nome', 'indirizzo1', 'citta', 'username', 'completato')
+
+            ->make();
+        }        
+
     }
 }
