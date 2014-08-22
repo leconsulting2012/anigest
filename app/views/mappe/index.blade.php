@@ -18,7 +18,7 @@
 <div class="col-xs-12">
   <div class="box box-info">
     <div class="box-header">
-      <h3 class="box-title">Mappa degli Interventi non Completati</h3>
+      <h3 class="box-title">Mappa dei tuoi Interventi non Completati</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
       <div id='map-canvas'></div>
