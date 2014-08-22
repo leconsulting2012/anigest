@@ -286,19 +286,39 @@ class RoutersController extends AdminController {
         // estraggo tutti i modelli
         $modelliRouter = $this->modelliRouter->all(); 
 
-        $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
-                            ->join('modelliRouter','modelliRouter.id','=', 'routers.modelliRouter_id')
-                            ->where('routers.azienda_id', '=', Auth::user()->azienda_id);
-        return Datatables::of($routers)
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
 
-        ->edit_column('updated_at', '{{ formato($updated_at) }}')
+            $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
+                                ->join('modelliRouter','modelliRouter.id','=', 'routers.modelliRouter_id')
+                                ->where('routers.azienda_id', '=', Auth::user()->azienda_id);
+            return Datatables::of($routers)
 
-        ->add_column('actions', '<a href="{{{ URL::to(\'routers/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
-                <a href="{{{ URL::to(\'routers/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
-            ')
+            ->edit_column('updated_at', '{{ formato($updated_at) }}')
 
-        ->remove_column('id')
+            ->add_column('actions', '<a href="{{{ URL::to(\'routers/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
+                    <a href="{{{ URL::to(\'routers/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+                ')
 
-        ->make();
+            ->remove_column('id')
+
+            ->make();
+        }
+        if (Auth::user()->hasRole('installatore')) {
+            $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
+                                ->join('modelliRouter','modelliRouter.id','=', 'routers.modelliRouter_id')
+                                ->join('interventi','interventi.router_id','=', 'routers.id')
+                                ->where('interventi.user_id', '=', Auth::user()->id)
+                                ->where('routers.azienda_id', '=', Auth::user()->azienda_id);
+            return Datatables::of($routers)
+
+            ->edit_column('updated_at', '{{ formato($updated_at) }}')
+
+            ->add_column('actions', '<a href="{{{ URL::to(\'routers/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >Visualizza</a>
+                ')
+
+            ->remove_column('id')
+
+            ->make();
+        }
     }
 }
