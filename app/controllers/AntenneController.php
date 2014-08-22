@@ -338,8 +338,7 @@ class AntenneController extends AdminController {
 
             ->edit_column('updated_at', '{{ formato($updated_at) }}')
 
-            ->add_column('actions', '<a href="{{{ URL::to(\'antenne/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
-                    <a href="{{{ URL::to(\'antenne/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+            ->add_column('actions', '<a href="{{{ URL::to(\'antenne/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >Visualizza</a>
                 ')
 
             ->remove_column('id')
