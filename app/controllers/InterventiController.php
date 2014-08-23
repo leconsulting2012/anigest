@@ -322,7 +322,12 @@ class InterventiController extends AdminController {
             {
                 $intervento->dataIntervento = $date->format('Y-m-d H:i:s'); 
                 $intervento->dataFineIntervento = $date->add(new DateInterval($this->tempoIntervento));
-            }             
+            }  
+
+            if ($intervento->user_id != Input::get('user_id'))
+            {
+                $intervento->dataAssegnazione = date("Y-m-d H:i:s");
+            }           
 
             if($intervento->save()){
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', Lang::get('user/interventi/messages.create.success'));
