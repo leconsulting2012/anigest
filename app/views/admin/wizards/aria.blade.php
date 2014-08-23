@@ -212,87 +212,6 @@
 		</div>
 	</div>	
 
-	<div class="row">
-		<div class="col-md-6">
-			<!-- Modello antenna -->
-			<div class="form-group {{ $errors->first('modelloAntenna_id', 'has-error') }}">
-				<div class="col-md-12">
-					<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
-					@if ( Input::old('modelloAntenna_id') != '' )
-					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
-						<option value="">-- SELEZIONA --</option>
-						@foreach ($modelliAntenna as $modello)
-						<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('modelloAntenna_id')) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
-						@endforeach
-					</select>
-					@else
-					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
-						<option value="">-- SELEZIONA --</option>
-						@foreach ($modelliAntenna as $modello)
-						<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
-						@endforeach
-					</select>
-					@endif
-				</div>
-			</div>
-			<!-- ./ modello antenna -->	
-
-		</div>
-		<div class="col-md-6">
-
-			<!-- Seriale -->
-			<div class="form-group {{ $errors->first('serialeAntenna', 'has-error') }}">
-				<div class="col-md-12">
-					<label class="control-label" for="content">MAC Address Antenna</label>
-					<input class="form-control mac" type="text" name="serialeAntenna" id="seriale" value="{{{ Input::old('serialeAntenna', isset($antenna) ? $antenna->seriale : null) }}}" />
-					{{ $errors->first('serialeAntenna', '<label id="serialeAntenna-error" class="control-label" for="inputError">:message</label>') }}
-				</div>
-			</div>
-			<!-- ./ seriale antenna -->		
-
-		</div>
-	</div>	
-
-		<div class="row">
-			<div class="col-md-6">
-				<!-- Modello -->
-				<div class="form-group {{ $errors->first('modelloRouter_id', 'has-error') }}">
-					<div class="col-md-12">
-	                	<label class="control-label" for="modelloRouter_id">Modello Router</label>
-	                	<select class="col-md-6 form-control" name="modelloRouter_id" id="modelloRouter_id">
-	                	@if ( Input::old('modelloRouter_id') != '' )
-		                	<option value="">-- SELEZIONA --</option>
-		                        @foreach ($modelliRouters as $modello)
-		                        		<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('modelloRouter_id')) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
-		                        @endforeach
-						@else
-		                	<option value="">-- SELEZIONA --</option>
-		                        @foreach ($modelliRouters as $modello)
-		                        		<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
-		                        @endforeach
-						@endif
-						</select>
-	            	</div>
-	            	{{ $errors->first('modelloRouter_id', '<label id="modelloRouter_id-error" class="control-label" for="inputError">:message</label>') }}
-				</div>
-				<!-- ./ modello router -->
-
-			</div>
-			<div class="col-md-6">
-
-				<!-- Seriale Router -->
-			<div class="form-group {{ $errors->first('serialeRouter', 'has-error') }}">
-					<div class="col-md-12">
-						<label class="control-label" for="content">MAC Address Router</label>
-						<input class="form-control mac" type="text" name="serialeRouter" id="serialeRouter" value="{{{ Input::old('serialeRouter', isset($router) ? $antenna->router : null) }}}" />
-						{{ $errors->first('serialeRouter', '<label id="serialeRouter-error" class="control-label" for="inputError">:message</label>') }}
-					</div>
-				</div>
-				<!-- ./ seriale router -->		
-
-			</div>
-		</div>	
-
 		<div class="row">
 			<div class="col-md-6">
 
@@ -319,7 +238,92 @@
 			</div>
 			<!-- ./ installatore -->	
 
-		</div>			
+		</div>	
+
+	<div class="row">
+		<div class="col-md-6">
+
+			<!-- Seriale -->
+			<div class="form-group {{ $errors->first('serialeAntenna', 'has-error') }}">
+				<div class="col-md-12">
+					<label class="control-label" for="content">MAC Address Antenna</label>
+					<input class="form-control mac" type="text" name="serialeAntenna" id="seriale" value="{{{ Input::old('serialeAntenna', isset($antenna) ? $antenna->seriale : null) }}}" />
+					{{ $errors->first('serialeAntenna', '<label id="serialeAntenna-error" class="control-label" for="inputError">:message</label>') }}
+				</div>
+			</div>
+			<!-- ./ seriale antenna -->		
+
+		</div>		
+		<div class="col-md-6 nascosto">
+			<!-- Modello antenna -->
+			<div class="form-group {{ $errors->first('modelloAntenna_id', 'has-error') }}">
+				<div class="col-md-12">
+					<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
+					@if ( Input::old('modelloAntenna_id') != '' )
+					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+						<option value="">-- SELEZIONA --</option>
+						@foreach ($modelliAntenna as $modello)
+						<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('modelloAntenna_id')) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
+						@endforeach
+					</select>
+					@else
+					<select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+						<option value="">-- SELEZIONA --</option>
+						@foreach ($modelliAntenna as $modello)
+						<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
+						@endforeach
+					</select>
+					@endif
+				</div>
+			</div>
+			<!-- ./ modello antenna -->	
+
+		</div>
+
+	</div>	
+
+		<div class="row">
+			<div class="col-md-6 nascosto">
+
+				<!-- Seriale Router -->
+			<div class="form-group {{ $errors->first('serialeRouter', 'has-error') }}">
+					<div class="col-md-12">
+						<label class="control-label" for="content">MAC Address Router</label>
+						<input class="form-control mac" type="text" name="serialeRouter" id="serialeRouter" value="{{{ Input::old('serialeRouter', isset($router) ? $antenna->router : null) }}}" />
+						{{ $errors->first('serialeRouter', '<label id="serialeRouter-error" class="control-label" for="inputError">:message</label>') }}
+					</div>
+				</div>
+				<!-- ./ seriale router -->		
+
+			</div>			
+			<div class="col-md-6 nascosto">
+				<!-- Modello -->
+				<div class="form-group {{ $errors->first('modelloRouter_id', 'has-error') }}">
+					<div class="col-md-12">
+	                	<label class="control-label" for="modelloRouter_id">Modello Router</label>
+	                	<select class="col-md-6 form-control" name="modelloRouter_id" id="modelloRouter_id">
+	                	@if ( Input::old('modelloRouter_id') != '' )
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($modelliRouters as $modello)
+		                        		<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == Input::old('modelloRouter_id')) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
+		                        @endforeach
+						@else
+		                	<option value="">-- SELEZIONA --</option>
+		                        @foreach ($modelliRouters as $modello)
+		                        		<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
+		                        @endforeach
+						@endif
+						</select>
+	            	</div>
+	            	{{ $errors->first('modelloRouter_id', '<label id="modelloRouter_id-error" class="control-label" for="inputError">:message</label>') }}
+				</div>
+				<!-- ./ modello router -->
+
+			</div>
+
+		</div>	
+
+			
 
 		<!-- Form Actions -->
 		<div class="form-group">
@@ -336,14 +340,26 @@
 @stop
 
 @section('scripts')
-        <script type="text/javascript">
-            $(function () {
-                $('.date').datetimepicker({
-                    language: 'it'
-                });
-            });
-            jQuery(function($){
+<script type="text/javascript">
+$(function () {
+	$('.date').datetimepicker({
+		language: 'it'
+	});
+});
+jQuery(function($){
 	$(".mac").mask("**:**:**:**:**:**");
 });
-        </script>
+
+$( "#tipoIntervento" ).change(function() {
+	if ($( "#tipoIntervento" ).val() != 1)
+	{
+	$( ".nascosto" ).hide();		
+	}
+
+});
+
+
+
+
+</script>
 @stop

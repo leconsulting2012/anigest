@@ -52,8 +52,9 @@ class WizardsController extends AdminController {
 
         $tipiIntervento = DB::table('tipiIntervento')
                             ->select(array('id', 'tipo'))
-                            ->where('id', '=', '1')
-                            ->orWhere('id', '=', '4')
+                            ->where('id', '!=', '2')
+                          //  ->orWhere('id', '=', '4')
+                          //  ->orWhere('id', '=', '4')
                             ->get();
 
         // Grabbo tutti gli installatori
@@ -80,10 +81,10 @@ class WizardsController extends AdminController {
             'telefono'      => 'min:2|max:50|alpha_dash',
             'cellulare'     => 'min:2|max:50|alpha_dash',
             'cfiscale'      => 'min:16|max:16|alpha_dash',
-            'modelloAntenna_id'   => 'required|integer',
+            'modelloAntenna_id'   => 'required_if:tipoIntervento,1|required_if:tipoIntervento,4|integer',
             'serialeAntenna'       => 'required|unique:antenne,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
-            'modelloRouter_id'   => 'required|integer',
-            'serialeRouter'       => 'required|unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
+            'modelloRouter_id'   => 'required_if:tipoIntervento,1|required_if:tipoIntervento,4|integer',
+            'serialeRouter'       => 'required_if:tipoIntervento,1|required_if:tipoIntervento,4|unique:routers,mac|regex:/^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/',
             'installatore_id' => 'integer',
             'tipoIntervento' => 'integer|required',
         );
