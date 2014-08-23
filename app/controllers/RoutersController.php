@@ -85,12 +85,13 @@ class RoutersController extends AdminController {
 
         // Mode
         $mode = 'create';                    
+        $abilitaModifica = ''; 
 
         // Selected groups
         $selectedModelloRouter = Input::old('modelliRouter', array());   
 
         // Show the page
-        return View::make('routers/create_edit', compact('title', 'modelliRouter', 'selectedModelloRouter', 'mode'));
+        return View::make('routers/create_edit', compact('title', 'modelliRouter', 'selectedModelloRouter', 'mode', 'abilitaModifica'));
 	}
 
     /**
@@ -122,10 +123,18 @@ class RoutersController extends AdminController {
         // Mode
         $mode = 'edit';       
 
+
+        $user = User::where('username','=', Auth::user()->username)->first();
+        if ($user->can("modificare_routers")) {
+            $abilitaModifica = '' ;            
+        } else {
+            $abilitaModifica = 'disabled';
+        }  
+
         // Selected groups
         $selectedModelliRouter = Input::old('modelliRouter', array());          
         // Show the page
-        return View::make('routers/create_edit', compact('router', 'title', 'modelliRouter', 'selectedModelliRouter', 'mode'));
+        return View::make('routers/create_edit', compact('router', 'title', 'modelliRouter', 'selectedModelliRouter', 'mode', 'abilitaModifica'));
 	}
 
 	/**

@@ -48,7 +48,7 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="anagrafica_id">Anagrafica</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} | {{{ $a->indirizzo1 }}} - {{{ $a->citta }}}</option>
@@ -134,7 +134,7 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="userid_id">Installatore</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->user_id) ? ' selected="selected"' : '') }}}>{{{ $a->username }}}</option>
@@ -158,14 +158,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="tipiIntervento_id">Tipo Intervento</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliIntervento as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->tipiIntervento_id) ? ' selected="selected"' : '') }}}>{{{ $a->tipo }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliIntervento as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->tipo }}}</option>

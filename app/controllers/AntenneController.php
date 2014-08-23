@@ -136,7 +136,7 @@ class AntenneController extends AdminController {
         }
 
         $user = User::where('username','=', Auth::user()->username)->first();
-        if (($user->hasRole("Admin")) or ($user->hasRole("gestore"))) {
+        if ($user->can("modificare_antenne")) {
             $abilitaModifica = '' ;            
         } else {
             $abilitaModifica = 'disabled';

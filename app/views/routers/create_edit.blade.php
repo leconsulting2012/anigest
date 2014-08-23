@@ -36,7 +36,7 @@
 				<div class="form-group {{ $errors->first('mac', 'has-error') }}">
                     <div class="col-md-12">
                         <label class="control-label" for="mac">MAC</label>
-						<input class="form-control" type="text" name="mac" id="mac" value="{{{ Input::old('mac', isset($router) ? $router->mac : null) }}}" />
+						<input class="form-control" type="text" name="mac" id="mac" value="{{{ Input::old('mac', isset($router) ? $router->mac : null) }}}" {{{ $abilitaModifica }}}/>
 						{{ $errors->first('mac', '<label id="mac-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 				<div class="form-group {{ $errors->first('seriale', 'has-error') }}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Seriale</label>
-						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($router) ? $router->seriale : null) }}}" />
+						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($router) ? $router->seriale : null) }}}" {{{ $abilitaModifica }}}/>
 						{{ $errors->first('seriale', '<label id="seriale-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -56,7 +56,7 @@
 				<div class="form-group {{ $errors->first('modelliRouter_id', 'has-error') }}">
 					<div class="col-md-12">
 	                	<label class="control-label" for="modelliRouter_id">Modello Router</label>
-	                	<select class="col-md-6 form-control" name="modelliRouter_id" id="modelliRouter_id">
+	                	<select class="col-md-6 form-control" name="modelliRouter_id" id="modelliRouter_id" {{{ $abilitaModifica }}}>
 	                	@if ($mode == 'edit')
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliRouter as $modello)
@@ -79,7 +79,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($router) ? $router->dataRicezione : null) }}}" />
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($router) ? $router->dataRicezione : null) }}}" {{{ $abilitaModifica }}}/>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
@@ -97,7 +97,7 @@
 				<div class="form-group {{{ $errors->has('meta-title') ? 'error' : '' }}}">
 					<div class="col-md-12">
                         <label class="control-label" for="meta-title">Meta Title</label>
-						<input class="form-control" type="text" name="meta-title" id="meta-title" value="{{{ Input::old('meta-title', isset($post) ? $post->meta_title : null) }}}" />
+						<input class="form-control" type="text" name="meta-title" id="meta-title" value="{{{ Input::old('meta-title', isset($post) ? $post->meta_title : null) }}}" {{{ $abilitaModifica }}}/>
 						{{{ $errors->first('meta-title', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
@@ -107,7 +107,7 @@
 				<div class="form-group {{{ $errors->has('meta-description') ? 'error' : '' }}}">
 					<div class="col-md-12 controls">
                         <label class="control-label" for="meta-description">Meta Description</label>
-						<input class="form-control" type="text" name="meta-description" id="meta-description" value="{{{ Input::old('meta-description', isset($post) ? $post->meta_description : null) }}}" />
+						<input class="form-control" type="text" name="meta-description" id="meta-description" value="{{{ Input::old('meta-description', isset($post) ? $post->meta_description : null) }}}" {{{ $abilitaModifica }}}/>
 						{{{ $errors->first('meta-description', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
@@ -117,7 +117,7 @@
 				<div class="form-group {{{ $errors->has('meta-keywords') ? 'error' : '' }}}">
 					<div class="col-md-12">
                         <label class="control-label" for="meta-keywords">Meta Keywords</label>
-						<input class="form-control" type="text" name="meta-keywords" id="meta-keywords" value="{{{ Input::old('meta-keywords', isset($post) ? $post->meta_keywords : null) }}}" />
+						<input class="form-control" type="text" name="meta-keywords" id="meta-keywords" value="{{{ Input::old('meta-keywords', isset($post) ? $post->meta_keywords : null) }}}" {{{ $abilitaModifica }}}/>
 						{{{ $errors->first('meta-keywords', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>

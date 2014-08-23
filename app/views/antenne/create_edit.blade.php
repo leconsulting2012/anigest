@@ -44,7 +44,7 @@
 				<div class="form-group {{ $errors->first('mac', 'has-error') }}">
                     <div class="col-md-12">
                         <label class="control-label" for="mac">MAC</label>
-						<input class="form-control" type="text" name="mac" id="mac" value="{{{ Input::old('mac', isset($antenna) ? $antenna->mac : null) }}}" />
+						<input class="form-control" type="text" name="mac" id="mac" value="{{{ Input::old('mac', isset($antenna) ? $antenna->mac : null) }}}" {{{ $abilitaModifica }}} />
 						{{ $errors->first('mac', '<label id="mac-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 				<div class="form-group {{ $errors->first('seriale', 'has-error') }}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Seriale</label>
-						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($antenna) ? $antenna->seriale : null) }}}" />
+						<input class="form-control" type="text" name="seriale" id="seriale" value="{{{ Input::old('seriale', isset($antenna) ? $antenna->seriale : null) }}}" {{{ $abilitaModifica }}} />
 						{{ $errors->first('seriale', '<label id="seriale-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
 				</div>
@@ -65,14 +65,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="modelloAntenna_id">Modello Antenna</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+		                <select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id" {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliAntenna as $modello)
 		                        		<option value="{{{ $modello->id }}}" {{{ ( ($modello->id == $antenna->modelloAntenna_id) ? ' selected="selected"' : '') }}}>{{{ $modello->nome }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id">
+		                <select class="col-md-6 form-control" name="modelloAntenna_id" id="modelloAntenna_id" {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliAntenna as $modello)
 		                        		<option value="{{{ $modello->id }}}" >{{{ $modello->nome }}}</option>
@@ -89,7 +89,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data Di Ricezione dal Corriere</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($antenna) ? $antenna->dataRicezione : null) }}}" />
+								<input type='text' class="form-control" name="dataRicezione" id="dataRicezione" value="{{{ Input::old('dataRicezione', isset($antenna) ? $antenna->dataRicezione : null) }}}" {{{ $abilitaModifica }}}/>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
@@ -103,7 +103,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Consegna all'Installatore</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataConsegna" id="dataConsegna" value="{{{ Input::old('dataConsegna', isset($antenna) ? $antenna->dataConsegna : null) }}}" />
+								<input type='text' class="form-control" name="dataConsegna" id="dataConsegna" value="{{{ Input::old('dataConsegna', isset($antenna) ? $antenna->dataConsegna : null) }}}" {{{ $abilitaModifica }}}/>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
@@ -117,7 +117,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Montaggio</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataMontaggio" id="dataMontaggio" value="{{{ Input::old('dataMontaggio', isset($antenna) ? $antenna->dataMontaggio : null) }}}" />
+								<input type='text' class="form-control" name="dataMontaggio" id="dataMontaggio" value="{{{ Input::old('dataMontaggio', isset($antenna) ? $antenna->dataMontaggio : null) }}}" {{{ $abilitaModifica }}} />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>

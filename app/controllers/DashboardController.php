@@ -63,7 +63,12 @@ class DashboardController extends AdminController {
         $title = 'Dashboard';
 
         // Grabbo tutte le interventi dell'azienda
-        $interventi = $this->intervento->elencoInterventiDaCompletare();
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
+            $interventi = $this->intervento->elencoInterventiDaCompletare('gestore');
+        }
+        if (Auth::user()->hasRole('installatore')) {
+             $interventi = $this->intervento->elencoInterventiDaCompletare();
+        }
 
         $totAnagrafiche = $this->anagrafica->count();
         $totInterventi = $this->intervento->count();

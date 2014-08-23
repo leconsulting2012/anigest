@@ -202,7 +202,7 @@ class AnagraficheController extends \BaseController {
         $mode = 'edit';     
 
         $user = User::where('username','=', Auth::user()->username)->first();
-        if (($user->hasRole("Admin")) or ($user->hasRole("gestore"))) {
+        if ($user->can("modificare_anagrafiche")) {
             $abilitaModifica = '' ;            
         } else {
             $abilitaModifica = 'disabled';
