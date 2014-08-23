@@ -82,12 +82,13 @@ class AntenneController extends AdminController {
 
         // Mode
         $mode = 'create';                    
+        $abilitaModifica = ''; 
 
         // Selected groups
         $selectedModelloAntenna = Input::old('modelloAntenna', array());   
 
         // Show the page
-        return View::make('antenne/create_edit', compact('title', 'modelliAntenna', 'selectedModelloAntenna', 'mode'));
+        return View::make('antenne/create_edit', compact('title', 'modelliAntenna', 'selectedModelloAntenna', 'mode', 'abilitaModifica'));
 	}
 
     /**
@@ -134,13 +135,20 @@ class AntenneController extends AdminController {
             $antenna->dataMontaggio = '';
         }
 
+        $user = User::where('username','=', Auth::user()->username)->first();
+        if (($user->hasRole("Admin")) or ($user->hasRole("gestore"))) {
+            $abilitaModifica = '' ;            
+        } else {
+            $abilitaModifica = 'disabled';
+        }        
+
         // Mode
         $mode = 'edit';       
 
         // Selected groups
         $selectedModelloAntenna = Input::old('modelloAntenna', array());          
         // Show the page
-        return View::make('antenne/create_edit', compact('antenna', 'title', 'modelliAntenna', 'selectedModelloAntenna', 'mode'));
+        return View::make('antenne/create_edit', compact('antenna', 'title', 'modelliAntenna', 'selectedModelloAntenna', 'mode', 'abilitaModifica'));
 	}
 
 	/**
