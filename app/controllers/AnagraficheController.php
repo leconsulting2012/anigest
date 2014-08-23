@@ -42,10 +42,12 @@ class AnagraficheController extends \BaseController {
         $title = Lang::get('user/anagrafiche/title.create_a_new_anagrafica');
 
         // Mode
-        $mode = 'create';                       
+        $mode = 'create';
+
+        $abilitaModifica = '';                       
 
         // Show the page
-        return View::make('anagrafiche/create_edit', compact('title', 'mode'));
+        return View::make('anagrafiche/create_edit', compact('title', 'mode', 'abilitaModifica'));
 	}
 
 	/**
@@ -197,10 +199,18 @@ class AnagraficheController extends \BaseController {
         $title = Lang::get('user/anagrafiche/title.anagrafica_update');    
 
         // Mode
-        $mode = 'edit';       
+        $mode = 'edit';     
+
+        $user = User::where('username','=', Auth::user()->username)->first();
+        if (($user->hasRole("Admin")) or ($user->hasRole("gestore"))) {
+            $abilitaModifica = '' ;            
+        } else {
+            $abilitaModifica = 'disabled';
+        }
+  
 
         // Show the page
-        return View::make('anagrafiche/create_edit', compact('anagrafica', 'title', 'mode'));
+        return View::make('anagrafiche/create_edit', compact('anagrafica', 'title', 'mode', 'abilitaModifica'));
 	}
 
     public function getDelete($anagrafica)
