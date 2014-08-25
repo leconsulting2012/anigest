@@ -287,10 +287,12 @@ class InterventiController extends AdminController {
     public function postEdit($intervento)
     {
         // Declare the rules for the form validation
-        $rules = array(
-            'tipiIntervento_id' => 'required|integer',          
-        );
-
+        if (Auth::user()->can("modificare_intervento")) {
+            $rules = array(
+                'tipiIntervento_id' => 'required|integer',          
+            );
+        } else { $rules = array(); }
+        
         // Validate the inputs
         $validator = Validator::make(Input::all(), $rules);
 
@@ -339,12 +341,12 @@ class InterventiController extends AdminController {
             }           
 
             if($intervento->save()){
-                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', Lang::get('user/interventi/messages.create.success'));
+                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', 'Aggiornamento eseguito.');
             } else {
-                return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
+                return Redirect::to('interventi/' . $intervento->id . '/edit')->withInput()->withErrors($validator);
             }
         }
-        return Redirect::to('interventi/' . $intervento->id . '/edit')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
+        return Redirect::to('interventi/' . $intervento->id . '/edit')->withInput()->withErrors($validator);
     } 
 
     public function postClose($intervento)
