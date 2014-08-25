@@ -72,7 +72,7 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="antenna_id">Antenna</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '') }}}> {{{ $a->mac }}}</option>
@@ -96,14 +96,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="router_id">Router</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->router_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
@@ -141,7 +141,7 @@
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->username }}}</option>
