@@ -8,6 +8,8 @@
             @show
         </title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <meta name="_token" content="{{ csrf_token() }}" />
+
         <!-- bootstrap 3.0.2 -->
         {{ HTML::style('css/bootstrap.min.css') }}
         <!-- font Awesome -->
@@ -64,6 +66,14 @@
     {{ HTML::script('js/plugins/AdminLTE/app.js') }}
 
     <script type="text/javascript">
+    $(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+            }
+        });
+    });
+    
     $(document).ready(function(){
         $('.close_popup').click(function(){
             parent.oTable.fnReloadAjax();
