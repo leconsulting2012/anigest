@@ -158,7 +158,7 @@ class InterventiController extends AdminController {
         // Mode
         $mode = 'edit'; 
 
-        if (Auth::user()->can("modificare_intervento")) {
+        if (Auth::user()->can("modificare_interventi")) {
             $abilitaModifica = '' ;            
         } else {
             $abilitaModifica = 'disabled';
