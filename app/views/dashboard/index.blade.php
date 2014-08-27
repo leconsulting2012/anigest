@@ -162,7 +162,7 @@
 									<tr data-toggle="collapse" data-target="#riga{{$riga['n']}}" class="accordion-toggle">
 										<td>{{$riga['n']}}</td>
 										<td>{{$riga['anagrafica'] }}</td>
-										<td><a href="tel:{{$riga['telefono']}}">{{$riga['telefono']}}</a></td>
+										<td><a href="tel:{{$riga['telefono']}}">{{$riga['telefono']}}</a> <a href="tel:{{$riga['cellulare']}}">{{$riga['cellulare']}}</a></td>
   										<td><span class="badge bg-{{ $riga['livello'] }}">{{$riga['livTesto']}}</span></td>
   									</tr>
   									<tr>
