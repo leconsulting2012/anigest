@@ -25,7 +25,7 @@ class Intervento extends Eloquent {
     }
 
     public function elencoInterventiPeriodo($ruolo = 'installatore', $dataInizio, $dataFine)
-    { if ($ruolo == 'gestore') 
+    { if (Auth::user()->can("modificare_intervento"))
         { 
         return DB::table('interventi')
             ->select(array('interventi.id', 'interventi.dataIntervento', 'interventi.dataFineIntervento', 'tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
@@ -38,7 +38,7 @@ class Intervento extends Eloquent {
             ->get()
             ; 
         }
-        if ($ruolo == 'installatore') 
+        else
         {
         return DB::table('interventi')
             ->select(array('interventi.id', 'interventi.dataIntervento', 'interventi.dataFineIntervento', 'tipiIntervento.tipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia'))
@@ -114,7 +114,7 @@ class Intervento extends Eloquent {
         if (($ruolo == 'admin') or ($ruolo == 'gestore'))
         {
             $elenco = DB::table('interventi')
-                ->select(array('interventi.id', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'tipiIntervento.id AS idTipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia', 'anagrafiche.telefono'))
+                ->select(array('interventi.id', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'tipiIntervento.id AS idTipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia', 'anagrafiche.telefono', 'anagrafiche.cellulare'))
                 ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                 ->leftJoin('users','users.id','=', 'interventi.user_id')
                 ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
@@ -127,7 +127,7 @@ class Intervento extends Eloquent {
         if (($ruolo == 'installatore'))
         {
             $elenco = DB::table('interventi')
-                ->select(array('interventi.id', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'tipiIntervento.id AS idTipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia', 'anagrafiche.telefono'))
+                ->select(array('interventi.id', 'interventi.dataIntervento', 'tipiIntervento.tipo', 'tipiIntervento.id AS idTipo', 'users.username', 'anagrafiche.nome', 'anagrafiche.cognome', 'anagrafiche.lat', 'anagrafiche.lon', 'anagrafiche.indirizzo1', 'anagrafiche.indirizzo2', 'anagrafiche.citta', 'anagrafiche.provincia', 'anagrafiche.telefono', 'anagrafiche.cellulare'))
                 ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                 ->leftJoin('users','users.id','=', 'interventi.user_id')
                 ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
@@ -157,6 +157,7 @@ class Intervento extends Eloquent {
             $temp['livello'] = $livelli[$riga->idTipo];
             $temp['livTesto'] = substr($riga->tipo, 0,4);
             $temp['telefono'] = $riga->telefono;
+            $temp['cellulare'] = $riga->cellulare;
             if ($riga->dataIntervento == '0000-00-00 00:00:00')
             {
                 $temp['dataIntervento'] = 'Non Programmato!';
