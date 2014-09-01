@@ -87,7 +87,7 @@ class MappeController extends \BaseController {
         foreach ($p as $riga ) {
             if ($riga->lat != 0)
             {
-                $temp['nominativo'] = $riga->cognome." ".$riga->nome;
+                $temp['nominativo'] = addslashes($riga->cognome)." ".addslashes($riga->nome);
                 if ($riga->username == '-')
                 {
                     $temp['descrizione'] = $riga->tipo . " da assegnare"; 
@@ -95,8 +95,8 @@ class MappeController extends \BaseController {
                 {
                     $temp['descrizione'] = $riga->tipo . " in carico a ". $riga->username;
                 }
-                $temp['indirizzo'] = $riga->indirizzo1." ".$riga->indirizzo2." ";
-                $temp['citta'] = $riga->citta." (".$riga->provincia.")";
+                $temp['indirizzo'] = addslashes($riga->indirizzo1)." ".($riga->indirizzo2)." ";
+                $temp['citta'] = addslashes($riga->citta)." (".$riga->provincia.")";
                 $temp['lat']=$riga->lat;
                 $temp['lon']=$riga->lon;
 
