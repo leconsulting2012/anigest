@@ -105,8 +105,8 @@ Route::group(array('before' => 'auth'), function()
     Route::post('anagrafiche/{anagrafica}/delete', 'AnagraficheController@postDelete');
     Route::get('anagrafiche/data', 'AnagraficheController@getData');
     Route::get('anagrafiche/', 'AnagraficheController@getIndex');
-    Route::get('anagrafiche/create', 'AnagraficheController@getCreate');
-    Route::controller('anagrafiche', 'AnagraficheController');
+    Route::get('anagrafiche/create', 'AnagraficheController@getCreate');   
+  //  Route::controller('anagrafiche', 'AnagraficheController');
 
     # Interventi Management
     Route::get('interventi/{intervento}/show', 'InterventiController@getShow');
@@ -150,7 +150,8 @@ Route::group(array('before' => 'auth'), function()
     Route::get('magazzino/nonAssegnatiA', 'MagazzinoController@getNonAssegnatiAntenne');
 
     # Mappa Management
-    Route::get('mappa', 'MappeController@getIndex');
+    Route::get('mappa/tutti', 'MappeController@getTutti');
+    Route::get('mappa/tuoi', 'MappeController@getTuoi');
 
     # Notification Management
     Route::get('notifications', 'NotificationsController@getIndex');

@@ -15,6 +15,8 @@ class WizardsController extends AdminController {
     protected $installatore;
     protected $anagrafica;
     protected $intervento;
+    protected $magazzinoA;
+    protected $magazzinoR;
 
     /**
      * Inject the models.
@@ -52,9 +54,6 @@ class WizardsController extends AdminController {
 
         $tipiIntervento = DB::table('tipiIntervento')
                             ->select(array('id', 'tipo'))
-                            ->where('id', '!=', '2')
-                          //  ->orWhere('id', '=', '4')
-                          //  ->orWhere('id', '=', '4')
                             ->get();
 
         // Grabbo tutti gli installatori
@@ -98,6 +97,9 @@ class WizardsController extends AdminController {
             // Create a new router
             $user = Auth::user();
 
+            $this->magazzinoA = new Magazzino;
+            $this->magazzinoR = new Magazzino;
+
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataRicezione'));            
@@ -114,11 +116,6 @@ class WizardsController extends AdminController {
             $this->antenna->azienda_id          = Auth::user()->azienda_id;
             
             if($date != FALSE) $this->antenna->dataRicezione = $date->format('Y-m-d H:i:s');
-
-            if (((int)Input::get('tipoIntervento') == 1) or ((int)Input::get('tipoIntervento') == 4)) {
-                $this->router->magazzino_id          = Auth::user()->id;      
-                $this->antenna->magazzino_id         = Auth::user()->id;          
-            }
 
             $this->anagrafica->cognome              = strtoupper(Input::get('cognome'));
             $this->anagrafica->nome                 = ucwords(strtolower(Input::get('nome')));
@@ -149,7 +146,22 @@ class WizardsController extends AdminController {
                         $this->intervento->anagrafica_id = DB::getPdo()->lastInsertId();
                         $this->intervento->user_id = Input::get('installatore_id');
                         if($this->intervento->save()){
-                        // Redirect to the new router page
+                            if (((int)Input::get('tipoIntervento') == 1) or ((int)Input::get('tipoIntervento') == 4)) {
+
+                                $this->magazzinoA->materiale          = 'a';
+                                $this->magazzinoA->materiale_id =  $this->intervento->antenna_id;
+                                $this->magazzinoA->posizione_id =   Auth::user()->id;
+                                $this->magazzinoA->destinatario_id  = (int)Input::get('installatore_id');
+                                $this->magazzinoA->save();
+                                
+                                $this->magazzinoR->materiale          = 'r';
+                                $this->magazzinoR->materiale_id =  $this->intervento->router_id;
+                                $this->magazzinoR->posizione_id =   Auth::user()->id;
+                                $this->magazzinoR->destinatario_id  = (int)Input::get('installatore_id');
+                                $this->magazzinoR->save();                                
+                            }
+
+                            // Redirect to the new router page
                             return Redirect::to('wizardAria/')->with('success', 'Salvataggio avvenuto con successo');
                         }
                     }

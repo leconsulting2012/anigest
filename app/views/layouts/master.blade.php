@@ -165,10 +165,22 @@
                             <ul class="treeview-menu">
                                 <li{{ (Request::is('wizardAria') ? ' class="active"' : '') }}><a href="{{{ URL::to('wizardAria') }}}"><span class="glyphicon glyphicon-star"></span> Aria Terna Servizi</a></li>
                              </ul>
-                        </li>                       
-                        @endif
-                        <li{{ (Request::is('calendario') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
-                        <li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa') }}}"><span class="glyphicon glyphicon-globe"></span> Mappa</a></li>
+                         </li>                       
+                         @endif
+                         <li{{ (Request::is('calendario') ? ' class="active"' : '') }}><a href="{{{ URL::to('calendario') }}}"><span class="glyphicon glyphicon-calendar"></span> Calendario</a></li>
+
+                         <li class="treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-globe"></i> <span>Mappe</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (Auth::user()->can("modificare_interventi"))
+                                <li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa/tutti') }}}"><span class="fa fa-files-o"></span> Tutto</a></li>
+                                @endif
+                                <li{{ (Request::is('mappa') ? ' class="active"' : '') }}><a href="{{{ URL::to('mappa/tuoi') }}}"><span class="fa fa-file-o"></span> Tuoi Interventi</a></li>
+                            </ul>
+                        </li> 
 
                     </ul>
                 </section>

@@ -374,6 +374,10 @@ class InterventiController extends AdminController {
                 $intervento->testoEsito             = Input::get('noteBene');                
             }
 
+            if ($intervento->tipiIntervento_id == 1) {
+                $intervento->dataMontaggio = $date->format('d/m/Y H:i');
+            }
+
             $intervento->router_id              = Input::get('router_id');
             $intervento->ip                     = Input::get('ip');
             $intervento->bsid                   = Input::get('bsid');
