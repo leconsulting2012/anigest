@@ -153,8 +153,18 @@
                         <li{{ (Request::is('anagrafiche*') ? ' class="active"' : '') }}><a href="{{{ URL::to('anagrafiche') }}}"><span class="glyphicon glyphicon-user"></span> Anagrafiche</a></li>
                         <li{{ (Request::is('antenne*') ? ' class="active"' : '') }}><a href="{{{ URL::to('antenne') }}}"><span class="glyphicon glyphicon-signal"></span> Antenne</a></li>
                         <li{{ (Request::is('routers*') ? ' class="active"' : '') }}><a href="{{{ URL::to('routers') }}}"><span class="glyphicon glyphicon-hdd"></span> Routers</a></li>
-                        <li{{ (Request::is('interventi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi') }}}"><span class="glyphicon glyphicon-wrench"></span> Interventi</a></li>
-                        
+
+                         <li class="treeview {{ (Request::is('interventi') ? ' class="active"' : '') }}">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-wrench"></i> <span>Interventi</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">                        
+                                <li{{ (Request::is('interventi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi') }}}"><span class="fa fa-exchange"></span> Interventi Aperti</a></li>
+                                <li{{ (Request::is('interventi/chiusi*') ? ' class="active"' : '') }}><a href="{{{ URL::to('interventi/chiusi') }}}"><span class="fa fa-check"></span> Interventi Chiusi</a></li>
+                            </ul>
+                        </li>                         
+
                         @if (!Auth::user()->hasRole('installatore'))
                         <li{{ (Request::is('magazzino') ? ' class="active"' : '') }}><a href="{{{ URL::to('magazzino') }}}"><span class="glyphicon glyphicon-shopping-cart"></span> Magazzino</a></li>
                         <li class="treeview">

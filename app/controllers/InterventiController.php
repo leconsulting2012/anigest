@@ -74,6 +74,23 @@ class InterventiController extends AdminController {
         return View::make('interventi/index', compact('interventi', 'title'));
 	}
 
+    /**
+     * Returns all the blog posts.
+     *
+     * @return View
+     */
+    public function getChiusi()
+    {
+        // Title
+        $title = 'Gestione Interventi chiusi';
+
+        // Grabbo tutte le interventi dell'azienda
+        $interventi = $this->intervento->elencoInterventi($this->user);
+
+        // Show the page
+        return View::make('interventi/indexChiusi', compact('interventi', 'title'));
+    }    
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -550,4 +567,68 @@ class InterventiController extends AdminController {
         }        
 
     }
+
+    public function getDataCompleti()
+    {
+        if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
+
+            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
+                            ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+                            ->leftjoin('users','users.id','=', 'interventi.user_id')
+                            ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
+                            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id)
+                            ->where('interventi.completato', '=', 1);
+
+            return Datatables::of($interventi)
+
+            ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
+
+            ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
+                       <center>Non Assegnato </center>
+                    @else
+                       <center>{{{ $username }}}<br>{{{ formato($dataAssegnazione) }}}</center>
+                    @endif')   
+
+            ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
+                    @else
+                        {{{ formato($dataIntervento) }}}
+                    @endif')           
+
+
+            ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >Vedi</a>')
+
+            ->remove_column('id', 'nome', 'indirizzo1', 'citta', 'username', 'completato')
+
+            ->make();
+        }
+        if (Auth::user()->hasRole('installatore')) {
+            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
+                            ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
+                            ->leftjoin('users','users.id','=', 'interventi.user_id')
+                            ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
+                            ->where('interventi.user_id', '=', Auth::user()->id)
+                            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id)
+                            ->where('interventi.completato', '=', 1);
+
+            return Datatables::of($interventi)
+
+            ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
+
+            ->edit_column('dataAssegnazione','<center>{{{ $username }}}<br>{{{ formato($dataAssegnazione) }}}</center>')   
+
+            ->edit_column('dataIntervento','@if($dataIntervento == \'0000-00-00 00:00:00\')              
+                    @else
+                        {{{ formato($dataIntervento) }}}
+                    @endif')           
+
+
+            ->add_column('actions', '<a href="{{{ URL::to(\'interventi/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >Visualizza</a>')
+
+            ->remove_column('id', 'nome', 'indirizzo1', 'citta', 'username', 'completato')
+
+            ->make();
+        }        
+
+    }
+
 }

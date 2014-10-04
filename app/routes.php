@@ -116,7 +116,9 @@ Route::group(array('before' => 'auth'), function()
     Route::get('interventi/{intervento}/delete', 'InterventiController@getDelete');
     Route::post('interventi/{intervento}/delete', 'InterventiController@postDelete');
     Route::get('interventi/data', 'InterventiController@getData');
+    Route::get('interventi/dataChiusi', 'InterventiController@getDataCompleti');    
     Route::get('interventi/', 'InterventiController@getIndex');
+    Route::get('interventi/chiusi', 'InterventiController@getChiusi');    
     Route::get('interventi/create', 'InterventiController@getCreate');
     //Route::get('interventi/{intervento}/putCompletato', 'InterventiController@putCompletato');
     Route::get('interventi/{intervento}/chiudi', 'InterventiController@putCompletato');
