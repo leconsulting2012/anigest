@@ -60,16 +60,16 @@ class AnagraficheController extends \BaseController {
 
         // Declare the rules for the form validation
         $rules = array(
-            'cognome'   => 'required|min:2|max:50',
-            'nome'   => 'min:2|max:50|alpha_dash',
-            'indirizzo1'   => 'min:2|max:50',
-            'indirizzo2'   => 'min:2|max:50',
+            'cognome'   => 'required|min:2|max:80',
+            'nome'   => 'min:2|max:80',
+            'indirizzo1'   => 'min:2|max:80',
+            'indirizzo2'   => 'min:2|max:80',
             'cap'   => 'min:5|max:8',
             'citta'   => 'min:2|max:50',
-            'provincia'   => 'min:2|max:50',
-            'telefono'   	=> 'min:2|max:50|alpha_dash',
-            'fax'   		=> 'min:2|max:50|alpha_dash',
-            'cellulare'   => 'min:2|max:50|alpha_dash',
+            'provincia'   => 'min:2|max:80',
+            'telefono'   	=> 'min:2|max:80',
+            'fax'   		=> 'min:2|max:80',
+            'cellulare'   => 'min:2|max:50',
             'cfiscale'   => 'min:16|max:16|alpha_dash',
             'piva'   => 'numeric',
             'email'   => 'email'
@@ -127,15 +127,15 @@ class AnagraficheController extends \BaseController {
         // Declare the rules for the form validation
         $rules = array(
             'cognome'   => 'required|min:2|max:50',
-            'nome'   => 'min:2|max:50|alpha_dash',
+            'nome'   => 'min:2|max:50',
             'indirizzo1'   => 'min:2|max:50',
             'indirizzo2'   => 'min:2|max:50',
             'cap'   => 'min:5|max:8',
             'citta'   => 'min:2|max:50',
             'provincia'   => 'min:2|max:50',
-            'telefono'      => 'min:2|max:50|alpha_dash',
-            'fax'           => 'min:2|max:50|alpha_dash',
-            'cellulare'   => 'min:2|max:50|alpha_dash',
+            'telefono'      => 'min:2|max:50',
+            'fax'           => 'min:2|max:50',
+            'cellulare'   => 'min:2|max:50',
             'cfiscale'   => 'min:16|max:16|alpha_dash',
             'piva'   => 'numeric',
             'email'   => 'email'
