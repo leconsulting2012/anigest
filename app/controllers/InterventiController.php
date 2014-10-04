@@ -35,6 +35,8 @@ class InterventiController extends AdminController {
     protected $modelloIntervento;
 
     protected $tempoIntervento;
+    protected $magazzinoA;
+    protected $magazzinoR;
 
     /**
      * Inject the models.
@@ -341,6 +343,8 @@ class InterventiController extends AdminController {
             }           
 
             if($intervento->save()){
+                
+                
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', 'Aggiornamento eseguito.');
             } else {
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->withInput()->withErrors($validator);
@@ -373,9 +377,10 @@ class InterventiController extends AdminController {
                 $intervento->esito                      = 1;
                 $intervento->testoEsito             = Input::get('noteBene');                
             }
-
+            $format = 'Y-m-d H:i:s';
+            $date = DateTime::createFromFormat($format, $intervento->dataFineIntervento);
             if ($intervento->tipiIntervento_id == 1) {
-                $intervento->dataMontaggio = $date->format('d/m/Y H:i');
+                $intervento->dataFineIntervento = $date->format('d/m/Y H:i');
             }
 
             $intervento->router_id              = Input::get('router_id');
@@ -385,7 +390,47 @@ class InterventiController extends AdminController {
             $intervento->cmri                   = Input::get('cmri');
             $intervento->completato             = 1;
 
+            $this->magazzinoA = new Magazzino;
+            $this->magazzinoR = new Magazzino;
+
             if($intervento->save()){
+                if (($intervento->tipiIntervento_id == 5) and (Input::get('esito') == 'div1')) {
+                    // se smonto i pezzi e li porto a casa
+
+                    $this->magazzinoA->materiale          = 'a';
+                    $this->magazzinoA->materiale_id =  $intervento->antenna_id;
+                    $this->magazzinoA->posizione_id =   Auth::user()->id;
+                    $this->magazzinoA->destinatario_id  = Auth::user()->id;
+                    $this->magazzinoA->save();
+                    
+                    $this->magazzinoR->materiale          = 'r';
+                    $this->magazzinoR->materiale_id =  $intervento->router_id;
+                    $this->magazzinoR->posizione_id =   Auth::user()->id;
+                    $this->magazzinoR->destinatario_id  = Auth::user()->id;
+                    $this->magazzinoR->save();                       
+                }
+                if (($intervento->tipiIntervento_id != 5) and (Input::get('esito') == 'div1')) {
+                    // se non e' uno smontaggio e l'esito e' positivo
+                    $this->magazzinoA= User::where('materiale_id', '=', $intervento->antenna_id)->firstOrFail();
+                    $this->magazzinoA->delete();
+                    $this->magazzinoR= User::where('materiale_id', '=', $intervento->router_id)->firstOrFail();
+                    $this->magazzinoR->delete();                    
+                }
+                if (($intervento->tipiIntervento_id != 5) and (Input::get('esito') == 'div2')) {
+                    // se non e' uno smontaggio e l'esito e' negativo
+              
+                    $this->magazzinoA->materiale          = 'a';
+                    $this->magazzinoA->materiale_id =  $intervento->antenna_id;
+                    $this->magazzinoA->posizione_id =   Auth::user()->id;
+                    $this->magazzinoA->destinatario_id  = Auth::user()->id;
+                    $this->magazzinoA->save();
+                    
+                    $this->magazzinoR->materiale          = 'r';
+                    $this->magazzinoR->materiale_id =  $intervento->router_id;
+                    $this->magazzinoR->posizione_id =   Auth::user()->id;
+                    $this->magazzinoR->destinatario_id  = Auth::user()->id;
+                    $this->magazzinoR->save();                                
+                }                
                 return Redirect::to('interventi/' )->with('success', Lang::get('user/interventi/messages.create.success'));
             } else {
                 return Redirect::to('interventi/' . $intervento->id . '/chiudi')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
