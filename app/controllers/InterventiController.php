@@ -497,8 +497,8 @@ class InterventiController extends AdminController {
 
             $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
-                            ->leftjoin('users','users.id','=', 'interventi.user_id')
-                            ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
+                            ->leftJoin('users','users.id','=', 'interventi.user_id')
+                            ->leftJoin('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
 
             return Datatables::of($interventi)
@@ -533,8 +533,8 @@ class InterventiController extends AdminController {
         if (Auth::user()->hasRole('installatore')) {
             $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
-                            ->leftjoin('users','users.id','=', 'interventi.user_id')
-                            ->join('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
+                            ->leftJoin('users','users.id','=', 'interventi.user_id')
+                            ->leftJoin('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
                             ->where('interventi.user_id', '=', Auth::user()->id)
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
 
