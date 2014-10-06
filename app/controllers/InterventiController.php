@@ -188,9 +188,11 @@ class InterventiController extends AdminController {
             else $disabled = '';     
 
         // Selected groups
-        $selectedModelloIntervento = Input::old('modelloIntervento', array());          
+        $selectedModelloIntervento = Input::old('modelloIntervento', array());    
+
+        $interenti = array();      
         // Show the page
-        return View::make('interventi/create_edit', compact('disabled', 'abilitaModifica', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
+        return View::make('interventi/create_edit', compact('disabled', 'abilitaModifica', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode', 'interenti'));
 	}
 
 	/**
@@ -499,7 +501,8 @@ class InterventiController extends AdminController {
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->leftJoin('users','users.id','=', 'interventi.user_id')
                             ->leftJoin('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
-                            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
+                            ->where('interventi.azienda_id', '=', Auth::user()->azienda_id)
+                            ->where('interventi.completato', '=', 0);
 
             return Datatables::of($interventi)
 
