@@ -32,11 +32,8 @@
 <div class="col-xs-12">
 	<div class="box box-info">
 		<div class="box-header">
-			<h3 class="box-title">Elenco di tutti gli Interventi</h3>
+			<h3 class="box-title">Elenco di tutti gli Interventi Chiusi</h3>
 			<div class="box-tools pull-right">
-				@if (!Auth::user()->hasRole('installatore'))
-				<a href="{{{ URL::to('interventi/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
-				@endif
 			</div>
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive">
