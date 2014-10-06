@@ -48,14 +48,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="anagrafica_id">Anagrafica</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control combobox" name="anagrafica_id" id="anagrafica_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="anagrafica_id" id="anagrafica_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} | {{{ $a->indirizzo1 }}} - {{{ $a->citta }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control combobox" {{ $disabled }} name="anagrafica_id" id="anagrafica_id">
+		                <select class="col-md-6 form-control" {{ $disabled }} name="anagrafica_id" id="anagrafica_id">
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->cognome }}} {{{ $a->nome }}} | {{{ $a->indirizzo1 }}} - {{{ $a->citta }}}</option>
@@ -72,14 +72,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="antenna_id">Antenna</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '') }}}> {{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control combobox" name="antenna_id" id="antenna_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id" {{ $disabled }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
@@ -96,14 +96,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="router_id">Router</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->router_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control combobox" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
@@ -120,7 +120,7 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Intervento</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" {{ $disabled }} value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataIntervento : null) }}}" />
+								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" {{{ $abilitaModifica }}} {{ $disabled }} value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataIntervento : null) }}}" />
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 						
 						</div>
