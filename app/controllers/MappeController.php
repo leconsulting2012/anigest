@@ -87,7 +87,7 @@ class MappeController extends \BaseController {
         foreach ($p as $riga ) {
             if ($riga->lat != 0)
             {
-                $temp['nominativo'] = addslashes($riga->cognome)." ".addslashes($riga->nome);
+                $temp['nominativo'] = '<href tel:00000>'. addslashes($riga->cognome)." ".addslashes($riga->nome).'</a>';
                 if ($riga->username == '-')
                 {
                     $temp['descrizione'] = $riga->tipo . " da assegnare"; 
