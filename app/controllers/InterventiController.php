@@ -58,13 +58,13 @@ class InterventiController extends AdminController {
         $this->modelloIntervento = $modelloIntervento;
         $this->tempoIntervento = 'PT3H';
 
-        $this->permessi['anagrafica'] = 'disabled';
-        $this->permessi['antenna'] = 'disabled';
-        $this->permessi['router'] = 'disabled';
-        $this->permessi['dataIntervento'] = 'disabled';
-        $this->permessi['installatore'] = 'disabled';
-        $this->permessi['tipoIntervento'] = 'disabled';
-        $this->permessi['note'] = 'disabled';
+        $this->permessi['anagrafica'] = 'readonly';
+        $this->permessi['antenna'] = 'readonly';
+        $this->permessi['router'] = 'readonly';
+        $this->permessi['dataIntervento'] = 'readonly';
+        $this->permessi['installatore'] = 'readonly';
+        $this->permessi['tipoIntervento'] = 'readonly';
+        $this->permessi['note'] = 'readonly';
     }
     
 	/**
@@ -111,6 +111,14 @@ class InterventiController extends AdminController {
         // Title
         $title = Lang::get('user/interventi/title.create_a_new_intervento');
         $user = $this->user->currentUser();
+
+        $this->permessi['anagrafica'] = '';
+        $this->permessi['antenna'] = '';
+        $this->permessi['router'] = '';
+        $this->permessi['dataIntervento'] = '';
+        $this->permessi['installatore'] = '';
+        $this->permessi['tipoIntervento'] = '';
+        $this->permessi['note'] = '';        
 
 
         // Get all the available permissions
@@ -198,6 +206,7 @@ class InterventiController extends AdminController {
                 $this->permessi['note'] = '';
             } else {
                 $this->permessi['dataIntervento'] = '';
+                $this->permessi['note'] = '';                
             } 
         }  
 
