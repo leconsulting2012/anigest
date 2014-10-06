@@ -48,7 +48,7 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="anagrafica_id">Anagrafica</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="anagrafica_id" id="anagrafica_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="anagrafica_id" id="anagrafica_id" {{ $disabled['anagrafica'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($anagrafiche as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->anagrafica_id) ? ' selected="selected"' : '') }}}>{{{ $a->cognome }}} {{{ $a->nome }}} | {{{ $a->indirizzo1 }}} - {{{ $a->citta }}}</option>
@@ -72,14 +72,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="antenna_id">Antenna</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id" {{ $disabled['antenna'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->antenna_id) ? ' selected="selected"' : '') }}}> {{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id" {{ $disabled }}>
+		                <select class="col-md-6 form-control" name="antenna_id" id="antenna_id" {{ $disabled['antenna'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($antenne as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
@@ -96,14 +96,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="router_id">Router</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="router_id" id="router_id" {{ $disabled['router'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->router_id) ? ' selected="selected"' : '') }}}>{{{ $a->mac }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="router_id" id="router_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="router_id" id="router_id" {{ $disabled['router'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($routers as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->mac }}}</option>
@@ -120,9 +120,10 @@
 					<div class="col-md-6">
 						<label class="control-label" for="content">Data di Intervento</label>
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" {{{ $abilitaModifica }}} {{ $disabled }} value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataIntervento : null) }}}" />
+								<input type='text' class="form-control" name="dataIntervento" id="dataIntervento" {{ $disabled['dataIntervento'] }} value="{{{ Input::old('dataIntervento', isset($intervento) ? $intervento->dataIntervento : null) }}}" />
+								@if ($disabled['dataIntervento'] != 'disabled')
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-						
+								@endif
 						</div>
 						{{ $errors->first('dataIntervento', '<label id="dataIntervento-error" class="control-label" for="inputError">:message</label>') }}
 					</div>
@@ -134,14 +135,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="userid_id">Installatore</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled['installatore'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->user_id) ? ' selected="selected"' : '') }}}>{{{ $a->username }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled['installatore'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->username }}}</option>
@@ -158,14 +159,14 @@
 					<div class="col-md-12">
 	                	<label class="control-label" for="tipiIntervento_id">Tipo Intervento</label>
 	                	@if ($mode == 'edit')
-		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled['tipoIntervento'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliIntervento as $a)
 		                        		<option value="{{{ $a->id }}}" {{{ ( ($a->id == $intervento->tipiIntervento_id) ? ' selected="selected"' : '') }}}>{{{ $a->tipo }}}</option>
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled }} {{{ $abilitaModifica }}}>
+		                <select class="col-md-6 form-control" name="tipiIntervento_id" id="tipiIntervento_id" {{ $disabled['tipoIntervento'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($modelliIntervento as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->tipo }}}</option>
@@ -182,7 +183,7 @@
 				<div class="form-group {{{ $errors->has('note') ? 'error' : '' }}}">
 					<div class="col-md-12">
                         <label class="control-label" for="content">Note</label>
-						<input class="form-control" type="text" name="note" id="note" {{ $disabled }} value="{{{ Input::old('note', isset($intervento) ? $intervento->note : null) }}}" />
+						<input class="form-control" type="text" name="note" id="note" {{ $disabled['note'] }} value="{{{ Input::old('note', isset($intervento) ? $intervento->note : null) }}}" />
 						{{{ $errors->first('note', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>
@@ -237,7 +238,7 @@
 				<div class="form-group {{{ $errors->has('esitoTesto') ? 'error' : '' }}}">
 					<div class="col-xs-6">
 						<label class="control-label" for="content">Esito</label>
-						<textarea disabled class="form-control" name="esitoTesto" id="esitoTesto" rows="3" placeholder="Mancanza di segnale">{{{ Input::old('esitoTesto', isset($intervento) ? $intervento->esitoTesto : null) }}}</textarea>
+						<textarea disabled class="form-control" name="esitoTesto" id="esitoTesto" rows="3">{{{ Input::old('esitoTesto', isset($intervento) ? $intervento->esitoTesto : null) }}}</textarea>
 						{{{ $errors->first('esitoTesto', '<span class="help-inline">:message</span>') }}}
 					</div>
 				</div>

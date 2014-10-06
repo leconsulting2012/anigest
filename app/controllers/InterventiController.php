@@ -38,6 +38,8 @@ class InterventiController extends AdminController {
     protected $magazzinoA;
     protected $magazzinoR;
 
+    protected $permessi = array();
+
     /**
      * Inject the models.
      * @param Post $post
@@ -55,6 +57,14 @@ class InterventiController extends AdminController {
         $this->anagrafica = $anagrafica;
         $this->modelloIntervento = $modelloIntervento;
         $this->tempoIntervento = 'PT3H';
+
+        $this->permessi['anagrafica'] = 'disabled';
+        $this->permessi['antenna'] = 'disabled';
+        $this->permessi['router'] = 'disabled';
+        $this->permessi['dataIntervento'] = 'disabled';
+        $this->permessi['installatore'] = 'disabled';
+        $this->permessi['tipoIntervento'] = 'disabled';
+        $this->permessi['note'] = 'disabled';
     }
     
 	/**
@@ -177,22 +187,28 @@ class InterventiController extends AdminController {
         // Mode
         $mode = 'edit'; 
 
-        if (Auth::user()->can("modificare_interventi")) {
-            $abilitaModifica = '' ;            
-        } else {
-            $abilitaModifica = 'disabled';
-        }   
+        if ($intervento->completato == 0) {
+            if (Auth::user()->can("modificare_interventi")) {
+                $this->permessi['anagrafica'] = '';
+                $this->permessi['antenna'] = '';
+                $this->permessi['router'] = '';
+                $this->permessi['dataIntervento'] = '';
+                $this->permessi['installatore'] = '';
+                $this->permessi['tipoIntervento'] = '';
+                $this->permessi['note'] = '';
+            } else {
+                $this->permessi['dataIntervento'] = '';
+            } 
+        }  
 
-
-        if ($intervento->completato == 1) $disabled = 'disabled';
-            else $disabled = '';     
+        $disabled = $this->permessi;   
 
         // Selected groups
         $selectedModelloIntervento = Input::old('modelloIntervento', array());    
 
         $interenti = array();      
         // Show the page
-        return View::make('interventi/create_edit', compact('disabled', 'abilitaModifica', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode', 'interenti'));
+        return View::make('interventi/create_edit', compact('disabled', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode', 'interenti'));
 	}
 
 	/**
