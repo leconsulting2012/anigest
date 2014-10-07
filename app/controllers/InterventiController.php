@@ -352,10 +352,9 @@ class InterventiController extends AdminController {
             if ( (int)Input::get('user_id') != $intervento->user_id)
             {
                 $intervento->dataAssegnazione           = date("Y-m-d H:i:s");
-                $intervento->user_id                    = Input::get('user_id'); 
             }         
-
-            $intervento->azienda_id          = Auth::user()->azienda_id;
+            if(Input::get('user_id') != '')             $intervento->user_id             = Input::get('user_id');
+            $intervento->azienda_id                     = Auth::user()->azienda_id;
 
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
