@@ -169,19 +169,20 @@ Route::group(array('before' => 'auth'), function()
 
     # Pagina Iniziale
     Route::get('/', 'DashboardController@getIndex');
-    Route::get('cercaCitta', 'CittaController@getIndex');   
-
-    Route::get('/changelog', function()
-    {   
-        $title = 'Changelog';
-        return View::make('dashboard/changelog', compact('title'));
-    }); 
+    Route::get('cercaCitta', 'CittaController@getIndex');    
 });
 
 /** ------------------------------------------
  *  Frontend Routes
  *  ------------------------------------------
  */
+
+    Route::get('changelog', function()
+    {   
+        $title = 'Changelog';
+        return View::make('dashboard/changelog', compact('title'));
+    });
+
 
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');
