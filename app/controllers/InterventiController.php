@@ -58,13 +58,13 @@ class InterventiController extends AdminController {
         $this->modelloIntervento = $modelloIntervento;
         $this->tempoIntervento = 'PT3H';
 
-        $this->permessi['anagrafica'] = 'readonly';
-        $this->permessi['antenna'] = 'readonly';
-        $this->permessi['router'] = 'readonly';
-        $this->permessi['dataIntervento'] = 'readonly';
-        $this->permessi['installatore'] = 'readonly';
-        $this->permessi['tipoIntervento'] = 'readonly';
-        $this->permessi['note'] = 'readonly';
+        $this->permessi['anagrafica'] = 'disabled';
+        $this->permessi['antenna'] = 'disabled';
+        $this->permessi['router'] = 'disabled';
+        $this->permessi['dataIntervento'] = 'disabled';
+        $this->permessi['installatore'] = 'disabled';
+        $this->permessi['tipoIntervento'] = 'disabled';
+        $this->permessi['note'] = 'disabled';
     }
     
 	/**
@@ -142,12 +142,10 @@ class InterventiController extends AdminController {
         $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();             
 
         // Mode
-        $mode = 'create';  
-        $disabled = '';                    
-        $abilitaModifica = ''; 
+        $mode = 'create';                    
 
         // Show the page
-        return View::make('interventi/create_edit', compact('disabled', 'abilitaModifica', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
+        return View::make('interventi/create_edit', compact('disabled', 'intervento', 'installatori', 'anagrafiche', 'antenne', 'intervento', 'routers', 'title', 'modelliIntervento', 'selectedModelloIntervento', 'mode'));
 	}
 
     /**
@@ -346,49 +344,30 @@ class InterventiController extends AdminController {
         if ($validator->passes())
         {
             $oldIntervento = clone $intervento;      
-            $intervento->tipiIntervento_id   = Input::get('tipiIntervento_id');
-            $intervento->antenna_id                      = Input::get('antenna_id');
-            $intervento->router_id                    = Input::get('router_id');
-            $intervento->anagrafica_id                  = Input::get('anagrafica_id');
-            $intervento->user_id                  = Input::get('user_id');
-            $intervento->confermato                  = (int)Input::get('confermato');
-            $intervento->completato                  = (int)Input::get('completato');
-            $intervento->priorita                  = '1';
-            $intervento->consegnaACPE                  = 0;
-            $intervento->note                  = Input::get('note');
-            $intervento->ip                  = Input::get('ip');
-            $intervento->bsid                   = Input::get('bsid');
-            $intervento->rssi                   = Input::get('rssi');
-            $intervento->cmri                   = Input::get('cmri');
-
-            $utente = (int)Input::get('user_id');
-            if ( $utente != 0)
+            if(Input::get('tipiIntervento_id') != '' )  $intervento->tipiIntervento_id  = Input::get('tipiIntervento_id');
+            if(Input::get('antenna_id') != '')          $intervento->antenna_id         = Input::get('antenna_id');
+            if(Input::get('router_id') != '')           $intervento->router_id          = Input::get('router_id');
+            if(Input::get('anagrafica_id') != '')       $intervento->anagrafica_id      = Input::get('anagrafica_id');
+            if(Input::get('note') != '')                $intervento->note               = Input::get('note');   
+            if ( (int)Input::get('user_id') != $intervento->user_id)
             {
-                $intervento->dataAssegnazione = date("Y-m-d H:i:s");
-            } else 
-            {
-                $intervento->dataAssegnazione = '0000-00-00 00:00:00';
-            }
+                $intervento->dataAssegnazione           = date("Y-m-d H:i:s");
+                $intervento->user_id                    = Input::get('user_id'); 
+            }         
 
             $intervento->azienda_id          = Auth::user()->azienda_id;
 
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
-            $date = DateTime::createFromFormat($format, Input::get('dataIntervento'));  
+            $date = DateTime::createFromFormat($format, Input::get('dataIntervento')); 
+
             if($date != FALSE)
             {
                 $intervento->dataIntervento = $date->format('Y-m-d H:i:s'); 
                 $intervento->dataFineIntervento = $date->add(new DateInterval($this->tempoIntervento));
-            }  
+            }          
 
-            if ($intervento->user_id != Input::get('user_id'))
-            {
-                $intervento->dataAssegnazione = date("Y-m-d H:i:s");
-            }           
-
-            if($intervento->save()){
-                
-                
+            if($intervento->save()){                
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', 'Aggiornamento eseguito.');
             } else {
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->withInput()->withErrors($validator);
@@ -413,7 +392,7 @@ class InterventiController extends AdminController {
             
             if (Input::get('esito') == 'div1')
             {
-                $intervento->esito                      = 0;
+                $intervento->esito                  = 0;
                 $intervento->testoEsito             = Input::get('noteMale');
             } 
             else
@@ -475,7 +454,7 @@ class InterventiController extends AdminController {
                     $this->magazzinoR->destinatario_id  = Auth::user()->id;
               //      $this->magazzinoR->save();                                
                 }                
-                return Redirect::to('interventi/' )->with('success', Lang::get('user/interventi/messages.create.success'));
+                return Redirect::to('interventi/chiudi' )->with('success', Lang::get('user/interventi/messages.create.success'));
             } else {
                 return Redirect::to('interventi/' . $intervento->id . '/chiudi')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
             }
@@ -564,6 +543,7 @@ class InterventiController extends AdminController {
                             ->leftJoin('users','users.id','=', 'interventi.user_id')
                             ->leftJoin('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
                             ->where('interventi.user_id', '=', Auth::user()->id)
+                            ->where('interventi.completato', '=', 0)
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
 
             return Datatables::of($interventi)
