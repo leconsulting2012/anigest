@@ -18,4 +18,16 @@ class Anagrafica extends Eloquent {
         return $this->where('azienda_id', '=', Auth::user()->azienda_id );
     }	
 
+    public function interventiDa($user)
+    {
+        return DB::table('interventi')
+                ->select(array('interventi.id', 'interventi.dataAssegnazione', 'interventi.completato AS stato', 'interventi.dataIntervento', 'tipiIntervento.tipo AS tipoIntervento', 'users.username AS installatore'))
+                ->leftJoin('users','users.id','=', 'interventi.user_id')
+                ->join('tipiIntervento', 'tipiIntervento.id', '=', 'interventi.tipiIntervento_id')
+                ->where('interventi.azienda_id', '=', Auth::user()->azienda_id )
+                ->where('anagrafica_id', $user->id)
+                ->get();
+
+    }       
+
 }

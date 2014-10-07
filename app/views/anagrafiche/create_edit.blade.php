@@ -5,7 +5,7 @@
 	<!-- Tabs -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab-general" data-toggle="tab">Generale</a></li>
-			<li><a href="#tab-meta-data" data-toggle="tab">#######</a></li>
+			<li><a href="#tab-meta-data" data-toggle="tab">Interventi</a></li>
 		</ul>
 	<!-- ./ tabs -->
 
@@ -154,35 +154,32 @@
 
 			<!-- Meta Data tab -->
 			<div class="tab-pane" id="tab-meta-data">
-				<!-- Meta Title -->
-				<div class="form-group {{{ $errors->has('meta-title') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="meta-title">Meta Title</label>
-						<input class="form-control" type="text" name="meta-title" id="meta-title" value="{{{ Input::old('meta-title', isset($post) ? $post->meta_title : null) }}}" />
-						{{{ $errors->first('meta-title', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ meta title -->
-
-				<!-- Meta Description -->
-				<div class="form-group {{{ $errors->has('meta-description') ? 'error' : '' }}}">
-					<div class="col-md-12 controls">
-                        <label class="control-label" for="meta-description">Meta Description</label>
-						<input class="form-control" type="text" name="meta-description" id="meta-description" value="{{{ Input::old('meta-description', isset($post) ? $post->meta_description : null) }}}" />
-						{{{ $errors->first('meta-description', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ meta description -->
-
-				<!-- Meta Keywords -->
-				<div class="form-group {{{ $errors->has('meta-keywords') ? 'error' : '' }}}">
-					<div class="col-md-12">
-                        <label class="control-label" for="meta-keywords">Meta Keywords</label>
-						<input class="form-control" type="text" name="meta-keywords" id="meta-keywords" value="{{{ Input::old('meta-keywords', isset($post) ? $post->meta_keywords : null) }}}" />
-						{{{ $errors->first('meta-keywords', '<span class="help-inline">:message</span>') }}}
-					</div>
-				</div>
-				<!-- ./ meta keywords -->
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Data Assegnazione</th>
+							<th>Data Intervento</th>
+							<th>Installatore</th>
+							<th>Tipo Intervento</th>
+							<th>Stato</th>
+						</tr>
+					</thead>
+					@foreach ($interventi as $i)
+					<tr>
+						<td>{{ $i->dataAssegnazione }}</td>
+						<td> {{ $i->dataIntervento }}</td>
+						<td> {{ $i->installatore }}</td>
+						<td> {{ $i->tipoIntervento }}</td>
+						<td>
+							@if ($i->stato == 1)
+							Chiuso
+							@else
+							Aperto
+							@endif
+						</td>
+					</tr>
+					@endforeach
+				</table>
 			</div>
 			<!-- ./ meta data tab -->
 		</div>

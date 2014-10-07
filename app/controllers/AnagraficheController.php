@@ -44,10 +44,11 @@ class AnagraficheController extends \BaseController {
         // Mode
         $mode = 'create';
 
-        $abilitaModifica = '';                       
+        $abilitaModifica = ''; 
+        $interventi = array();                      
 
         // Show the page
-        return View::make('anagrafiche/create_edit', compact('title', 'mode', 'abilitaModifica'));
+        return View::make('anagrafiche/create_edit', compact('title', 'mode', 'abilitaModifica', 'interventi'));
 	}
 
 	/**
@@ -208,9 +209,11 @@ class AnagraficheController extends \BaseController {
             $abilitaModifica = 'disabled';
         }
   
+        $interventi = array();
+        $interventi = $anagrafica->interventiDa($anagrafica);
 
         // Show the page
-        return View::make('anagrafiche/create_edit', compact('anagrafica', 'title', 'mode', 'abilitaModifica'));
+        return View::make('anagrafiche/create_edit', compact('anagrafica', 'title', 'mode', 'abilitaModifica', 'interventi'));
 	}
 
     public function getDelete($anagrafica)
