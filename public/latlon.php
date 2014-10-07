@@ -22,7 +22,7 @@ while($row = mysqli_fetch_array($result)) {
 		$lat = 0;
 		$lon = 0;
 
-		$address =  $row['indirizzo1'] . " " . $row['indirizzo2'] . ", " . $row['citta'] . " (" . $row['provincia'] .")";
+		$address =  $row['indirizzo1'] . " " . $row['indirizzo2'] . ", " . $row['citta'] . " (" . $row['provincia'] .")\n";
 		//echo $address." <br>";
 		$encoding_address = urlencode($address);
 		$GoogleAPI = 'http://maps.google.com/maps/api/geocode/xml?address='.$encoding_address.'&sensor=false';
@@ -35,7 +35,18 @@ while($row = mysqli_fetch_array($result)) {
 			$lon = $XMLobject->result->geometry->location->lng;
 		}
 		else{	
-		//	echo 'not found.<br>';
+			echo "on trovato indirizzo completo. provo con il nome paese.\n";
+			$address =  $row['citta'] ;
+			$encoding_address = urlencode($address);
+			$GoogleAPI = 'http://maps.google.com/maps/api/geocode/xml?address='.$encoding_address.'&sensor=false';
+
+			$XMLresult = file_get_contents($GoogleAPI);
+
+			$XMLobject = new SimpleXMLElement($XMLresult);
+			if($XMLobject->status=='OK'){
+				$lat = $XMLobject->result->geometry->location->lat;
+				$lon = $XMLobject->result->geometry->location->lng;
+			}			
 		}
 
 		mysqli_query($con,"UPDATE anagrafiche SET lat=".$lat.", lon=".$lon." WHERE id='".$row['id']."'");
