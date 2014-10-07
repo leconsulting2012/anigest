@@ -81,7 +81,7 @@ class InterventiController extends AdminController {
         $interventi = $this->intervento->elencoInterventi($this->user);
 
         // Show the page
-        return View::make('interventi/index', compact('interventi', 'title'));
+        return View::make('interventi/index', compact('interventi', 'title', 'disabled'));
 	}
 
     /**
@@ -142,6 +142,7 @@ class InterventiController extends AdminController {
         $installatori = DB::table('users')->where('users.azienda_id', '=', Auth::user()->azienda_id)->get();             
 
         // Mode
+        $disabled = $this->permessi;        
         $mode = 'create';                    
 
         // Show the page
