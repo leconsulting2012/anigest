@@ -166,8 +166,14 @@
 					</thead>
 					@foreach ($interventi as $i)
 					<tr>
-						<td>{{ $i->dataAssegnazione }}</td>
-						<td> {{ $i->dataIntervento }}</td>
+						<td>@if ($i->dataAssegnazione != '0000-00-00 00:00:00')
+							{{ $i->dataAssegnazione }}
+							@endif
+						</td>
+						<td> @if ($i->dataIntervento != '0000-00-00 00:00:00')
+							{{ $i->dataIntervento }}
+							@endif
+						</td>
 						<td> {{ $i->installatore }}</td>
 						<td> {{ $i->tipoIntervento }}</td>
 						<td>
