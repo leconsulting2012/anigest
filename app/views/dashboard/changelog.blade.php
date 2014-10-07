@@ -35,18 +35,16 @@
 				<h3 class="panel-title">AniGEST - Changelog</h3>
 			</div>
 			<div class="panel-body">
-				<p>Versione attualmente in uso: <b>0.2</b></p>
-
-
-				<h4>Versione 0.2 </h4>
+				<h4>Versione 0.2 (attuale)</h4>
 				<p>(07/10/2014)</p>
 				<ul>
-					<li>Corretto Bug su modifica di un intervento da parte degli installatori</li>
-					<li>Su scheda anagrafica ora si possono vedere tutti gli interventi ad essa associati</li>
+					<li>Corretto Bug su modifica di un intervento da parte degli installatori.</li>
+					<li>Su scheda anagrafica ora si possono vedere tutti gli interventi ad essa associati.</li>
+					<li>Visualizzazione changelog.</li>
 				</ul>
 
 				<h4>Versione 0.1</h4>
-				<p>(06/09/2014)</p>
+				<p>(24/08/2014)</p>
 				<ul>
 					<li>Prima release.</li>
 				</ul>

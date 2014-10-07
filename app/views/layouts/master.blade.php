@@ -66,9 +66,9 @@
                             </a>
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-tasks"></i>
+                        <li class="">
+                            <a href="{{ URL::to('changelog') }}" class="" data-toggle="">
+                                <i class="fa fa-clock-o"></i>
                             </a>
 
                         </li>
@@ -83,7 +83,7 @@
                                 <li class="user-header bg-light-blue">
                                     <img src="{{{ URL::to('img') }}}/avatar5.png" class="img-circle" alt="User Image" />
                                     <p>
-                                        {{{ Auth::user()->username }}} - {{{ Auth::user()->profile }}}
+                                        {{{ Auth::user()->username }}} - {{{ Auth::user()->email }}}
                                         <small>Membro da {{{ Auth::user()->created_at }}}</small>
                                     </p>
                                 </li>
@@ -108,7 +108,7 @@
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
-                    <div class="user-panel">
+                    <div class="user-panel">    
                         <div class="pull-left image">
                             <img src="{{{ URL::to('img') }}}/avatar5.png" class="img-circle" alt="User Image" />
                         </div>
@@ -207,8 +207,8 @@
                         <small>Pannello di Controllo</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">{{{ $title }}}</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                        <li class="active">{{{ $title  or "Anigest" }}}</li>
                     </ol>
                 </section>
 
@@ -218,7 +218,6 @@
                         <!-- Notifications -->
                         @include('notifications')
                         <!-- ./ notifications -->
-
                         @yield('content')
                     </div>
                 </section><!-- /.content -->
