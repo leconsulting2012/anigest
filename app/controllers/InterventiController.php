@@ -349,22 +349,23 @@ class InterventiController extends AdminController {
             if(Input::get('router_id') != '')           $intervento->router_id          = Input::get('router_id');
             if(Input::get('anagrafica_id') != '')       $intervento->anagrafica_id      = Input::get('anagrafica_id');
             if(Input::get('note') != '')                $intervento->note               = Input::get('note');   
-            if ( (int)Input::get('user_id') != $intervento->user_id)
+            if((Input::get('user_id') != $intervento->user_id) and (Input::get('user_id') != ''))
             {
                 $intervento->dataAssegnazione           = date("Y-m-d H:i:s");
-            }         
-            if(Input::get('user_id') != '')             $intervento->user_id             = Input::get('user_id');
+            }  
+            if(Input::get('user_id') != '')             $intervento->user_id            = Input::get('user_id');
             $intervento->azienda_id                     = Auth::user()->azienda_id;
 
             // Modifico il formato delle date
             $format = 'd/m/Y H:i';
             $date = DateTime::createFromFormat($format, Input::get('dataIntervento')); 
-
             if($date != FALSE)
             {
                 $intervento->dataIntervento = $date->format('Y-m-d H:i:s'); 
                 $intervento->dataFineIntervento = $date->add(new DateInterval($this->tempoIntervento));
-            }          
+            } else {
+                $intervento->dataIntervento = '';
+            }        
 
             if($intervento->save()){                
                 return Redirect::to('interventi/' . $intervento->id . '/edit')->with('success', 'Aggiornamento eseguito.');

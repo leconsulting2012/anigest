@@ -133,7 +133,7 @@
 				<!-- Installatore -->
 				<div class="form-group {{{ $errors->has('user_id') ? 'error' : '' }}}">
 					<div class="col-md-12">
-	                	<label class="control-label" for="userid_id">Installatore</label>
+	                	<label class="control-label" for="user_id">Installatore</label>
 	                	@if ($mode == 'edit')
 		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled['installatore'] }}>
 		                	<option value="">-- SELEZIONA --</option>
@@ -142,7 +142,7 @@
 		                        @endforeach
 						</select>
 						@else
-		                <select class="col-md-6 form-control" name="user_id" id="user_id" "{{ $disabled['installatore'] }}">
+		                <select class="col-md-6 form-control" name="user_id" id="user_id" {{ $disabled['installatore'] }}>
 		                	<option value="">-- SELEZIONA --</option>
 		                        @foreach ($installatori as $a)
 		                        		<option value="{{{ $a->id }}}" >{{{ $a->username }}}</option>
