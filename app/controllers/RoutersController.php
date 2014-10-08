@@ -297,7 +297,7 @@ class RoutersController extends AdminController {
 
         if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
 
-            $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
+            $routers = Router::select(array('routers.id', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
                                 ->join('modelliRouter','modelliRouter.id','=', 'routers.modelliRouter_id')
                                 ->where('routers.azienda_id', '=', Auth::user()->azienda_id);
             return Datatables::of($routers)
@@ -313,7 +313,7 @@ class RoutersController extends AdminController {
             ->make();
         }
         if (Auth::user()->hasRole('installatore')) {
-            $routers = Router::select(array('routers.id', 'routers.seriale', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
+            $routers = Router::select(array('routers.id', 'modelliRouter.nome as modello', 'routers.mac', 'routers.updated_at'))
                                 ->join('modelliRouter','modelliRouter.id','=', 'routers.modelliRouter_id')
                                 ->join('interventi','interventi.router_id','=', 'routers.id')
                                 ->where('interventi.user_id', '=', Auth::user()->id)

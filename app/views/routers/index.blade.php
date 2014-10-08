@@ -44,7 +44,6 @@
 			<table id="routers" cellpadding="0" cellspacing="0" border="0"  class="table table-striped table-bordered dataTable">
 				<thead>
 					<tr>
-						<th class="col-md-2">{{{ Lang::get('user/antenne/table.seriale') }}}</th>
 						<th class="col-md-2">{{{ Lang::get('user/antenne/table.modello') }}}</th>
 						<th class="col-md-2">Indirizzo MAC</th>
 						<th class="col-md-2">{{{ Lang::get('user/antenne/table.aggiornato') }}}</th>
