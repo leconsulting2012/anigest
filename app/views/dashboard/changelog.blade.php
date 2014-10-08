@@ -38,7 +38,9 @@
 				<h4>Versione 0.3 (attuale)</h4>
 				<p>(08/10/2014)</p>
 				<ul>
-					<li>Inserita ricerca su tutti i testi negli interventi</li>
+					<li>Eliminata colonna "Numero Seriale" in Antenne</li>
+					<li>Eliminata colonna "Numero Seriale" in Routers</li>
+					<li>Inserita ricerca negli interventi anche nella colonna relativa al cliente</li>
 					<li>In dashboard, prossimi interventi, è possbile aprire la scheda di un intervento direttamente cliccando l'apposito pulsante.</li>
 					<li>Corretto Bug su creazione di un intervento.</li>
 				</ul>
