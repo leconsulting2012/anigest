@@ -39,6 +39,7 @@
 				<p>(08/10/2014)</p>
 				<ul>
 					<li>Inserita ricerca su tutti i testi negli interventi</li>
+					<li>In dashboard, prossimi interventi, è possbile aprire la scheda di un intervento direttamente cliccando l'apposito pulsante.</li>
 					<li>Corretto Bug su creazione di un intervento.</li>
 				</ul>
 

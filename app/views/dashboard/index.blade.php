@@ -168,13 +168,11 @@
   									<tr>
   										<td class="hiddenRow" colspan="4">
   											<div class="accordian-body collapse" id="riga{{$riga['n']}}"> 
-  												<table>
+  												<table class="table">
 													<tr>
-														<td style="width: 10px"> </td>
-														<td class="col-sx-12 col-md 4"><b>{{$riga['cognome']}}<br>{{$riga['nome']}}</b></td>
-														<td class="col-sx-4 col-md 2">{{$riga['tipo']}}</td>
-														<td class="col-sx-12 col-md 2">{{$riga['indirizzo']}}<br>{{$riga['citta']}}</td>
-														<td class="col-sx-12 col-md 2">{{$riga['dataIntervento']}}</td>
+														<td class="col-sx-12 col-md 3"><button class="apriIntervento" intervento="{{ $riga['id'] }}"><b>{{$riga['tipo']}}</b></buton></td>
+														<td class="col-sx-12 col-md 6">{{$riga['indirizzo']}}<br>{{$riga['citta']}}</td>
+														<td class="col-sx-12 col-md 3">{{$riga['dataIntervento']}}</td>
 													</tr>
 
   												</table>
@@ -219,4 +217,13 @@
 			</div>
 		</div>
 	</div>	
+@stop
+
+@section('scripts')
+<script>
+	$("body").on("click", ".apriIntervento", function() {
+  		$.colorbox({href:"interventi/" + $( this ).attr('intervento') + "/edit", width:"90%", height:"90%",iframe:true});
+});
+
+	</script>
 @stop
