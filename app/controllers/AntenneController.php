@@ -318,7 +318,7 @@ class AntenneController extends AdminController {
             // estraggo tutti i modelli
             $modelliAntenna = $this->modelloAntenna->all(); 
 
-            $antenne = Antenna::select(array('antenne.id', 'antenne.seriale', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
+            $antenne = Antenna::select(array('antenne.id', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
                                 ->join('modelliAntenna','modelliAntenna.id','=', 'antenne.modelloAntenna_id')
                                 ->where('antenne.azienda_id', '=', Auth::user()->azienda_id);
             return Datatables::of($antenne)
@@ -337,7 +337,7 @@ class AntenneController extends AdminController {
             // estraggo tutti i modelli
             $modelliAntenna = $this->modelloAntenna->all(); 
 
-            $antenne = Antenna::select(array('antenne.id', 'antenne.seriale', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
+            $antenne = Antenna::select(array('antenne.id', 'modelliAntenna.nome as modello', 'antenne.mac', 'antenne.updated_at'))
                                 ->join('modelliAntenna','modelliAntenna.id','=', 'antenne.modelloAntenna_id')
                                 ->join('interventi','interventi.antenna_id','=', 'antenne.id')
                                 ->where('interventi.user_id', '=', Auth::user()->id)
