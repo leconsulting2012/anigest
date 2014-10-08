@@ -37,7 +37,7 @@
 			</div>
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive">
-			<table id="interventi" cellpadding="0" cellspacing="0" border="0"  class="table table-bordered table-hover dataTable">
+			<table id="interventi" cellpadding="0" cellspacing="0" border="0"  class="table table-striped table-bordered table-hover dataTable">
 				<thead>
 					<tr>
 						<th class="col-xs-6 col-md-1">Data Intervento</th>

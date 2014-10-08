@@ -35,7 +35,14 @@
 				<h3 class="panel-title">AniGEST - Changelog</h3>
 			</div>
 			<div class="panel-body">
-				<h4>Versione 0.2 (attuale)</h4>
+				<h4>Versione 0.3 (attuale)</h4>
+				<p>(08/10/2014)</p>
+				<ul>
+					<li>Inserita ricerca su tutti i testi negli interventi</li>
+					<li>Corretto Bug su creazione di un intervento.</li>
+				</ul>
+
+				<h4>Versione 0.2</h4>
 				<p>(07/10/2014)</p>
 				<ul>
 					<li>Corretto Bug su modifica di un intervento da parte degli installatori.</li>

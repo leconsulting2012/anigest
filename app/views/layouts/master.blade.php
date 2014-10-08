@@ -250,7 +250,9 @@
 $(document).ready(function(){
     @yield('documentReady')
 
-    $('#cboxClose').click(function(){
+$('body').on('click', '.cboxClose', function(){
+
+        alert('chiudo');
         parent.oTable.fnReloadAjax();
         parent.jQuery.fn.colorbox.close();
         return false;
@@ -290,7 +292,6 @@ function checkNotifiche(){
     })
     console.log ( 'ok' );
 }
-
 
 window.setInterval(function() {
     $.ajax({

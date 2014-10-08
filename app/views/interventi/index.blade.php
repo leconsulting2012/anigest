@@ -32,7 +32,7 @@
 <div class="col-xs-12">
 	<div class="box box-info">
 		<div class="box-header">
-			<h3 class="box-title">Elenco di tutti gli Interventi</h3>
+			<h3 class="box-title">Elenco di tutti gli Interventi Aperti</h3>
 			<div class="box-tools pull-right">
 				@if (!Auth::user()->hasRole('installatore'))
 				<a href="{{{ URL::to('interventi/create') }}}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Nuovo</a>
@@ -40,7 +40,7 @@
 			</div>
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive">
-			<table id="interventi" cellpadding="0" cellspacing="0" border="0"  class="table table-bordered table-hover dataTable">
+			<table id="interventi" cellpadding="0" cellspacing="0" border="0"  class="table table-striped table-bordered table-hover dataTable">
 				<thead>
 					<tr>
 						<th class="col-xs-6 col-md-1">Data Intervento</th>
@@ -91,6 +91,7 @@
 				},
 				"bProcessing": true,
 		        "bServerSide": true,
+		        "ServerSide": true,
 		        "bPaginate": true,
                 "bLengthChange": true,
                 "bFilter": true,

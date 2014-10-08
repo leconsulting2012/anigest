@@ -455,7 +455,7 @@ class InterventiController extends AdminController {
                     $this->magazzinoR->destinatario_id  = Auth::user()->id;
               //      $this->magazzinoR->save();                                
                 }                
-                return Redirect::to('interventi/chiudi' )->with('success', Lang::get('user/interventi/messages.create.success'));
+                return Redirect::to('interventi/' )->with('success', Lang::get('user/interventi/messages.create.success'));
             } else {
                 return Redirect::to('interventi/' . $intervento->id . '/chiudi')->with('error', Lang::get('users/interventi/messages.edit.error'))->withInput()->withErrors($validator);
             }
@@ -502,7 +502,7 @@ class InterventiController extends AdminController {
     {
         if ((Auth::user()->hasRole('gestore')) or (Auth::user()->hasRole('admin'))) {
 
-            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
+            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', DB::raw('CONCAT(anagrafiche.cognome, " ", anagrafiche.nome, "<br>", anagrafiche.indirizzo1, " ", citta) as cliente'), 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->leftJoin('users','users.id','=', 'interventi.user_id')
                             ->leftJoin('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
@@ -510,8 +510,6 @@ class InterventiController extends AdminController {
                             ->where('interventi.completato', '=', 0);
 
             return Datatables::of($interventi)
-
-            ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
 
             ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
                        <center>Non Assegnato </center>
@@ -539,7 +537,7 @@ class InterventiController extends AdminController {
             ->make();
         }
         if (Auth::user()->hasRole('installatore')) {
-            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', 'anagrafiche.cognome as cognome', 'anagrafiche.nome as nome', 'anagrafiche.indirizzo1', 'citta', 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
+            $interventi = Intervento::select(array('interventi.id', 'interventi.dataIntervento', DB::raw('CONCAT("<b>", anagrafiche.cognome, " ", anagrafiche.nome, "</b><br>", anagrafiche.indirizzo1, " ", citta) as cliente'), 'interventi.dataAssegnazione', 'users.username', 'tipiIntervento.tipo', 'interventi.completato'))
                             ->join('anagrafiche','anagrafiche.id','=', 'interventi.anagrafica_id')
                             ->leftJoin('users','users.id','=', 'interventi.user_id')
                             ->leftJoin('tipiIntervento','tipiIntervento.id','=', 'interventi.tipiIntervento_id')
@@ -548,8 +546,6 @@ class InterventiController extends AdminController {
                             ->where('interventi.azienda_id', '=', Auth::user()->azienda_id);
 
             return Datatables::of($interventi)
-
-            ->edit_column('cognome', '{{{ $cognome }}} {{{ $nome }}} <br>{{{ $indirizzo1 }}}, {{{ $citta }}}' )
 
             ->edit_column('dataAssegnazione','@if($dataAssegnazione == \'0000-00-00 00:00:00\')
                        <center>Non Assegnato </center>
