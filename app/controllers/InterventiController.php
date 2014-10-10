@@ -35,8 +35,6 @@ class InterventiController extends AdminController {
     protected $modelloIntervento;
 
     protected $tempoIntervento;
-    protected $magazzinoA;
-    protected $magazzinoR;
 
     protected $permessi = array();
 
@@ -414,46 +412,46 @@ class InterventiController extends AdminController {
             $intervento->cmri                   = Input::get('cmri');
             $intervento->completato             = 1;
 
-            $this->magazzinoA = new Magazzino;
-            $this->magazzinoR = new Magazzino;
+            $magazzino = new Magazzino;
 
             if($intervento->save()){
                 if (($intervento->tipiIntervento_id == 5) and (Input::get('esito') == 'div1')) {
                     // se smonto i pezzi e li porto a casa
 
-                    $this->magazzinoA->materiale          = 'a';
-                    $this->magazzinoA->materiale_id =  $intervento->antenna_id;
-                    $this->magazzinoA->posizione_id =   Auth::user()->id;
-                    $this->magazzinoA->destinatario_id  = Auth::user()->id;
-                //    $this->magazzinoA->save();
+                //    $magazzino->materiale          = 'a';
+                //    $magazzino->materiale_id =  $intervento->antenna_id;
+                //    $magazzino->posizione_id =   Auth::user()->id;
+               //     $magazzino->destinatario_id  = Auth::user()->id;
+                //    $magazzino->save();
                     
-                    $this->magazzinoR->materiale          = 'r';
-                    $this->magazzinoR->materiale_id =  $intervento->router_id;
-                    $this->magazzinoR->posizione_id =   Auth::user()->id;
-                    $this->magazzinoR->destinatario_id  = Auth::user()->id;
-                   // $this->magazzinoR->save();                       
+               //     $magazzino
+              //      ->materiale          = 'r';
+              //      $magazzino->materiale_id =  $intervento->router_id;
+              //      $magazzino->posizione_id =   Auth::user()->id;
+              //      $magazzino->destinatario_id  = Auth::user()->id;
+                   // $magazzino->save();                       
                 }
                 if (($intervento->tipiIntervento_id != 5) and (Input::get('esito') == 'div1')) {
                     // se non e' uno smontaggio e l'esito e' positivo
-                //    $this->magazzinoA= User::where('materiale_id', '=', $intervento->antenna_id)->firstOrFail();
-                 //   $this->magazzinoA->delete();
-               //     $this->magazzinoR= User::where('materiale_id', '=', $intervento->router_id)->firstOrFail();
-                 //   $this->magazzinoR->delete();                    
+                //    $magazzino= User::where('materiale_id', '=', $intervento->antenna_id)->firstOrFail();
+                 //   $magazzino->delete();
+               //     $magazzino= User::where('materiale_id', '=', $intervento->router_id)->firstOrFail();
+                 //   $magazzino->delete();                    
                 }
                 if (($intervento->tipiIntervento_id != 5) and (Input::get('esito') == 'div2')) {
                     // se non e' uno smontaggio e l'esito e' negativo
               
-                    $this->magazzinoA->materiale          = 'a';
-                    $this->magazzinoA->materiale_id =  $intervento->antenna_id;
-                    $this->magazzinoA->posizione_id =   Auth::user()->id;
-                    $this->magazzinoA->destinatario_id  = Auth::user()->id;
-                //    $this->magazzinoA->save();
+              //      $magazzino->materiale          = 'a';
+              //      $magazzino->materiale_id =  $intervento->antenna_id;
+             //       $magazzino->posizione_id =   Auth::user()->id;
+             //       $magazzino->destinatario_id  = Auth::user()->id;
+                //    $magazzino->save();
                     
-                    $this->magazzinoR->materiale          = 'r';
-                    $this->magazzinoR->materiale_id =  $intervento->router_id;
-                    $this->magazzinoR->posizione_id =   Auth::user()->id;
-                    $this->magazzinoR->destinatario_id  = Auth::user()->id;
-              //      $this->magazzinoR->save();                                
+               //     $magazzino->materiale          = 'r';
+               //     $magazzino->materiale_id =  $intervento->router_id;
+               //     $magazzino->posizione_id =   Auth::user()->id;
+               //     $magazzino->destinatario_id  = Auth::user()->id;
+              //      $magazzino->save();                                
                 }                
                 return Redirect::to('interventi/' )->with('success', Lang::get('user/interventi/messages.create.success'));
             } else {
